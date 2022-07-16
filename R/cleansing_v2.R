@@ -157,7 +157,7 @@ getNACounts = function(file,override = FALSE){
 
 #getNACounts("train_data")
 
-cleansCols_NA = function(file, threshold = 0){
+cleansCols_NA = function(file, threshold = 0.9){
   #threshold = pct of NA in col
   x = getNACounts(file)
   colnames(x)[-which(colSums(x) <= round(train_data_N*threshold))] 
@@ -199,7 +199,7 @@ cleansCols_COROLATION = function(file, threshold = 0.95){
 getColsToRemove = function(file = "train_data"){
   Reduce(union,
          list(
-           cleansCols_NA(file,threshold = 0),
+           cleansCols_NA(file,threshold = 0.9),
            cleansCols_COROLATION(file,threshold = 0.9),
            cleansCols_VARIANCE(file,threshold = 0.001)
          )
@@ -215,7 +215,7 @@ writeCleansedCSV = function(file, newFile, chunkSize = 100000){
   newFile = paste(c(strsplit(file, "/")[[1]] %>% head(-1),newFile), collapse = "/") #put new file in same dir as old
   
   f = function(x,pos){
-    x = x %>% numericVariables %>% removeCleansedCols 
+    x = x  %>% removeCleansedCols 
     write_csv(x, newFile, append = ifelse(pos == 1, FALSE, TRUE))
   }
   
@@ -228,3 +228,6 @@ writeCleansedCSV = function(file, newFile, chunkSize = 100000){
     )
   )
 }
+
+writeCleansedCSV(file = "train_data", newFile = "cleandata")
+getColsToRemove()
