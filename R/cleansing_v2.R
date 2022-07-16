@@ -110,10 +110,10 @@ getCache = function(file, callbackFunc, prefix, chunkSize = 100000, override = F
 #####################################################################
   
   
-numericVariables <- function(data){
+removeNonNumerics <- function(data){
   return(
     data[ , -which(names(data) %in% c(
-      'customer_ID','S_2', 'B_30', 'B_38', 'D_114', 'D_116', 'D_117', 'D_120', 'D_126', 'D_63', 'D_64', 'D_66', 'D_68'))] 
+      'S_2', 'B_30', 'B_38', 'D_114', 'D_116', 'D_117', 'D_120', 'D_126', 'D_63', 'D_64', 'D_66', 'D_68'))] 
   )
 }
 
@@ -215,7 +215,7 @@ writeCleansedCSV = function(file, newFile, chunkSize = 100000){
   newFile = paste(c(strsplit(file, "/")[[1]] %>% head(-1),newFile), collapse = "/") #put new file in same dir as old
   
   f = function(x,pos){
-    x = x %>% numericVariables %>% removeCleansedCols 
+    x = x %>%  left_join(train_labels, by="customer_ID") %>% removeCleansedCols %>% removeNonNumerics
     write_csv(x, newFile, append = ifelse(pos == 1, FALSE, TRUE))
   }
   

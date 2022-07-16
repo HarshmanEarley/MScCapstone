@@ -1,23 +1,3 @@
-
-#Working directory
-PATH_WD = '/Users/root1/Documents/GitHub/Summer/Project/Code/'
-setwd(PATH_WD)
-
-#Database files
-PATH_DB = '/Users/root1/Documents/amex-default-prediction/'
-FILES_DB = c('test_data','train_data','train_labels')
-
-#Create cache
-DB_CACHE = glue(PATH_DB,"cache")
-if(!dir.exists(DB_CACHE)){
-  dir.create(DB_CACHE)
-}
-
-
-#master list of all defined paths
-PATH = ls()[unlist(lapply(ls(), function(vec) 'PATH' %in% strsplit(vec,"_")[[1]]))]
-
-
 ####################
 # package manager #
 ###################
@@ -52,3 +32,33 @@ for(pkg in packages){
 
 #Dependencies
 #Java
+
+
+
+#######################
+# PATHS ########
+#######################
+#Working directory
+PATH_WD = '/Users/root1/Documents/GitHub/Summer/Project/Code/'
+setwd(PATH_WD)
+
+#Database files
+PATH_DB = '/Users/root1/Documents/amex-default-prediction/'
+FILES_DB = c('test_data','train_data','train_labels')
+
+#Create cache
+DB_CACHE = glue(PATH_DB,"cache")
+if(!dir.exists(DB_CACHE)){
+  dir.create(DB_CACHE)
+}
+
+
+#master list of all defined paths
+PATH = ls()[unlist(lapply(ls(), function(vec) 'PATH' %in% strsplit(vec,"_")[[1]]))]
+
+
+##############
+# Load Data #
+###############
+
+train_labels = read_csv(getFilePath("train_labels"))
