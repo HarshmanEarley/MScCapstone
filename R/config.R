@@ -1,15 +1,15 @@
 
 #Working directory
-PATH_WD = '/Users/root1/Documents/GitHub/Summer/Project/Code/'
+#PATH_WD = '/Users/root1/Documents/GitHub/Summer/Project/Code/'
 # DENIS PATH
-#PATH_WD = 'C:/Users/denis/Documents/GitHub/DAC_Project/R/'
+PATH_WD = 'C:/Users/denis/Documents/GitHub/DAC_Project/R/'
 setwd(PATH_WD)
 
 #Database files
-PATH_DB = '/Users/root1/Documents/amex-default-prediction/'
+#PATH_DB = '/Users/root1/Documents/amex-default-prediction/'
 # DENIS PATH
-#PATH_DB = "C:/Users/denis/Documents/ACM40960 - Projects in Maths Modelling/database"
-FILES_DB = c('test_data','train_data','train_labels')
+PATH_DB = "C:/Users/denis/Documents/ACM40960 - Projects in Maths Modelling/database/"
+FILES_DB = c('train_data','train_labels')
 
 #Create cache
 DB_CACHE = glue(PATH_DB,"cache")
@@ -56,3 +56,4 @@ for(pkg in packages){
 
 #Dependencies
 #Java
+
