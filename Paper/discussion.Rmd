@@ -1,1 +1,14 @@
 # Discussion
+
+
+
+
+
+
+
+
+
+introduce dynamic element?
+Recurrent Neural Network
+\citep{8682212} 
+

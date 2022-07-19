@@ -135,8 +135,6 @@ no more than 250 words for the abstract
 ```
 
 
-
-
 \newpage
 
 ```{r methods, child = 'lit_review.Rmd'}
@@ -170,6 +168,8 @@ no more than 250 words for the abstract
 
 \newpage
 
+\pagenumbering{alph}
+
 ```{r biblio, child = 'bibliography.Rmd'}
 ```
 
@@ -186,7 +186,10 @@ no more than 250 words for the abstract
 library(knitr)
 abbrev <- matrix(data = c("RF", "Random Forest",
              "DNN", "Deep Neural Network",
-             "SVM", "Support Vector Machines"), byrow = T, ncol = 2)
+             "NN", "Neural Network",
+             "SVM", "Support Vector Machines",
+             "AMEX", "American Express"),
+             byrow = T, ncol = 2)
 ```
 
 
@@ -196,11 +199,9 @@ kable(abbrev, col.names = c("Abbreviation", "Meaning" ),label="Abbreviations", c
 
 \newpage
 
-
 \listoffigures
 
 \newpage
-
 
 \listoftables
 

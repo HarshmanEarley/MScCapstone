@@ -2,7 +2,7 @@
 
 ## Random Forest (RF)
 
-Random Forests (RF) are a very powerful ensemble classification method. The method uses classification trees and bootstrapping extensively. Ensemble learning is an aggregation of predictions made by multiple classifiers with the goal of improving accuracy. A “random forest” is a random collection of classification trees estimated on random subsets of the data.  
+Random Forests (RF) are a very powerful ensemble classification method. The method uses classification trees and bootstrapping extensively. Ensemble learning is an aggregation of predictions made by multiple classifiers with the goal of improving accuracy. A random forest is a random collection of classification trees estimated on random subsets of the data.  
 
 A Classification Tree is an iterative process of splitting the data into partitions based on values of the observations, and then splitting it up further on each of the branches.  
 The classifier is trained in order to produce “pure” buckets, minimising the entropy or spread of the target variable in each bucket. The majority value of the target variable in a bucket is then used for predictions. The main disadvantage is that Classification Trees suffer from over-fitting and bias and using a single Classification Tree would present an over simplistic model.  
@@ -12,5 +12,17 @@ In a Random Forest, each Classification Tree is  grown independently, and each i
 The main parameter of the Random Forests to be tuned is the number of Classification Trees used and is tuned to prevent overfitting and improve efficiency.  
 
 ## Support Vector Machines (SVM)
+
+linear classifiers, where a linear combination of input features and parameters is employed to define the plane of maximum separation between classes
+
+using a kernel function to map the data X of the input space into a high-dimensional feature space
+
+A support vector classifier seeks to
+maximize the distance between the classes
+
+inseparable in the original space can be linearly classified in the high-dimensional
+
+space.
+
 
 ## Deep Neural Network (DNN)
