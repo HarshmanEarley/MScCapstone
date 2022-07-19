@@ -1,0 +1,27 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+# Introduction  
+
+A credit card is a financial instrument issued by banks with a pre-set credit limit allowing customers to make cashless transactions. Each month or at other intervals, a statement is issued by the credit card provider with details of spending history, interest charged, balance and payment deadlines. They provide a very flexible line of credit, rewards and occasional cash-back to users and can be extremely cheap to use if managed correctly.  
+
+A default event occurs with regard to a credit card if a customer does not pay the amount they have due within 120 days of their latest statement date.  The most significant risk to lenders is a large and unexpected number of customers failing to meet their credit repayment obligations. This is known as credit default risk.  
+
+According to the Federal Reserve, credit card usage declined significantly in the United States during the most recent pandemic. “ According to the G.19 Consumer Credit statistical release, revolving consumer credit fell more than $120 billion (11 percent) in 2020, the largest decline in both nominal and percentage terms in the history of the
+
+Given that banking portfolios can be worth billions, even marginal improvements in preventing and reducing defaults can be considered significant.  
+ 
+Many banks and lenders are legally obligated to create models that predict credit defaults. These models advise banks capital requirements which ensure that the bank can absorb losses brought about by a significant increase in credit defaults.  
+
+The Big data paradigm has revolutionised the banking industry, changing the way financial institutions operate. The aftermath of the past financial crisis has been slowly rectifying and people are nowadays better off in terms of job opportunities and financial health.  
+
+Credit card default prediction is based on the historical data of credit card customers. The use of corresponding methods to predict and analyse credit card customer default behaviour is a typical classification problem.  
+
+There have been advances in Machine Learning (ML) techniques such that models now exist, that typically outperform Logistic Regression. These models have yet to be deployed because of their opaque (or ”Black-Box”) nature.  
+
+The aim of this project is to apply different machine learning techniques to find  
+
+The following report describes the process undertaken to build, tune, evaluate and compare a number of models, beginning with an industrial size dataset, cleansing and formatting the data before using it to train, tune and evaluate the chosen models,  
+

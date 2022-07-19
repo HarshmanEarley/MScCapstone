@@ -1,0 +1,209 @@
+---
+title: " "
+output:
+  pdf_document:
+    number_sections: TRUE
+geometry: "left = 2.5cm, right = 2cm, top = 2cm, bottom = 2cm"
+fontsize: 11pt
+header-includes:
+  - \usepackage{float}
+  - \usepackage{sectsty}
+  - \usepackage{paralist}
+  - \usepackage{setspace}\spacing{1.5}
+  - \usepackage{fancyhdr}
+  - \usepackage{lastpage}
+  - \usepackage{dcolumn}
+
+  - \usepackage{natbib}\bibliographystyle{agsm}
+  - \usepackage[nottoc, numbib]{tocbibind}
+bibliography: bibliography.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(tinytex.verbose = TRUE)
+```
+
+\allsectionsfont{\centering}
+\subsectionfont{\raggedright}
+\subsubsectionfont{\raggedright}
+
+\pagenumbering{gobble}
+
+\begin{centering}
+
+\vspace{3cm}
+
+```{r uni_logo, echo=F, out.width="20%"}
+knitr::include_graphics("Universitycollegedublinlogo.png")
+```
+
+\vspace{1cm}
+
+\Large
+{\bf University Of Dublin}
+
+\Large
+{\bf School Of Mathematics and Statistics}
+
+\vspace{1cm}
+
+\Large
+
+\doublespacing
+{\bf COMPARISON AND EVALUATION OF DIFFERENT\\ 
+      MACHINE LEARNING METHODS AT  PREDICTING\\
+      CREDIT CARD DEFAULT}
+
+\vspace{1 cm}
+
+\normalsize
+\singlespacing
+By
+
+\vspace{0.5 cm}
+
+\Large
+
+{\bf Sidney Harshman-Earley \\
+Denis O'Riordan}
+
+\vspace{1.5 cm}
+
+in partial fulfilment of ACM40960 - \\
+Projects in Maths Modelling required \\
+for the completion of the degree \\ 
+MSc in Data and Computational Sciences
+
+\vspace{1.5 cm}
+
+\normalsize
+July 2022
+
+\end{centering}
+
+
+\newpage
+
+\pagenumbering{gobble}
+
+
+\begin{centering}
+
+{\bf Abstract}
+
+\end{centering}
+
+\spacing{1.5}
+
+(the spacing is set to 1.5)
+
+no more than 250 words for the abstract
+
+- a description of the research question/knowledge gap what we know and what we don't know
+- how your research has attempted to fill this gap
+
+- a brief description of the methods
+- brief results
+- key conclusions that put the research into a larger context
+
+
+
+\pagenumbering{roman}
+
+\newpage
+
+
+
+
+\centering
+\raggedright
+\newpage
+\tableofcontents
+
+
+\newpage
+
+```{r acknowledgments, child='acknowledgments.Rmd' , eval=FALSE}
+```
+
+\begin{centering}
+\end{centering}
+\newpage
+\pagenumbering{arabic}
+```{r intro, child = 'introduction.Rmd'}
+```
+
+
+
+
+\newpage
+
+```{r methods, child = 'lit_review.Rmd'}
+```
+
+
+\newpage
+
+```{r methods, child = 'data.Rmd'}
+```
+
+\newpage
+
+```{r methods, child = 'methods.Rmd'}
+```
+
+\newpage
+
+```{r results, child = 'results.Rmd'}
+```
+
+\newpage
+
+```{r discussion, child = 'discussion.Rmd' }
+```
+
+\newpage
+
+```{r conclusion, child = 'conclusion.Rmd'}
+```
+
+\newpage
+
+```{r biblio, child = 'bibliography.Rmd'}
+```
+
+\newpage
+
+```{r appendix, child = 'appendix.Rmd' , eval=FALSE}
+```
+
+\newpage
+
+# Abbreviations
+
+```{r, echo=FALSE, message=FALSE, results='hide'}
+library(knitr)
+abbrev <- matrix(data = c("RF", "Random Forest",
+             "DNN", "Deep Neural Network",
+             "SVM", "Support Vector Machines"), byrow = T, ncol = 2)
+```
+
+
+```{r, echo=FALSE}
+kable(abbrev, col.names = c("Abbreviation", "Meaning" ),label="Abbreviations", caption ="List of Abbrevivations")
+```
+
+\newpage
+
+
+\listoffigures
+
+\newpage
+
+
+\listoftables
+
+
+
+

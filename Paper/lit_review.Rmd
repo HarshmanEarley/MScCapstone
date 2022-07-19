@@ -1,0 +1,46 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+bibliography: bibliography.bib  
+---
+# Review of Literature  
+
+## Taiwan Data
+
+There have been widespread studies and published papers within the scope of using ML methods to predict credit default, this includes the prediction for credit card default.
+
+Studies predicting credit card default have been concentrated, \citep{YEH20092473} mainly using the data used originally used as part of paper 
+Default credit card clients Data Set , currently available on the [UC Irvine Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients).
+ 
+
+This data, collected in October, 2005, is from a cash and credit card issuing bank in Taiwan and the targets were credit card holders of the bank. Among the total 30,000 observations, 22.12% are the cardholders who defaulted on payment. This research employed a binary variable, default payment (Yes = 1, No = 0), as the response variable. This data uses 23 variables as explanatory variables including a mix of personal information(age,gender,marital status and education level), amount of credit given, historical bill statements, and payment information.
+
+The following papers used the above dataset to predict credit card defaults using a variety of Machine Learning methods earning a variety of results.
+
+Logistic Regression Decision Tree Random  Forest
+in \citep{8776802} in 20XX
+
+
+K-Nearest Neighbour Logistic Regression Decision Tree Naive Bayes Classifiers Linear Discriminant Analysis Random Forest.
+in the \citep{Neema2017TheCO} study.
+
+SVM, neural network, Xgboost and LightGBM,
+Have  \citep{Yang2018-rt}
+
+Deep Neural Network
+Have used DNN in the  \citep{dnn} article  
+
+
+RECURRENT NEURAL 
+\citep{8682212} NETWORK
+
+
+Due to a lack of credit card specific data pertaining to defaulting on payment, all available studies which predict credit card default utilise this data which is both region specific, dated over 15 years at a time when credit card issuers in Taiwan faced a credit card debt crisis.
+
+## Other Literature
+
+In the scope of predicting defaults on other forms of credit such as mortgages, research has also been conducted with a 2016 paper \citep{FITZPATRICK2016427} using data collected by the Central Bank of Ireland, comprising four separate portfolios of over 300,000 owner-occupier mortgage loans of Irish lenders. It was found that boosted regression trees provided the best classification algorithms for mortgage default prediction.
+
+
+
