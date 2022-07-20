@@ -19,7 +19,7 @@ Another study, \citep{Neema2017TheCO}, took a similar approach in choice of meth
 \citet{Yang2018-rt} introduces two new methods used to predict credit card default. Support Vector Machine (SVM) involves using a kernel function to map the predictor data into a high-dimensional feature space where the outcome classes are easily separable. XGBoost and LightGBM, forms of gradient boosted trees algorithm were used, as well as previously tried methods - Logistic Regression and Neural Networks. LightGBM and XGBoost were both deemed to have the best performance in the prediction of categorical response variables.     
 While other studies have used Neural Networks in predicting credit card defaults, the models used have been vague and little detail has been given on architecture or tuning of the model. \citet{dnn2}, trialled a range of Networks, experimenting with two to five layers with number of processing units of 64, 32, 16 units. Neural Networks with three layers and 64 units recorded the highest accuracy of all configurations.  
 \vspace{.5 cm}
-Due to a lack of credit card specific data pertaining to defaulting on payment, all available studies which predict credit card default utilise this data which is both region specific, dated over 15 years at a time when credit card issuers in Taiwan faced a credit card debt crisis.
+Due to a lack of credit card specific data pertaining to defaulting on payment, all available studies which predict credit card default utilise the Taiwan data which is both region specific, dated over 15 years and obtained at a time when credit card issuers in Taiwan faced a credit card debt crisis.[^debt]
 
 ## Other Literature
 
@@ -30,6 +30,9 @@ A 2019 research thesis, \citet{trap5146}, examined a number of high-performing m
 
 [^uci]: 
 https://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients  
+
+[^debt]:
+https://sevenpillarsinstitute.org/case-studies/taiwans-credit-card-crisis/
 
 [^hc]: 
 https://www.kaggle.com/c/home-credit-default-risk

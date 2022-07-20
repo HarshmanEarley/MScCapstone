@@ -119,6 +119,7 @@ no more than 250 words for the abstract
 \centering
 \raggedright
 \newpage
+\setcounter{tocdepth}{2}
 \tableofcontents
 
 
@@ -182,13 +183,14 @@ no more than 250 words for the abstract
 
 # Abbreviations
 
+
 ```{r, echo=FALSE, message=FALSE, results='hide'}
 library(knitr)
-abbrev <- matrix(data = c("RF", "Random Forest",
+abbrev <- matrix(data = c("AMEX", "American Express",
              "DNN", "Deep Neural Network",
              "NN", "Neural Network",
-             "SVM", "Support Vector Machines",
-             "AMEX", "American Express"),
+             "RF", "Random Forest",
+             "SVM", "Support Vector Machines"),
              byrow = T, ncol = 2)
 ```
 

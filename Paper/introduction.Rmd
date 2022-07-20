@@ -27,3 +27,5 @@ The aim of this project is to apply different machine learning techniques to fin
 The following report describes the process undertaken to build, tune, evaluate and compare a number of models, beginning with an industrial size dataset, cleansing and formatting the data before using it to train, tune and evaluate the chosen models,  
 
 Credit card default prediction is based on the historical data of credit card customers.
+
+Credit default prediction is central to managing risk in a consumer lending business. Credit default prediction allows lenders to optimize lending decisions, which leads to a better customer experience and sound business economics. Current models exist to help manage risk. But it's possible to create better models that can outperform those currently in use.
