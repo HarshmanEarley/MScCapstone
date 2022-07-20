@@ -7,10 +7,10 @@ bibliography: bibliography.bib
 \spacing{1.25}
 # Review of Literature  
 
+There have been numerous articles and  papers within the scope of using ML methods to predict credit default, this includes the prediction for credit card default.  
+
 ## Taiwan Data
 
-There have been numerous articles and  papers within the scope of using ML methods to predict credit default, this includes the prediction for credit card default.  
-\vspace{.5 cm}
 Studies examining credit card default have been concentrated, mainly using the data used originally used as part of \citet{YEH20092473} . This data is currently freely available as the Default credit card clients Data Set on the UC Irvine Machine Learning Repository.[^uci] This data, collected in October 2005, is from a cash and credit card issuing bank in Taiwan, the targets were credit card holders of the bank. Among the total 30,000 observations, 22.12% are the cardholders who defaulted on payment. This research employed a binary variable, default payment (Yes = 1, No = 0), as the response variable. This data uses 23 variables as explanatory variables including a mix of personal information(age,gender,marital status and education level), amount of credit given, historical bill statements, and historical payment information.  
 This initial study, \citet{YEH20092473}, compared six classification algorithms - K-nearest neighbour, Logistic regression, Discriminant analysis Nave Bayesian classifier, Artificial Neural Networks, Classification Trees. In the classification accuracy, the results show that there are little differences in error amongst the six methods. The generated probability of default by the Artificial Neural Network most closely resembled the actual probability of default. The actual probability of default was estimated using a novel "Sorting Smoothing Method".  
 \vspace{.5 cm}

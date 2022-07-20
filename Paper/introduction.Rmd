@@ -1,31 +1,21 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
-\spacing{1.25}
-# Introduction  
+\spacing{1.1}
 
-A credit card is a financial instrument issued by banks with a pre-set credit limit allowing customers to make cashless transactions. Each month or at other intervals, a statement is issued by the credit card provider with details of spending history, interest charged, balance and payment deadlines. They provide a very flexible line of credit, rewards and occasional cash-back to users and can be extremely cheap to use if managed correctly.  
+# Introduction
 
-A default event occurs with regard to a credit card if a customer does not pay the amount they have due within 120 days of their latest statement date.  The most significant risk to lenders is a large and unexpected number of customers failing to meet their credit repayment obligations. This is known as credit default risk.  
+A credit card is a financial instrument issued by banks and other financial institutions with a pre-set credit limit allowing customers to make cashless transactions. Each month or at different intervals, a statement is issued by the credit card provider with details of spending history, the interest charged, balance, and payment deadlines. 
+\vspace{.1 cm}
 
-According to the Federal Reserve, credit card usage declined significantly in the United States during the most recent pandemic.According to the G.19 Consumer Credit statistical release, revolving consumer credit fell more than $120 billion (11 percent) in 2020, the largest decline in both nominal and percentage terms in the history of the
+As of May 2022, there were 1.5 million active credit cards in circulation in Ireland with daily spending exceeding \texteuro 1 million.[^1]. Further to that, according to research conducted by the Central Statistics Office in 2018, 12.7% of all households have credit card debt but is 21.0% for households with two adults and one to three children under 18.[^2]
+\vspace{.1 cm}
 
-Given that banking portfolios can be worth billions, even marginal improvements in preventing and reducing defaults can be considered significant.  
- 
-Many banks and lenders are legally obligated to create models that predict credit defaults. These models advise banks capital requirements which ensure that the bank can absorb losses brought about by a significant increase in credit defaults.  
+[^1]: <https://www.centralbank.ie/statistics/data-and-analysis/credit-and-debit-card-statistics/daily-credit-and-debit-card-statistics>
 
-The Big data paradigm has revolutionised the banking industry, changing the way financial institutions operate. The aftermath of the past financial crisis has been slowly rectifying and people are nowadays better off in terms of job opportunities and financial health.  
+[^2]: <https://www.cso.ie/en/releasesandpublications/ep/p-hfcs/householdfinanceandconsumptionsurvey2018/debtandcredit/>
 
-Credit card default prediction is based on the historical data of credit card customers. The use of corresponding methods to predict and analyse credit card customer default behaviour is a typical classification problem.  
+A default event concerning a credit card occurs if a customer does not pay the amount due within 120 days of their latest statement date. However, the deadline can depend on the issuing institution. The most significant risk to lenders is a large and unexpected number of customers failing to meet their credit repayment obligations. This is known as credit default risk. Credit default prediction is central to managing risk in a consumer lending business. Financial institutions are legally obligated to create models that predict credit defaults. Credit card default prediction is based on historical data of credit card customers. The use of models to predict and analyse credit card customer default behaviour is a typical classification problem. These models advise the banks capital requirements, which ensure that the bank can absorb losses brought about by a significant increase in credit defaults. Credit default prediction also allows lenders to optimize lending decisions, which leads to a better customer experience and sound business economics. Current models exist to help manage risk but is it possible to create better models that outperform those currently in use? Given that banking portfolios can be worth billions, even marginal improvements in preventing and reducing defaults can be considered significant. 
+\vspace{.1 cm}
 
-There have been advances in Machine Learning (ML) techniques such that models now exist, that typically outperform Logistic Regression. These models have yet to be deployed because of their opaque (or Black-Box) nature.  
+The big data paradigm has revolutionised the banking industry, changing the way financial institutions operate. Developments in technology has revolutionized the customer experience and has also granted access to a ever-growing volume of structured and unstructured information. Institutions can leverage this new information in many ways including predicting credit default. There have been advances in Machine Learning (ML) techniques such as representation learning methods e.g. Neural Networks, ensemble learning methods such as Random Forest and linear separating methods e.g. Support Vector Machines. These models have yet to be widely deployed because of their opaque nature i.e. Black-Box methods. From a regulation perspective, transparency and explainability are necessary when deploying credit default prediction models in practice. However, they may still provide value to financial institutions and may in the future be accepted as valid, clear and sound methods for predicting credit card default. 
+\vspace{.1 cm}
 
-The aim of this project is to apply different machine learning techniques to find  
-
-The following report describes the process undertaken to build, tune, evaluate and compare a number of models, beginning with an industrial size dataset, cleansing and formatting the data before using it to train, tune and evaluate the chosen models,  
-
-Credit card default prediction is based on the historical data of credit card customers.
-
-Credit default prediction is central to managing risk in a consumer lending business. Credit default prediction allows lenders to optimize lending decisions, which leads to a better customer experience and sound business economics. Current models exist to help manage risk. But it's possible to create better models that can outperform those currently in use.
+The aim of this project is to apply a range of advanced machine learning techniques to predict credit card default using the historical data of credit card customers. The following report describes the process undertaken to compare a number of models. Beginning with an industrial size dataset, cleansing and formatting the data before using it to train, tune and evaluate the chosen models based on the historical data of credit card customers.

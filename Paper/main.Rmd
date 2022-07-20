@@ -41,7 +41,7 @@ knitr::include_graphics("Universitycollegedublinlogo.png")
 \vspace{1cm}
 
 \Large
-{\bf University Of Dublin}
+{\bf University College Dublin}
 
 \Large
 {\bf School Of Mathematics and Statistics}
@@ -119,8 +119,20 @@ no more than 250 words for the abstract
 \centering
 \raggedright
 \newpage
-\setcounter{tocdepth}{2}
+\spacing{1}
+\setcounter{tocdepth}{1}
 \tableofcontents
+\spacing{1.5}
+
+
+\newpage
+
+\listoffigures
+
+\newpage
+
+\listoftables
+
 
 
 \newpage
@@ -176,18 +188,20 @@ no more than 250 words for the abstract
 
 \newpage
 
-```{r appendix, child = 'appendix.Rmd' , eval=FALSE}
+```{r appendix, child = 'appendix.Rmd' }
 ```
 
 \newpage
 
 # Abbreviations
-
+\spacing{1.1}
 
 ```{r, echo=FALSE, message=FALSE, results='hide'}
 library(knitr)
-abbrev <- matrix(data = c("AMEX", "American Express",
+abbrev <- matrix(data = c("AI", "Artificial Intelligence",
+             "AMEX", "American Express",
              "DNN", "Deep Neural Network",
+             "ML", "Machine Learning",
              "NN", "Neural Network",
              "RF", "Random Forest",
              "SVM", "Support Vector Machines"),
@@ -199,13 +213,6 @@ abbrev <- matrix(data = c("AMEX", "American Express",
 kable(abbrev, col.names = c("Abbreviation", "Meaning" ),label="Abbreviations", caption ="List of Abbrevivations")
 ```
 
-\newpage
-
-\listoffigures
-
-\newpage
-
-\listoftables
 
 
 

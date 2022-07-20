@@ -7,14 +7,11 @@ Data used for this project was obtained from the Kaggle website which is a crowd
 
 Access to the data through this route requires registering with Kaggle and joining the American Express - Default Prediction competition.[^kagamex] American Express is a globally integrated payments company. The largest payment card issuer in the world, they provide customers with access to products, insights, and experiences that enrich lives and build business success.[^AMEX] This competition provides an industrial scale data set to build a machine learning model to predict credit card default using time-series behavioural data and anonymised customer profile information over the period of March 2017 to March 2018. The target binary variable i.e. default is calculated by observing 18 months performance window after the latest credit card statement, and if the customer does not pay due amount in 120 days after their latest statement date it is considered a default event.
 
-Tabular data
-\newpage
 
 ## Data Structure
 
-Four files are provided as part of the Kaggle competition
+### train_labels.csv 
 
-### train_labels.csv
 A list of unique customer identifiers `customer_ID` with the target label `target` indicating a default event with `target = 1` indicating a default, `target = 0` indicating no default. There are 458913 observations in this data meaning 458913 unique AMEX customers. 74.1% of customers in the data did not default on payment while 25.9% did
 
 ```{r def, echo=F,fig.align='center', out.height="60%",out.width="60%", fig.cap="Breakdown of defaults in training data"}
@@ -22,10 +19,49 @@ knitr::include_graphics("default.png")
 ```
 
 ### train_data.csv 
+This is a tabular data set corresponding to the training data, consisting of 190 features. It contains multiple statement dates per customer_ID, each observation corresponds to a monthly statement for a customer. The data is ordered firstly by `customer_ID`, corresponding with the train_labels.csv file and secondly ordered chronologically by statement date. The dataset contains aggregated profile features for each customer at each statement date. There are 177 numeric features which are anonymised and normalized, and fall into the following general categories:
+\spacing{0.75}
+```{r, echo=FALSE, message=FALSE, results='hide'}
+library(knitr)
+varcat <- matrix(data = c("D_* ", "Delinquency variables",
+             "S_*", "Spend variables",
+             "P_* ", "Payment variables",
+             "B_*", "Balance variables",
+             "R_*", "Risk variables"),
+             byrow = T, ncol = 2)
+```
 
+
+```{r, echo=FALSE}
+kable(varcat, col.names = c("Variable Name", "Category" ),label="Variable Categories", caption ="Variable Categories")
+```
+\spacing{1.25}
+There are 11 categorical variables - B_30, B_38, D_114, D_116, D_117, D_120, D_126, D_63, D_64, D_66 and D_68.   
  
+The remaining two unaccounted for features are the variable S_2 which contains the date of the statement and `customer_ID` which can used to match to the target label.
 
+5531451 
+\spacing{1}
+\scriptsize
+```{r, echo=FALSE, message=FALSE, results='hide'}
+
+sample <- matrix(data = c("0000099d6bd597052cdcda90ffabf56573fe9d7c79be5fbac11a8ed792feb62a", "2017-03-09", 0.9384687, 0.001733339,
+                          "0000099d6bd597052cdcda90ffabf56573fe9d7c79be5fbac11a8ed792feb62a", "2017-04-07", 0.9366646, 0.005775443, 
+                          "0000099d6bd597052cdcda90ffabf56573fe9d7c79be5fbac11a8ed792feb62a", "2017-05-28", 0.9541803, 0.091505397, 
+                          "0000099d6bd597052cdcda90ffabf56573fe9d7c79be5fbac11a8ed792feb62a", "2017-06-13", 0.9603836, 0.002455224, 
+                          "0000099d6bd597052cdcda90ffabf56573fe9d7c79be5fbac11a8ed792feb62a", "2017-07-16", 0.9472484, 0.002483014),
+                 byrow = T, ncol = 4)
+```
+
+
+```{r, echo=FALSE}
+kable(sample, col.names = c("customer_ID","S_2","P_2","D_39"),label="Sample", caption ="First five rows and columns from train_data.csv  ")
+```
+\spacing{1.25}
 ### test_data.csv 
+924621
+\normalsize
+unique values
 
 ### sample_submission.csv 
 

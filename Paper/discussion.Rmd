@@ -1,14 +1,19 @@
 # Discussion
 
+## Context of Results
 
 
 
 
-
-
-
+## Future Research
 
 introduce dynamic element?
 Recurrent Neural Network
 \citep{8682212} 
+
+
+cost function?
+
+
+
 

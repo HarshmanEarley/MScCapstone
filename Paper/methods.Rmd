@@ -2,16 +2,18 @@
 
 ## Random Forest (RF)
 
-Random Forests (RF) are a very powerful ensemble classification method. The method uses classification trees and bootstrapping extensively. Ensemble learning is an aggregation of predictions made by multiple classifiers with the goal of improving accuracy. A random forest is a random collection of classification trees estimated on random subsets of the data.  
+Random Forests, \citet{rfor}, are a very powerful ensemble classification method. The method uses classification trees and bootstrapping extensively. Ensemble learning is an aggregation of predictions made by multiple classifiers with the goal of improving accuracy. A random forest is a random collection of classification trees estimated on random subsets of the data.  
 
 A Classification Tree is an iterative process of splitting the data into partitions based on values of the observations, and then splitting it up further on each of the branches.  
-The classifier is trained in order to produce “pure” buckets, minimising the entropy or spread of the target variable in each bucket. The majority value of the target variable in a bucket is then used for predictions. The main disadvantage is that Classification Trees suffer from over-fitting and bias and using a single Classification Tree would present an over simplistic model.  
+The classifier is trained in order to produce pure buckets, minimising the entropy or spread of the target variable in each bucket. The majority value of the target variable in a bucket is then used for predictions. The main disadvantage is that Classification Trees suffer from over-fitting and bias and using a single Classification Tree would present an over simplistic model.  
 
-In a Random Forest, each Classification Tree is  grown independently, and each individual Classification Tree has an equal vote as to what the outcome is. Random forests provide an improvement by means of a small tweak that reduces the dependence among the trees. The main idea is to use only a random subset of the predictor variables at each split of the classification tree fitting step, this is generally taken as $\sqrt{N}$ but can be specified by the user. If we build classifiers on subsets of the variables, then they will behave more independently than if we build them on all of the data. This increases diversity and averaging results across independent classifiers will be more stable than averaging results on dependent ones.   
+In a Random Forest, each Classification Tree is  grown independently, and each individual Classification Tree has an equal vote as to what the outcome is. Random forests provide an improvement by means of a small tweak that reduces the dependence among the trees. The main idea is to use only a random subset of the predictor variables at each split of the classification tree fitting step, this is generally taken as $\sqrt{N}$ where N is the number of features but can be specified by the user. If we build classifiers on subsets of the variables, then they will behave more independently than if we build them on all of the data. This increases diversity and averaging results across independent classifiers will be more stable than averaging results on dependent ones.   
 
 The main parameter of the Random Forests to be tuned is the number of Classification Trees used and is tuned to prevent overfitting and improve efficiency.  
 
 ## Support Vector Machines (SVM)
+
+Support Vector Machines, \citet{svm1} and \citet{svm2}, are based on
 
 linear classifiers, where a linear combination of input features and parameters is employed to define the plane of maximum separation between classes
 

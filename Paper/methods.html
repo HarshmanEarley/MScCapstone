@@ -11,7 +11,7 @@
 
 
 
-<title>data.knit</title>
+<title>methods.knit</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -365,173 +365,57 @@ pre code {
 </div>
 
 
-<div id="data" class="section level1">
-<h1>Data</h1>
-<div id="underlying-data" class="section level2">
-<h2>Underlying Data</h2>
-<p>Data used for this project was obtained from the Kaggle website which
-is a crowd-sourced platform and community to train and challenge data
-scientists to solve complex data science, machine learning and
-predictive analytics problems.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> One of Kaggles main features is it’s
-competition platform.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> Kaggle allows users to organise and host
-competitions, these range from commercially-purposed prediction problems
-to more experimental research competitions. They give entrants the
-opportunity to grow their data science skills and compete for prizes and
-gives hosts a outlet to tackle a tough business problem by turning it
-into a competition and allowing Kaggles user base of 10 million to
-provide potential solutions to the problem.</p>
-<p>Access to the data through this route requires registering with
-Kaggle and joining the American Express - Default Prediction
-competition.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> American Express is a globally integrated
-payments company. The largest payment card issuer in the world, they
-provide customers with access to products, insights, and experiences
-that enrich lives and build business success.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> This competition
-provides an industrial scale data set to build a machine learning model
-to predict credit card default using time-series behavioural data and
-anonymised customer profile information over the period of March 2017 to
-March 2018. The target binary variable i.e. default is calculated by
-observing 18 months performance window after the latest credit card
-statement, and if the customer does not pay due amount in 120 days after
-their latest statement date it is considered a default event.</p>
+<div id="methods" class="section level1">
+<h1>Methods</h1>
+<div id="random-forest-rf" class="section level2">
+<h2>Random Forest (RF)</h2>
+<p>Random Forests, , are a very powerful ensemble classification method.
+The method uses classification trees and bootstrapping extensively.
+Ensemble learning is an aggregation of predictions made by multiple
+classifiers with the goal of improving accuracy. A random forest is a
+random collection of classification trees estimated on random subsets of
+the data.</p>
+<p>A Classification Tree is an iterative process of splitting the data
+into partitions based on values of the observations, and then splitting
+it up further on each of the branches.<br />
+The classifier is trained in order to produce pure buckets, minimising
+the entropy or spread of the target variable in each bucket. The
+majority value of the target variable in a bucket is then used for
+predictions. The main disadvantage is that Classification Trees suffer
+from over-fitting and bias and using a single Classification Tree would
+present an over simplistic model.</p>
+<p>In a Random Forest, each Classification Tree is grown independently,
+and each individual Classification Tree has an equal vote as to what the
+outcome is. Random forests provide an improvement by means of a small
+tweak that reduces the dependence among the trees. The main idea is to
+use only a random subset of the predictor variables at each split of the
+classification tree fitting step, this is generally taken as <span class="math inline">\(\sqrt{N}\)</span> where N is the number of
+features but can be specified by the user. If we build classifiers on
+subsets of the variables, then they will behave more independently than
+if we build them on all of the data. This increases diversity and
+averaging results across independent classifiers will be more stable
+than averaging results on dependent ones.</p>
+<p>The main parameter of the Random Forests to be tuned is the number of
+Classification Trees used and is tuned to prevent overfitting and
+improve efficiency.</p>
 </div>
-<div id="data-structure" class="section level2">
-<h2>Data Structure</h2>
-<div id="train_labels.csv" class="section level3">
-<h3>train_labels.csv</h3>
-<p>A list of unique customer identifiers <code>customer_ID</code> with
-the target label <code>target</code> indicating a default event with
-<code>target = 1</code> indicating a default, <code>target = 0</code>
-indicating no default. There are 458913 observations in this data
-meaning 458913 unique AMEX customers. 74.1% of customers in the data did
-not default on payment while 25.9% did</p>
-<div class="figure" style="text-align: center">
-<img src="data:image/png;base64,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" alt="Breakdown of defaults in training data" width="60%" height="60%" />
-<p class="caption">
-Breakdown of defaults in training data
-</p>
+<div id="support-vector-machines-svm" class="section level2">
+<h2>Support Vector Machines (SVM)</h2>
+<p>Support Vector Machines, ( ), are based on</p>
+<p>linear classifiers, where a linear combination of input features and
+parameters is employed to define the plane of maximum separation between
+classes</p>
+<p>using a kernel function to map the data X of the input space into a
+high-dimensional feature space</p>
+<p>A support vector classifier seeks to maximize the distance between
+the classes</p>
+<p>inseparable in the original space can be linearly classified in the
+high-dimensional</p>
+<p>space.</p>
 </div>
+<div id="deep-neural-network-dnn" class="section level2">
+<h2>Deep Neural Network (DNN)</h2>
 </div>
-<div id="train_data.csv" class="section level3">
-<h3>train_data.csv</h3>
-<p>This is a tabular data set corresponding to the training data,
-consisting of 190 features. It contains multiple statement dates per
-customer_ID, each observation corresponds to a monthly statement for a
-customer. The data is ordered firstly by <code>customer_ID</code>,
-corresponding with the train_labels.csv file and secondly ordered
-chronologically by statement date. The dataset contains aggregated
-profile features for each customer at each statement date. There are 177
-numeric features which are anonymised and normalized, and fall into the
-following general categories: </p>
-<table>
-<caption>Variable Categories</caption>
-<thead>
-<tr class="header">
-<th align="left">Variable Name</th>
-<th align="left">Category</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">D_*</td>
-<td align="left">Delinquency variables</td>
-</tr>
-<tr class="even">
-<td align="left">S_*</td>
-<td align="left">Spend variables</td>
-</tr>
-<tr class="odd">
-<td align="left">P_*</td>
-<td align="left">Payment variables</td>
-</tr>
-<tr class="even">
-<td align="left">B_*</td>
-<td align="left">Balance variables</td>
-</tr>
-<tr class="odd">
-<td align="left">R_*</td>
-<td align="left">Risk variables</td>
-</tr>
-</tbody>
-</table>
-<p>There are 11 categorical variables - B_30, B_38, D_114, D_116, D_117,
-D_120, D_126, D_63, D_64, D_66 and D_68.</p>
-<p>The remaining two unaccounted for features are the variable S_2 which
-contains the date of the statement and <code>customer_ID</code> which
-can used to match to the target label.</p>
-<p>5531451 </p>
-<table>
-<caption>First five rows and columns from train_data.csv</caption>
-<colgroup>
-<col width="66%" />
-<col width="11%" />
-<col width="10%" />
-<col width="12%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">customer_ID</th>
-<th align="left">S_2</th>
-<th align="left">P_2</th>
-<th align="left">D_39</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">0000099d6bd597052cdcda90ffabf56573fe9d7c79be5fbac11a8ed792feb62a</td>
-<td align="left">2017-03-09</td>
-<td align="left">0.9384687</td>
-<td align="left">0.001733339</td>
-</tr>
-<tr class="even">
-<td align="left">0000099d6bd597052cdcda90ffabf56573fe9d7c79be5fbac11a8ed792feb62a</td>
-<td align="left">2017-04-07</td>
-<td align="left">0.9366646</td>
-<td align="left">0.005775443</td>
-</tr>
-<tr class="odd">
-<td align="left">0000099d6bd597052cdcda90ffabf56573fe9d7c79be5fbac11a8ed792feb62a</td>
-<td align="left">2017-05-28</td>
-<td align="left">0.9541803</td>
-<td align="left">0.091505397</td>
-</tr>
-<tr class="even">
-<td align="left">0000099d6bd597052cdcda90ffabf56573fe9d7c79be5fbac11a8ed792feb62a</td>
-<td align="left">2017-06-13</td>
-<td align="left">0.9603836</td>
-<td align="left">0.002455224</td>
-</tr>
-<tr class="odd">
-<td align="left">0000099d6bd597052cdcda90ffabf56573fe9d7c79be5fbac11a8ed792feb62a</td>
-<td align="left">2017-07-16</td>
-<td align="left">0.9472484</td>
-<td align="left">0.002483014</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="test_data.csv" class="section level3">
-<h3>test_data.csv</h3>
-<p>924621 unique values</p>
-</div>
-<div id="sample_submission.csv" class="section level3">
-<h3>sample_submission.csv</h3>
-</div>
-</div>
-<div id="data-engineering" class="section level2">
-<h2>Data Engineering</h2>
-</div>
-<div id="data-cleaning" class="section level2">
-<h2>Data Cleaning</h2>
-</div>
-</div>
-<div class="footnotes footnotes-end-of-document">
-<hr />
-<ol>
-<li id="fn1"><p><a href="https://www.kaggle.com/getting-started/44916" class="uri">https://www.kaggle.com/getting-started/44916</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p><a href="https://www.kaggle.com/docs/competitions" class="uri">https://www.kaggle.com/docs/competitions</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p><a href="https://www.kaggle.com/competitions/amex-default-prediction/data" class="uri">https://www.kaggle.com/competitions/amex-default-prediction/data</a><a href="#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p><a href="https://about.americanexpress.com/our-company/our-business/our-business/default.aspx" class="uri">https://about.americanexpress.com/our-company/our-business/our-business/default.aspx</a><a href="#fnref4" class="footnote-back">↩︎</a></p></li>
-</ol>
 </div>
 
 
