@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.19)  20 JUL 2022 23:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  22 JUL 2022 15:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -551,50 +551,51 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 [4]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 218.
+(Font)              <9> on input line 222.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 218.
+(Font)              <5> on input line 222.
 
-Underfull \hbox (badness 10000) in paragraph at lines 218--218
+Underfull \hbox (badness 10000) in paragraph at lines 222--222
 [][][]$\T1/lmr/m/n/9 https : / / www . centralbank . ie / statistics / data -[] and -[] analysis / credit -[] and -[] debit -[] card -[] statistics / daily -[] credit -[] and -[] debit -[]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 222--222
+Underfull \hbox (badness 10000) in paragraph at lines 226--226
 [][][]$\T1/lmr/m/n/9 https : / / www . cso . ie / en / releasesandpublications / ep / p -[] hfcs / household^^\nanceandconsumptionsurvey2018 /
  []
 
 [1] [2] [3]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 408.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 412.
 (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 <default.png, id=170, 469.755pt x 372.64218pt>
 File: default.png Graphic file (type png)
 <use default.png>
-Package pdftex.def Info: default.png  used on input line 417.
+Package pdftex.def Info: default.png  used on input line 421.
 (pdftex.def)             Requested size: 291.75401pt x 231.43947pt.
 [4] [5
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.526 \newpage
+l.530 \newpage
                <./default.png>] [6] [7] [8] [9] [10] (./main.bbl) [1] [2] [3] [4] 
 AED: lastpage setting LastPage
 [5] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: DC54F0C21C02BDA760B645F212C2D3EE;1231.
+(rerunfilecheck)             Checksum: FC322764F38DBB9D632D6E40C27405F2;1210.
  )
-(\end occurred inside a group at level 12)
+(\end occurred inside a group at level 13)
 
-### semi simple group (level 12) entered at line 654 (\begingroup)
-### semi simple group (level 11) entered at line 510 (\begingroup)
-### semi simple group (level 10) entered at line 464 (\begingroup)
-### semi simple group (level 9) entered at line 455 (\begingroup)
-### semi simple group (level 8) entered at line 435 (\begingroup)
-### semi simple group (level 7) entered at line 365 (\begingroup)
-### semi simple group (level 6) entered at line 272 (\begingroup)
-### semi simple group (level 5) entered at line 204 (\begingroup)
+### semi simple group (level 13) entered at line 658 (\begingroup)
+### semi simple group (level 12) entered at line 514 (\begingroup)
+### semi simple group (level 11) entered at line 468 (\begingroup)
+### semi simple group (level 10) entered at line 459 (\begingroup)
+### semi simple group (level 9) entered at line 439 (\begingroup)
+### semi simple group (level 8) entered at line 369 (\begingroup)
+### semi simple group (level 7) entered at line 276 (\begingroup)
+### semi simple group (level 6) entered at line 208 (\begingroup)
+### semi simple group (level 5) entered at line 199 (\begingroup)
 ### semi simple group (level 4) entered at line 187 (\begingroup)
 ### semi simple group (level 3) entered at line 184 (\begingroup)
 ### semi simple group (level 2) entered at line 157 (\begingroup)
@@ -602,12 +603,12 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 ### bottom level 
 Here is how much of TeX's memory you used:
  12546 strings out of 479983
- 197699 string characters out of 5886392
- 503136 words of memory out of 5000000
+ 197697 string characters out of 5886392
+ 503133 words of memory out of 5000000
  30401 multiletter control sequences out of 15000+600000
  521731 words of font info for 67 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 72i,8n,77p,367b,2400s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,8n,77p,367b,2430s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 pdfTeX warning (dest): name{Hfootnote.9} has been referenced but does not exist, replaced by a fixed one
 
@@ -636,7 +637,7 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist,
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
 {c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}<c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on main.pdf (20 pages, 340166 bytes).
+Output written on main.pdf (20 pages, 339655 bytes).
 PDF statistics:
  359 PDF objects out of 1000 (max. 8388607)
  306 compressed objects within 4 object streams

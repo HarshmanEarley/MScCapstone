@@ -133,7 +133,10 @@ no more than 250 words for the abstract
 
 \listoftables
 
+\newpage
 
+
+\spacing{1.25}
 
 \newpage
 
@@ -193,27 +196,5 @@ no more than 250 words for the abstract
 
 \newpage
 
-# Abbreviations
-\spacing{1.1}
-
-```{r, echo=FALSE, message=FALSE, results='hide'}
-library(knitr)
-abbrev <- matrix(data = c("AI", "Artificial Intelligence",
-             "AMEX", "American Express",
-             "DNN", "Deep Neural Network",
-             "ML", "Machine Learning",
-             "NN", "Neural Network",
-             "RF", "Random Forest",
-             "SVM", "Support Vector Machines"),
-             byrow = T, ncol = 2)
+```{r abbre, child = 'abbreviations.Rmd' }
 ```
-
-
-```{r, echo=FALSE}
-kable(abbrev, col.names = c("Abbreviation", "Meaning" ),label="Abbreviations", caption ="List of Abbrevivations")
-```
-
-
-
-
-
