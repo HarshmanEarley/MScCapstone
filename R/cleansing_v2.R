@@ -1,4 +1,4 @@
-source('config.R')
+source("config.R")
 
 ##########################################
 #######      Database management     #####
@@ -67,6 +67,9 @@ getCache = function(file, callbackFunc, prefix, chunkSize = 100000, override = F
   
   #If we cant find cache on disk, move to chunking
   # Load chunks and process using callbackFunc, assign to cacheName in the global env
+  
+  print(glue(getCache," - ","creating cache from csv: ",cacheName))
+  
   assign(cacheName,
          suppressWarnings(
            read_csv_chunked(
@@ -83,6 +86,14 @@ getCache = function(file, callbackFunc, prefix, chunkSize = 100000, override = F
   save(list = cacheName, file = cachePath)
   return(get(cacheName))
 }
+
+
+##############
+# Load Data #
+###############
+
+train_labels = read_csv(getFilePath("train_labels"))
+
 
 ##########################################
 #######      Get table counts        #####
@@ -229,5 +240,5 @@ writeCleansedCSV = function(file, newFile, chunkSize = 100000){
   )
 }
 
-writeCleansedCSV(file = "train_data", newFile = "cleandata")
-getColsToRemove()
+#writeCleansedCSV(file = "train_data", newFile = "cleandata")
+#getColsToRemove()

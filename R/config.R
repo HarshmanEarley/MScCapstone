@@ -14,7 +14,10 @@ packages = c(
   "rbenchmark",
   "tensorflow",
   "keras",
-  "tfdatasets"
+  "tfdatasets",
+  "MASS",
+  "inline",
+  "Rcpp"
 )
 
 install.packages(
@@ -56,9 +59,4 @@ if(!dir.exists(DB_CACHE)){
 PATH = ls()[unlist(lapply(ls(), function(vec) 'PATH' %in% strsplit(vec,"_")[[1]]))]
 
 
-##############
-# Load Data #
-###############
-
-train_labels = read_csv(getFilePath("train_labels"))
 
