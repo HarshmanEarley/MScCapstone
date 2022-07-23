@@ -1,100 +1,3 @@
-source("config.R")
-
-##########################################
-#######      Database management     #####
-##########################################
-
-
-getDB = function(db){
-  res = if(db == 'csv'){
-    glue(PATH_DB,'csv')
-  } else if (db == 'parquet'){
-    glue(PATH_DB,'parquet')
-  } else {
-    PATH_DB
-  }
-  
-  return(res)
-}
-
-checkSplitsList = function(strings,split,seachTerm){
-  strings[unlist(lapply(strings, function(vec) seachTerm %in% strsplit(vec,glue("\\",split))[[1]]))]
-}
-
-getFiles = function(path){
-  list.files(get(path))
-}
-
-getFilePath = function(fileN, ext = ".csv", checkDBOnly = TRUE){
-  
-  res = list()
-  pathsToCheck = if (checkDBOnly) 'PATH_DB' else PATH #restrict search to DB by default
-  
-  
-  for(path in pathsToCheck){
-    found = list.files(get(path), 
-                       recursive = TRUE, 
-                       full.names = TRUE, 
-                       pattern = glue(fileN,ext)
-    )
-    
-    res = append(res, found)
-  }
-  
-  if(length(res) == 0){ #Return null string if no file found
-    return("")
-  }
-  stopifnot("Multiple files found" = length(res) == 1)
-  
-  return(res[[1]])
-}
-
-getCache = function(file, callbackFunc, prefix, chunkSize = 100000, override = FALSE){
-  
-  filePath = getFilePath(file,".csv")
-  cacheName = glue(prefix,"-",file)
-  cachePath = getFilePath(cacheName,"")
-  
-  if(!override){ #If were not override updating the current cache
-    if(!cachePath == ""){ #And we can find a cached file
-      if(!exists(cacheName)){ 
-        load(cachePath, envir = .GlobalEnv) #Load if cache not in memory
-      }
-      res = get(cacheName) 
-      return(res)
-    }
-  }
-  
-  #If we cant find cache on disk, move to chunking
-  # Load chunks and process using callbackFunc, assign to cacheName in the global env
-  
-  print(glue(getCache," - ","creating cache from csv: ",cacheName))
-  
-  assign(cacheName,
-         suppressWarnings(
-           read_csv_chunked(
-             filePath,
-             DataFrameCallback$new(callbackFunc), 
-             chunk_size = chunkSize,
-             progress = TRUE
-           )
-         )
-         ,envir = .GlobalEnv)
-  
-  # Save cache to disk and return
-  cachePath = glue(PATH_DB,"cache/",cacheName)
-  save(list = cacheName, file = cachePath)
-  return(get(cacheName))
-}
-
-
-##############
-# Load Data #
-###############
-
-train_labels = read_csv(getFilePath("train_labels"))
-
-
 ##########################################
 #######      Get table counts        #####
 ##########################################
@@ -141,7 +44,7 @@ removeCleansedCols <- function(data){
 
 getVariance = function(file,override = FALSE){
   f <- function(x, pos){
-    x %>% numericVariables %>% summarise_if(is.numeric, var, na.rm = TRUE)
+    x %>% removeNonNumerics %>% summarise_if(is.numeric, var, na.rm = TRUE)
   }
   
   getCache(file, f, prefix = "VARIANCE", override = override)
@@ -160,7 +63,7 @@ cleansCols_VARIANCE = function(file, threshold = 0.001){
 
 getNACounts = function(file,override = FALSE){
   f <- function(x, pos){
-    x %>% numericVariables %>% is.na %>% colSums 
+    x %>% removeNonNumerics %>% is.na %>% colSums 
   }
   
   getCache(file, f, prefix = "NA", override = override)
@@ -188,7 +91,7 @@ flattenCorMatrix <- function(corMatrix) {
 
 getCorolations = function(file,override = FALSE){
   f <- function(x, pos){
-   x  %>% numericVariables %>% sapply(as.numeric) %>% as.matrix  %>% cor(use = "pairwise.complete.obs") %>% flattenCorMatrix() %>% t()
+   x  %>% removeNonNumerics %>% sapply(as.numeric) %>% as.matrix  %>% cor(use = "pairwise.complete.obs") %>% flattenCorMatrix() %>% t()
   }
   
   getCache(file, f, prefix = "COR", override = override)

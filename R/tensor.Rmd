@@ -3,77 +3,6 @@ title: "R Notebook"
 output: html_notebook
 ---
 
-```{r}
-source('cleansing_v2.R')
-
-```
-
-```{r}
-writeCleansedCSV = function(file, newFile, chunkSize = 100000){ 
-  file = getFilePath(file,".csv")
-  newFile = paste(c(newFile,"csv"), collapse = ".")
-  newFile = paste(c(strsplit(file, "/")[[1]] %>% head(-1),newFile), collapse = "/") #put new file in same dir as old
-  
-  f = function(x,pos){
-    x = x %>%  left_join(train_labels, by="customer_ID") %>% removeCleansedCols %>% removeNonNumerics
-    write_csv(x, newFile, append = ifelse(pos == 1, FALSE, TRUE))
-  }
-  
-  suppressWarnings(
-    read_csv_chunked(
-      file,
-      SideEffectChunkCallback$new(f), 
-      chunk_size = chunkSize,
-      progress = TRUE
-    )
-  )
-}
-```
-```{r}
-head(asd)
-```
-
-```{r}
-
-traindata = read_csv(getFilePath("train_data_head"))
-```
-
-
-```{r}
-dim(traindata)
-dim(headval)
-```
-
-```{r}
-headval = read_csv(getFilePath("train_data"), n_max = 300000, skip = 400000)
-
-colnames(headval) = colnames(traindata)
-
-colnames(headval)
-```
-
-```{r}
-write_csv(headval, "/Users/root1/Documents/amex-default-prediction//csv/val_data_head.csv")
-```
-
-```{r}
-read_csv(getFilePath("val_data_head"), n_max = 300)
-```
-
-
-```{r}
-writeCleansedCSV("val_data_head", "val_data_head_clean", chunkSize = 100000)
-```
-
-
-```{r}
-read_csv(getFilePath("val_data_head_clean"), n_max = 300)
-```
-
-
-
-
-
 ```{r, echo=FALSE}
 library(tensorflow)
 tensorflow::install_tensorflow(restart_session = FALSE)
@@ -83,31 +12,8 @@ install_keras(restart_session = FALSE)
 
 
 ```{r}
-#asd = read_csv(getFilePath("train_data_head_clean"))
-
-colSums(is.na(asd))
-```
-
-```{r}
-length(trainSpec$names[!trainSpec$names %in% c("customer_ID","target")])
-```
 
 
-```{r}
-asd$B_31
-```
-
-```{r}
-length(
-  (trainSpec$names)[!trainSpec$names %in% c("customer_ID","target","B_31")]
-)
-```
-
-```{r}
- iterator_get_next(iter)
-```
-
-```{r}
 
 sess <- tf$compat$v1$Session()
 
