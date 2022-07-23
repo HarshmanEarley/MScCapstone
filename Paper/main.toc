@@ -1,0 +1,26 @@
+\contentsline {section}{List of Figures}{iii}{section*.2}%
+\contentsline {section}{List of Tables}{iv}{section*.3}%
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
+\contentsline {section}{\numberline {2}Review of Literature}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Taiwan Data}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Other Literature}{3}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Data}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Underlying Data}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Data Structure}{4}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Data Engineering}{6}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Data Cleaning}{6}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Methods}{7}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Random Forest (RF)}{7}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Support Vector Machines (SVM)}{7}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Deep Neural Network (DNN)}{8}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Results}{9}{section.5}%
+\contentsline {section}{\numberline {6}Discussion}{10}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Context of Results}{10}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Future Research}{10}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Conclusion}{11}{section.7}%
+\contentsline {section}{\numberline {8}Bibliography}{a}{section.8}%
+\contentsline {section}{\numberline {9}Appendices}{b}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Appendix A: additional tables}{b}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Appendix B: additional figures}{c}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Appendix C: code}{d}{subsection.9.3}%
+\contentsline {section}{\numberline {10}Abbreviations}{e}{section.10}%

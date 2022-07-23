@@ -369,51 +369,44 @@ pre code {
 <h1>Data</h1>
 <div id="underlying-data" class="section level2">
 <h2>Underlying Data</h2>
-<p>Data used for this project was obtained from the Kaggle website which
-is a crowd-sourced platform and community to train and challenge data
-scientists to solve complex data science, machine learning and
-predictive analytics problems.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> One of Kaggles main features is it’s
-competition platform.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> Kaggle allows users to organise and host
-competitions, these range from commercially-purposed prediction problems
-to more experimental research competitions. They give entrants the
-opportunity to grow their data science skills and compete for prizes and
-gives hosts a outlet to tackle a tough business problem by turning it
-into a competition and allowing Kaggles user base of 10 million to
-provide potential solutions to the problem.</p>
-<p>Access to the data through this route requires registering with
-Kaggle and joining the American Express - Default Prediction
-competition.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> American Express is a globally integrated
-payments company. The largest payment card issuer in the world, they
-provide customers with access to products, insights, and experiences
-that enrich lives and build business success.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> This competition
-provides an industrial scale data set to build a machine learning model
-to predict credit card default using time-series behavioural data and
-anonymised customer profile information over the period of March 2017 to
-March 2018. The target binary variable i.e. default is calculated by
-observing 18 months performance window after the latest credit card
-statement, and if the customer does not pay due amount in 120 days after
-their latest statement date it is considered a default event.</p>
+<p>Data used for this project was obtained from the Kaggle website, an
+online platform and community for data scientists.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> One of Kaggles main
+features is it’s competition platform.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> Kaggle allows users to
+organise and host competitions, these range from commercially-purposed
+prediction problems to more experimental research competitions. They
+give entrants the opportunity to test and grow their data science skills
+while competing for prizes and gives hosts an outlet to tackle tough
+business problems by turning them into a competition and allowing
+Kaggles user base of 10 million to provide potential solutions.</p>
+<p>Access to the data required registering with Kaggle and joining the
+American Express - Default Prediction competition.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> American Express is a
+globally integrated payments company and the largest payment card issuer
+in the world.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> This competition provides an industrial
+scale data set to build a machine learning model to predict credit card
+default using time-series behavioural data and anonymised customer
+profile information over the period of March 2017 to March 2018. The
+target binary variable i.e. default is calculated by observing 18 months
+performance window after the latest credit card statement, and if the
+customer does not pay due amount in 120 days after their latest
+statement date it is considered a default event.</p>
 </div>
 <div id="data-structure" class="section level2">
 <h2>Data Structure</h2>
-<div id="train_labels.csv" class="section level3">
-<h3>train_labels.csv</h3>
-<p>A list of unique customer identifiers <code>customer_ID</code> with
-the target label <code>target</code> indicating a default event with
+<p><strong>train_labels.csv</strong><br />
+A list of unique customer identifiers <code>customer_ID</code> with the
+target label <code>target</code> indicating a default event with
 <code>target = 1</code> indicating a default, <code>target = 0</code>
 indicating no default. There are 458913 observations in this data
 meaning 458913 unique AMEX customers. 74.1% of customers in the data did
-not default on payment while 25.9% did</p>
+not default on payment while 25.9% defaulted.</p>
 <div class="figure" style="text-align: center">
-<img src="data:image/png;base64,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" alt="Breakdown of defaults in training data" width="60%" height="60%" />
+<img src="data:image/png;base64,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" alt="Breakdown of defaults in training data" width="35%" height="35%" />
 <p class="caption">
 Breakdown of defaults in training data
 </p>
 </div>
-</div>
-<div id="train_data.csv" class="section level3">
-<h3>train_data.csv</h3>
-<p>This is a tabular data set corresponding to the training data,
+<p><strong>train_data.csv</strong><br />
+This is a tabular data set corresponding to the training data,
 consisting of 190 features. It contains multiple statement dates per
 customer_ID, each observation corresponds to a monthly statement for a
 customer. The data is ordered firstly by <code>customer_ID</code>,
@@ -508,13 +501,15 @@ can used to match to the target label.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div id="test_data.csv" class="section level3">
-<h3>test_data.csv</h3>
-<p>924621 unique values</p>
-</div>
-<div id="sample_submission.csv" class="section level3">
-<h3>sample_submission.csv</h3>
+<div id="other-data" class="section level3">
+<h3>Other Data</h3>
+<p>The competition data also includes two other files but are not within
+the scope of this project. test_data.csv is test data used to evaluate
+entries in the competition. However, labels for this data are not
+included an the evaluation for the models performance on this data is
+limited to the competitions own evaluation metric.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> sample_submission.csv
+is a sample submission file for the competition in the correct
+format.</p>
 </div>
 </div>
 <div id="data-engineering" class="section level2">
@@ -531,6 +526,7 @@ can used to match to the target label.</p>
 <li id="fn2"><p><a href="https://www.kaggle.com/docs/competitions" class="uri">https://www.kaggle.com/docs/competitions</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 <li id="fn3"><p><a href="https://www.kaggle.com/competitions/amex-default-prediction/data" class="uri">https://www.kaggle.com/competitions/amex-default-prediction/data</a><a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 <li id="fn4"><p><a href="https://about.americanexpress.com/our-company/our-business/our-business/default.aspx" class="uri">https://about.americanexpress.com/our-company/our-business/our-business/default.aspx</a><a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p><a href="https://www.kaggle.com/competitions/amex-default-prediction/overview/evaluation" class="uri">https://www.kaggle.com/competitions/amex-default-prediction/overview/evaluation</a><a href="#fnref5" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 

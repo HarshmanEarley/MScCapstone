@@ -1,0 +1,75 @@
+\begin{thebibliography}{xx}
+
+\harvarditem[Boser et~al.]{Boser, Guyon \harvardand\ Vapnik}{1992}{svm1}
+Boser, B.~E., Guyon, I.~M. \harvardand\ Vapnik, V.~N.  \harvardyearleft
+  1992\harvardyearright , A training algorithm for optimal margin classifiers,
+  {\em in} `Proceedings of the 5th Annual ACM Workshop on Computational
+  Learning Theory', ACM Press, pp.~144--152.
+
+\harvarditem{Breiman}{2001}{rfor}
+Breiman, L.  \harvardyearleft 2001\harvardyearright , `Random forests', {\em
+  Mach. Learn.} {\bf 45}(1),~5–32.
+\newline\harvardurl{https://doi.org/10.1023/A:1010933404324}
+
+\harvarditem{Chou \harvardand\ Lo}{2018}{dnn2}
+Chou, T. \harvardand\ Lo, M.  \harvardyearleft 2018\harvardyearright ,
+  `Predicting credit card defaults with deep learning and other machine
+  learning models', {\em International Journal of Computer Theory and
+  Engineering} {\bf 10},~105--110.
+
+\harvarditem{Cortes \harvardand\ Vapnik}{1995}{svm2}
+Cortes, C. \harvardand\ Vapnik, V.  \harvardyearleft 1995\harvardyearright ,
+  `Support-vector networks', {\em Mach. Learn.} {\bf 20}(3),~273–297.
+\newline\harvardurl{https://doi.org/10.1023/A:1022627411411}
+
+\harvarditem{Egan}{2021}{trap5146}
+Egan, C.  \harvardyearleft 2021\harvardyearright , Improving credit default
+  prediction using explainable ai, Master's thesis, Dublin, National College of
+  Ireland.
+\newline\harvardurl{http://norma.ncirl.ie/5146/}
+
+\harvarditem{Fitzpatrick \harvardand\ Mues}{2016}{FITZPATRICK2016427}
+Fitzpatrick, T. \harvardand\ Mues, C.  \harvardyearleft 2016\harvardyearright ,
+  `An empirical comparison of classification algorithms for mortgage default
+  prediction: evidence from a distressed mortgage market', {\em European
+  Journal of Operational Research} {\bf 249}(2),~427--439.
+\newline\harvardurl{https://www.sciencedirect.com/science/article/pii/S0377221715008383}
+
+\harvarditem[Goodfellow et~al.]{Goodfellow, Bengio \harvardand\
+  Courville}{2016}{Goodfellow-et-al-2016}
+Goodfellow, I., Bengio, Y. \harvardand\ Courville, A.  \harvardyearleft
+  2016\harvardyearright , {\em Deep Learning}, MIT Press.
+\newblock \url{http://www.deeplearningbook.org}.
+
+\harvarditem[Hsu et~al.]{Hsu, Liou, Wang, Huang \harvardand\
+  Che-Lin}{2019}{8682212}
+Hsu, T.-C., Liou, S.-T., Wang, Y.-P., Huang, Y.-S. \harvardand\ Che-Lin
+  \harvardyearleft 2019\harvardyearright , Enhanced recurrent neural network
+  for combining static and dynamic features for credit card default prediction,
+  {\em in} `ICASSP 2019 - 2019 IEEE International Conference on Acoustics,
+  Speech and Signal Processing (ICASSP)', pp.~1572--1576.
+
+\harvarditem{Neema \harvardand\ Soibam}{2017}{Neema2017TheCO}
+Neema, S. \harvardand\ Soibam, B.  \harvardyearleft 2017\harvardyearright , The
+  comparison of machine learning methods to achieve most cost-effective
+  prediction for credit card default.
+
+\harvarditem{Yang \harvardand\ Zhang}{2018}{Yang2018-rt}
+Yang, S. \harvardand\ Zhang, H.  \harvardyearleft 2018\harvardyearright ,
+  `Comparison of several data mining methods in credit card default
+  prediction', {\em Intell. Inf. Manag.} {\bf 10}(05),~115--122.
+
+\harvarditem{Yeh \harvardand\ hui Lien}{2009}{YEH20092473}
+Yeh, I.-C. \harvardand\ hui Lien, C.  \harvardyearleft 2009\harvardyearright ,
+  `The comparisons of data mining techniques for the predictive accuracy of
+  probability of default of credit card clients', {\em Expert Systems with
+  Applications} {\bf 36}(2, Part 1),~2473--2480.
+\newline\harvardurl{https://www.sciencedirect.com/science/article/pii/S0957417407006719}
+
+\harvarditem[Zhang et~al.]{Zhang, Lipton, Li \harvardand\
+  Smola}{2021}{zhang2021dive}
+Zhang, A., Lipton, Z.~C., Li, M. \harvardand\ Smola, A.~J.  \harvardyearleft
+  2021\harvardyearright , `Dive into deep learning', {\em arXiv preprint
+  arXiv:2106.11342} .
+
+\end{thebibliography}

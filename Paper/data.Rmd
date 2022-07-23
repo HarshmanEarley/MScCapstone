@@ -3,22 +3,20 @@
 
 ## Underlying Data
 
-Data used for this project was obtained from the Kaggle website which is a crowd-sourced platform and community to train and challenge data scientists to solve complex data science, machine learning and predictive analytics problems.[^kag] One of Kaggles main features is it's competition platform.[^comp] Kaggle allows users to organise and host competitions, these range from commercially-purposed prediction problems to more experimental research competitions. They give entrants the opportunity to grow their data science skills and compete for prizes and gives hosts a outlet to tackle a tough business problem by turning it into a competition and allowing Kaggles user base of 10 million to provide potential solutions to the problem.
+Data used for this project was obtained from the Kaggle website, an online platform and community for data scientists.[^kag] One of Kaggles main features is it's competition platform.[^comp] Kaggle allows users to organise and host competitions, these range from commercially-purposed prediction problems to more experimental research competitions. They give entrants the opportunity to test and grow their data science skills while competing for prizes and gives hosts an outlet to tackle tough business problems by turning them into a competition and allowing Kaggles user base of 10 million to provide potential solutions.  
 
-Access to the data through this route requires registering with Kaggle and joining the American Express - Default Prediction competition.[^kagamex] American Express is a globally integrated payments company. The largest payment card issuer in the world, they provide customers with access to products, insights, and experiences that enrich lives and build business success.[^AMEX] This competition provides an industrial scale data set to build a machine learning model to predict credit card default using time-series behavioural data and anonymised customer profile information over the period of March 2017 to March 2018. The target binary variable i.e. default is calculated by observing 18 months performance window after the latest credit card statement, and if the customer does not pay due amount in 120 days after their latest statement date it is considered a default event.
-
+Access to the data required registering with Kaggle and joining the American Express - Default Prediction competition.[^kagamex] American Express is a globally integrated payments company and the largest payment card issuer in the world.[^AMEX] This competition provides an industrial scale data set to build a machine learning model to predict credit card default using time-series behavioural data and anonymised customer profile information over the period of March 2017 to March 2018. The target binary variable i.e. default is calculated by observing 18 months performance window after the latest credit card statement, and if the customer does not pay due amount in 120 days after their latest statement date it is considered a default event.
 
 ## Data Structure
+\spacing{1}
+**train_labels.csv**   
+A list of unique customer identifiers `customer_ID` with the target label `target` indicating a default event with `target = 1` indicating a default, `target = 0` indicating no default. There are 458913 observations in this data meaning 458913 unique AMEX customers. 74.1% of customers in the data did not default on payment while 25.9% defaulted.
 
-### train_labels.csv 
-
-A list of unique customer identifiers `customer_ID` with the target label `target` indicating a default event with `target = 1` indicating a default, `target = 0` indicating no default. There are 458913 observations in this data meaning 458913 unique AMEX customers. 74.1% of customers in the data did not default on payment while 25.9% did
-
-```{r def, echo=F,fig.align='center', out.height="60%",out.width="60%", fig.cap="Breakdown of defaults in training data"}
+```{r def, echo=F,fig.align='center', out.height="35%",out.width="35%", fig.cap="Breakdown of defaults in training data"}
 knitr::include_graphics("default.png")
 ```
 
-### train_data.csv 
+**train_data.csv**  
 This is a tabular data set corresponding to the training data, consisting of 190 features. It contains multiple statement dates per customer_ID, each observation corresponds to a monthly statement for a customer. The data is ordered firstly by `customer_ID`, corresponding with the train_labels.csv file and secondly ordered chronologically by statement date. The dataset contains aggregated profile features for each customer at each statement date. There are 177 numeric features which are anonymised and normalized, and fall into the following general categories:
 \spacing{0.75}
 ```{r, echo=FALSE, message=FALSE, results='hide'}
@@ -35,7 +33,7 @@ varcat <- matrix(data = c("D_* ", "Delinquency variables",
 ```{r, echo=FALSE}
 kable(varcat, col.names = c("Variable Name", "Category" ),label="Variable Categories", caption ="Variable Categories")
 ```
-\spacing{1.25}
+\spacing{1.1}
 There are 11 categorical variables - B_30, B_38, D_114, D_116, D_117, D_120, D_126, D_63, D_64, D_66 and D_68.   
  
 The remaining two unaccounted for features are the variable S_2 which contains the date of the statement and `customer_ID` which can used to match to the target label.
@@ -58,12 +56,12 @@ sample <- matrix(data = c("0000099d6bd597052cdcda90ffabf56573fe9d7c79be5fbac11a8
 kable(sample, col.names = c("customer_ID","S_2","P_2","D_39"),label="Sample", caption ="First five rows and columns from train_data.csv  ")
 ```
 \spacing{1.25}
-### test_data.csv 
-924621
 \normalsize
-unique values
 
-### sample_submission.csv 
+**Other Data**  
+The competition data also includes two other files but are not within the scope of this project. test_data.csv is test data used to evaluate entries in the competition. However, labels for this data are not included an the evaluation for the models performance on this data is limited to the competitions own evaluation metric.[^met] sample_submission.csv is a sample submission file for the competition in the correct format.
+
+\newpage
 
 ## Data Engineering
 
@@ -83,3 +81,5 @@ https://about.americanexpress.com/our-company/our-business/our-business/default.
 [^comp]:
 https://www.kaggle.com/docs/competitions
 
+[^met]:
+https://www.kaggle.com/competitions/amex-default-prediction/overview/evaluation

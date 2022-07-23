@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  22 JUL 2022 15:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  23 JUL 2022 16:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -551,49 +551,50 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 [4]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 222.
+(Font)              <9> on input line 219.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 222.
+(Font)              <5> on input line 219.
 
-Underfull \hbox (badness 10000) in paragraph at lines 222--222
+Underfull \hbox (badness 10000) in paragraph at lines 219--219
 [][][]$\T1/lmr/m/n/9 https : / / www . centralbank . ie / statistics / data -[] and -[] analysis / credit -[] and -[] debit -[] card -[] statistics / daily -[] credit -[] and -[] debit -[]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 226--226
+Underfull \hbox (badness 10000) in paragraph at lines 223--223
 [][][]$\T1/lmr/m/n/9 https : / / www . cso . ie / en / releasesandpublications / ep / p -[] hfcs / household^^\nanceandconsumptionsurvey2018 /
  []
 
 [1] [2] [3]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 412.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 403.
 (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 <default.png, id=170, 469.755pt x 372.64218pt>
 File: default.png Graphic file (type png)
 <use default.png>
-Package pdftex.def Info: default.png  used on input line 421.
-(pdftex.def)             Requested size: 291.75401pt x 231.43947pt.
-[4] [5
+Package pdftex.def Info: default.png  used on input line 412.
+(pdftex.def)             Requested size: 170.19402pt x 135.00967pt.
+[4
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.530 \newpage
-               <./default.png>] [6] [7] [8] [9] [10] (./main.bbl) [1] [2] [3] [4] 
+l.428 following general categories: \spacing{0.75}
+                                                   <./default.png>] [5] [6] [7] [8] [9] [10] [11] (./main.bbl) [1] [2] [3] [4] 
 AED: lastpage setting LastPage
 [5] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: FC322764F38DBB9D632D6E40C27405F2;1210.
  )
-(\end occurred inside a group at level 13)
+(\end occurred inside a group at level 14)
 
-### semi simple group (level 13) entered at line 658 (\begingroup)
-### semi simple group (level 12) entered at line 514 (\begingroup)
-### semi simple group (level 11) entered at line 468 (\begingroup)
-### semi simple group (level 10) entered at line 459 (\begingroup)
-### semi simple group (level 9) entered at line 439 (\begingroup)
-### semi simple group (level 8) entered at line 369 (\begingroup)
-### semi simple group (level 7) entered at line 276 (\begingroup)
+### semi simple group (level 14) entered at line 676 (\begingroup)
+### semi simple group (level 13) entered at line 503 (\begingroup)
+### semi simple group (level 12) entered at line 457 (\begingroup)
+### semi simple group (level 11) entered at line 448 (\begingroup)
+### semi simple group (level 10) entered at line 428 (\begingroup)
+### semi simple group (level 9) entered at line 400 (\begingroup)
+### semi simple group (level 8) entered at line 366 (\begingroup)
+### semi simple group (level 7) entered at line 273 (\begingroup)
 ### semi simple group (level 6) entered at line 208 (\begingroup)
 ### semi simple group (level 5) entered at line 199 (\begingroup)
 ### semi simple group (level 4) entered at line 187 (\begingroup)
@@ -602,13 +603,16 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 ### semi simple group (level 1) entered at line 75 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 12546 strings out of 479983
- 197697 string characters out of 5886392
- 503133 words of memory out of 5000000
- 30401 multiletter control sequences out of 15000+600000
+ 12544 strings out of 479983
+ 197698 string characters out of 5886392
+ 505048 words of memory out of 5000000
+ 30403 multiletter control sequences out of 15000+600000
  521731 words of font info for 67 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 72i,8n,77p,367b,2430s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,8n,77p,367b,2468s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{Hfootnote.10} has been referenced but does not exist, replaced by a fixed one
+
 
 pdfTeX warning (dest): name{Hfootnote.9} has been referenced but does not exist, replaced by a fixed one
 
@@ -636,11 +640,11 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist,
 
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
-{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}<c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on main.pdf (20 pages, 339655 bytes).
+{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}<c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (21 pages, 353434 bytes).
 PDF statistics:
- 359 PDF objects out of 1000 (max. 8388607)
- 306 compressed objects within 4 object streams
- 102 named destinations out of 1000 (max. 500000)
+ 379 PDF objects out of 1000 (max. 8388607)
+ 320 compressed objects within 4 object streams
+ 98 named destinations out of 1000 (max. 500000)
  107 words of extra memory for PDF output out of 10000 (max. 10000000)
 
