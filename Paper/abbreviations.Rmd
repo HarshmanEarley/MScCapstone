@@ -6,10 +6,14 @@
 library(knitr)
 abbrev <- matrix(data = c("AI", "Artificial Intelligence",
              "AMEX", "American Express",
+             "AUC", "Area Under the Curve",             
              "DNN", "Deep Neural Network",
+             "GRU", "Gated Recurrent Unit",
              "ML", "Machine Learning",
              "NN", "Neural Network",
-             "RF", "Random Forest",
+             "RF", "Random Forest",             
+             "RNN", " Recurrent Neural Network",
+             "ROC", "Receiver Operating Characteristic",
              "SVM", "Support Vector Machines"),
              byrow = T, ncol = 2)
 ```

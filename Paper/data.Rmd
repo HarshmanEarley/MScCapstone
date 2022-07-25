@@ -64,10 +64,19 @@ The competition data also includes two other files but are not within the scope 
 \newpage
 
 ## Data Engineering
-
-
+Brief bit on load, chunking and caching process?
 
 ## Data Cleaning
+
+- Remove NA columns,    
+- remove low variance columns    
+- remove highly correlated columns  
+-  incremental PCA now with Imputation   
+Anything else?
+
+include the "why" - methods don't work with missing values, very wide dataset - reduce dimensions to increase efficiency
+
+merge label and data
 
 [^kag]:
 https://www.kaggle.com/getting-started/44916

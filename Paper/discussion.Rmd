@@ -1,19 +1,18 @@
 # Discussion
 
-## Context of Results
+Context of Results
+
+Compare to previous studies?
+
+One of the main obstacles for contextualising the results is the lack of information of the variables included as part of the data. The only detail of the features was the category to which it belonged, see \hyperlink{table.1}{Variable Categories table.} Due to this, little inference can be made on the variables and the main outcome of this study is the performance of the models. Particularly it would be difficult to comment on the Delinquency and Risk variables as there is no further information to what they constitute and is impossible to infer any further information from them.  
+
+The choice of models employed for this project was relatively arbitrary. A selection of three well known high-performing models which were seen to perform reasonably well in previous studies using the Taiwan data were chosen. One ensemble learning, one deep learning model and one separation model were comparatively evaluated. This unfortunately does not allow us to benchmark the performance against internal models used by AMEX or other banks. This benchmark would allow analysis on whether any of the models employed in this study could provide value and risk mitigation. Alternatively a relatively simple and transparent model such as logistic regression could provide a benchmark for the models.   
+
+A small sample of potential models were used in this project. Models used in studies on other data that may improve performance independently or in tandem to other models. include K-Nearest Neighbour,Linear Discriminant Analysis,Logistic Regression, XGBoost and LightGBM.  
 
 
+Other methods of evaluating and comparing the models could be employed in future. \citet{Neema2017TheCO} used a cost function when comparing methods to predict customers credit card default. A higher penalty or cost was given to defaulters classified incorrectly. A range of cost factors were used to identify a model with the best accuracy in predicting a defaulter in a cost- effective manner. ____ compared models using a Receiver Operating Characteristic (ROC) curve and calculating the Area Under the Curve (AUC). The ROC curve plots true positive rate (Sensitivity) versus false positive rate (1 - Specificity) and it  illustrates the diagnostic ability of a binary classifier. It works on binary classifiers that produce a probability of an outcome. The ROC determines how often will a randomly chosen 1 outcome have a higher probability of being predicted to be a 1 outcome than a randomly chosen true 0. The larger the area under the curve - AUC, the better is the discrimination. A perfect classifier would have AUC = 1. A classifier not better than random guessing would have AUC = 0.5 and the corresponding ROC curve would resemble a plot of the identity function ($y = x$).  
 
 
-## Future Research
-
-introduce dynamic element?
-Recurrent Neural Network
-\citep{8682212} 
-
-
-cost function?
-
-
-
+For **XYZ** models an observation was, and hence a prediction was made for, each monthly statement detail for a customer. There were up to 13 separate observations in the training data for each customer with the possibility of contradicting predictions made for a customer. For example in one month of a customers data may have been predicted to default on payment while another months did not predict default. Only one guess should be made per customer, multiple contradicting predictions are impractical. Hence, only one prediction should be made per customer. A majority vote system for each customer could be employed to give a singular prediction as to whether default will occur. Alternatively a weighted vote, with increased weighting for default predictions could create a more risk-adverse system with potential defaults more likely to be caught.  
 
