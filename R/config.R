@@ -17,7 +17,8 @@ packages = c(
   "keras",
   "tfdatasets",
   "inline",
-  "Rcpp"
+  "Rcpp",
+  "e1071"
 )
 
 install.packages(

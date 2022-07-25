@@ -1,41 +1,3 @@
-inc_gdcFloat <- '
-  // Recursive function to return gcd of a and b 
-  double gcd(double a, double b){
-    //Invert if a < b
-    if (a < b){
-        return gcd(b, a); 
-    }
-    // base case 
-    if (fabs(b) < 0.0000001){
-        return a;
-    }
-        
-    return(gcd(b, a - floor(a / b) * b));
-  }
-'
-
-body_gdcFloat <- '
-  // CPP code for finding the GCD of two floating 
-  // numbers. 
-  //#include <bits/stdc++.h> 
-  using namespace std; 
-  double a = as<double>(arg_a);
-  double b = as<double>(arg_b);
-  
-  return(wrap(gcd(a,b)));
-'
-
-ccp_gdcFloat <- cxxfunction(signature(arg_a= "double", arg_b= "double"),
-                            body = body_gdcFloat,
-                            includes = inc_gdcFloat,
-                            plugin = "Rcpp")
-
-# for 1:lseed iterations, call RandomWalk with specified seed for reproducability
-ccpwrap_gdcFloat = function(a,b){
-  ccp_gdcFloat(a,b)
-}
-
-
 getInterval_loadData = function(file, column){
   print("getInterval_loadData")
   #read in column and omit NA
@@ -48,6 +10,7 @@ getInterval_loadData = function(file, column){
   print(glue("getInterval ", column))
   getInterval(vec)
 }
+
 
 getInterval = function(vec){
   print("getInterval")
@@ -99,9 +62,15 @@ getInterval = function(vec){
     return(NA)
   }
   
-  #Use Kolmogorov-Smirnov test to check remainders are uniform(0, 0.01) 
+  #Use Kolmogorov-Smirnov test to check remainders are uniform(0, 0.01) with 70
   #If we reject H0: bound comes from unif dist, return NA
-  if(ks.test(vec %% candidate,"punif",0, 0.01)$p < 0.05){
+  # As sample size is large, normalize p value 
+  # https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.518.5341&rep=rep1&type=pdf
+  rem = vec %% candidate
+  ks_p = ks.test(rem,"punif",0, 0.01)$p
+  #ks_p = min(0.5, (ks.test(rem,"punif",0, 0.01)$p) * sqrt(length(rem)/100))
+  
+  if(ks_p < 0.05){
     return(NA)
   }
   

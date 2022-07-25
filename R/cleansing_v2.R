@@ -123,14 +123,16 @@ getColsToRemove = function(file = "train_data"){
 ### 
 # read csv, cleanse, and write result back to new file
 ###
-writeCleansedCSV = function(file, newFile, chunkSize = 100000){ 
+writeCleansedCSV = function(file, newFile, chunkSize = 1000000){ 
   file = getFilePath(file,".csv")
   newFile = paste(c(newFile,"csv"), collapse = ".")
   newFile = paste(c(strsplit(file, "/")[[1]] %>% head(-1),newFile), collapse = "/") #put new file in same dir as old
   
   f = function(x,pos){
     x = x %>%  left_join(train_labels, by="customer_ID") %>% removeCleansedCols %>% removeNonNumerics
-    write_csv(x, newFile, append = ifelse(pos == 1, FALSE, TRUE))
+   # write_csv(x, newFile, append = ifelse(pos == 1, FALSE, TRUE))
+    print("write_parquet")
+    write_parquet(x, glue("/Users/root1/Documents/amex-default-prediction/parquet2/cleansed_",pos))
   }
   
   suppressWarnings(
@@ -145,3 +147,17 @@ writeCleansedCSV = function(file, newFile, chunkSize = 100000){
 
 #writeCleansedCSV(file = "train_data", newFile = "cleandata")
 #getColsToRemove()
+
+
+readFromParquet = function(filePath){
+  ads = arrow::open_dataset(sources =  filePath)
+  ## Create a scanner
+  scan = Scanner$create(ads)
+  ## Load it as n Arrow Table in memory
+  at = scan$ToTable()
+  ## Convert it to an R data frame
+  as.data.frame(at)  
+}
+
+#  readFromParquet("/Users/root1/Documents/amex-default-prediction/parquet2/")
+

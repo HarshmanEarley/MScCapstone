@@ -1,0 +1,224 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+gc()
+```
+
+
+```{r, echo = FALSE}
+source('/Users/root1/Documents/DAC_Project/R/config.R')
+data_train = read_parquet("/Users/root1/Documents/amex-default-prediction/parquet/train.parquet")
+```
+
+```{r}
+head(data_train)
+```
+
+
+```{r}
+format(object.size(data_train), units = "Gb")
+```
+
+```{r}
+benchmark(data_train[sample(1:nrow(data_train), round(0.001*nrow(data_train)), replace=F),]
+          
+          )
+```
+
+
+
+```{r, echo = FALSE}
+source('/Users/root1/Documents/DAC_Project/R/config.R')
+data_train = read_parquet("/Users/root1/Documents/amex-default-prediction/parquet/train.parquet", n_max = 10)
+```
+
+```{r}
+seq(0,1,0.001)
+```
+
+
+```{r}
+p = seq(0,1,0.001)
+plot(p, p*sqrt(5500000/100), ylim = c(0,0.05),xlim = c(0,0.001), type = "l")
+```
+
+
+```{r}
+N = nrow(data)
+i_total = 1:N
+
+#sample validation index
+i_val = sample(i_total, floor(N*0.3))
+i_total = i_total[!i_total %in% i_train]
+
+#sample test index
+i_test = sample(i_total, floor(N*0.2))
+i_total = i_total[!i_total %in% i_train]
+
+#remainder for train
+i_train = i_total
+```
+
+```{r}
+qwe_x = data_train %>% slice_head(n = 300) %>% removeNonNumerics() %>% dplyr::select(-customer_ID)
+qwe_y = train_labels %>% slice_head(n = 300) %>% select(target)
+```
+
+```{r}
+source('/Users/root1/Documents/DAC_Project/R/config.R')
+```
+```{r}
+length(unique(DF$customer_ID))
+```
+
+```{r}
+DF   %>% ungroup() %>% dplyr::select(-c(customer_ID,target))
+```
+
+
+```{r}
+
+DF  = readFromParquet("/Users/root1/Documents/amex-default-prediction/parquet2/")  %>% group_by(customer_ID) %>%  arrange(customer_ID) %>%  slice(n())  %>% ungroup()
+
+model <- keras_model_sequential() %>%
+  layer_dense(units = 1024, activation = 'relu', input_shape = 136, name = "dense1") %>%
+  layer_dropout(rate = 0.4) %>%
+  layer_dense(units = 1024, activation = 'relu', name = "dense2") %>%
+  layer_dropout(rate = 0.3) %>%
+  layer_dense(units = 1024, activation = 'relu', name = "dense3") %>%
+  layer_dropout(rate = 0.1) %>%  
+  layer_dense(units = 1, activation = 'sigmoid', name = "dense4")  %>% 
+  compile(loss = 'binary_crossentropy', 
+          metrics = "accuracy",
+          optimizer = optimizer_adam(learning_rate = 0.00001),
+  )
+
+# training and evaluation
+fit <- model %>% fit(
+  as.matrix(DF  %>% dplyr::select(-c(customer_ID,target))),
+  DF$target,
+  #x = data[i_train,], y = (train_labels$target)[i_train],
+  #validation_data = list(data[i_val,], (train_labels$target)[i_val]),
+  epochs = 200,
+  batch_size = 2048, #floor(nrow(data)*0.01),
+  verbose = TRUE,
+  validation_split = 0.2,
+  callbacks = callback_early_stopping(monitor = "val_loss", patience = 5)
+)
+```
+
+
+
+```{r}
+ data[i_train,] %>% removeNonNumerics() %>% dplyr::select(-customer_ID)
+```
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
+
+
+```{r}
+dataset <- text_line_dataset("mtcars.csv", record_spec = mtcars_spec) %>%
+  dataset_filter(function(record) {
+    record$mpg >= 20 & record$cyl >= 6L
+  }) %>% 
+  dataset_shuffle_and_repeat(buffer_size = 1000, count = 10) %>% 
+  dataset_prepare(cyl ~ mpg + disp, batch_size = 128) %>% 
+  dataset_prefetch(1)
+```
+
+
+
+```{r}
+library(keras)
+library(tfdatasets)
+
+batch_size = 128
+steps_per_epoch = 500
+
+# function to read and preprocess mnist dataset
+mnist_dataset <- function(filename) {
+  dataset <- tfrecord_dataset(filename) %>%
+    dataset_map(function(example_proto) {
+
+      # parse record
+      features <- tf$parse_single_example(
+        example_proto,
+        features = list(
+          image_raw = tf$FixedLenFeature(shape(), tf$string),
+          label = tf$FixedLenFeature(shape(), tf$int64)
+        )
+      )
+
+      # preprocess image
+      image <- tf$decode_raw(features$image_raw, tf$uint8)
+      image <- tf$cast(image, tf$float32) / 255
+
+      # convert label to one-hot
+      label <- tf$one_hot(tf$cast(features$label, tf$int32), 10L)
+
+      # return
+      list(image, label)
+    }) %>%
+    dataset_repeat() %>%
+    dataset_shuffle(1000) %>%
+    dataset_batch(batch_size, drop_remainder = TRUE) %>%
+    dataset_prefetch(1)
+}
+
+model <- keras_model_sequential() %>%
+  layer_dense(units = 256, activation = 'relu', input_shape = c(784)) %>%
+  layer_dropout(rate = 0.4) %>%
+  layer_dense(units = 128, activation = 'relu') %>%
+  layer_dropout(rate = 0.3) %>%
+  layer_dense(units = 10, activation = 'softmax')
+
+model %>% compile(
+  loss = 'categorical_crossentropy',
+  optimizer = optimizer_rmsprop(),
+  metrics = c('accuracy')
+)
+
+history <- model %>% fit(
+  mnist_dataset("mnist/train.tfrecords"),
+  steps_per_epoch = steps_per_epoch,
+  epochs = 20,
+  validation_data = mnist_dataset("mnist/validation.tfrecords"),
+  validation_steps = steps_per_epoch
+)
+
+score <- model %>% evaluate(
+  mnist_dataset("mnist/test.tfrecords"),
+  steps = steps_per_epoch
+)
+
+print(score)
+```
+```{r}
+writeCleansedCSV(file = "train_data", newFile = "cleandata",chunkSize = 100000)
+```
+
+
+```{r}
+read_parquet( "/Users/root1/Documents/amex-default-prediction/parquet2")
+```
+
