@@ -18,7 +18,11 @@ packages = c(
   "tfdatasets",
   "inline",
   "Rcpp",
-  "e1071"
+  "e1071",
+  "onlinePCA",
+  "missMDA",
+  "mltools",
+  "splitTools"
 )
 
 install.packages(
@@ -125,7 +129,7 @@ getCache = function(file, callbackFunc, prefix, chunkSize = 100000, override = F
   #If we cant find cache on disk, move to chunking
   # Load chunks and process using callbackFunc, assign to cacheName in the global env
   
-  print(glue(getCache," - ","creating cache from csv: ",cacheName))
+  print(glue(cacheName," - ","creating cache from csv: ",filePath))
   
   assign(cacheName,
          suppressWarnings(

@@ -1,0 +1,50 @@
+```{r}
+
+get_ncpPCA = function(file,override = FALSE){
+  f <- function(x, pos){
+
+    x = x %>% removeNonNumerics %>% removeCleansedCols %>% select(-customer_ID) %>% scale
+    x = imputePCA(x)$completeObs
+    print(dim(x))
+    
+    # Initial PCA
+    if(pos == 1){
+      pca = princomp(x)
+      PCA <<- list(values=pca$sdev^2, vectors=pca$loadings, xbar = pca$center)
+      return(1)
+    }
+    
+    # Incrimental PCA
+    batchsize = ifelse(nrow(x) == 100000,100000,nrow(x))
+                       
+    xbar = PCA$xbar
+    pca = PCA
+    
+    for(i in 1:nrow(x)){
+      xbar = updateMean(xbar, x[i,], pos+i-2)
+      pca = ccipca(pca$values, pca$vectors, x[i,], pos+i-2, center = xbar) 
+    }
+
+    PCA <<- list(values = pca$values, vectors = pca$vectors, xbar = xbar)
+    return(1)
+  }
+  
+  getCache(file, f, prefix = "ncpPCA", override = override)
+}
+
+get_ncpPCA("train_data")
+save(PCA, file = glue(PATH_DB,"cache/","ncpPCA-train_data"))
+```
+
+```{r}
+# Cumulative Explained Variance
+cev = c()
+for(i in 1:length(PCA$values)){
+  cev[i] = sum(PCA$values[1:i,]) / sum(PCA$values)
+}
+plot(cev, type = "l")
+
+
+num_pc = which(cev >= 0.95) %>% min
+
+```

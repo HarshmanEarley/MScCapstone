@@ -1,32 +1,47 @@
-getInterval_loadData = function(file, column){
-  print("getInterval_loadData")
-  #read in column and omit NA
-  print(glue("reading ", column))
-  vec = read_csv(getFilePath(file), col_select = column, show_col_types = FALSE) %>% pull()
-  vec = na.omit(vec)
-  if(any(vec < 0)){ #gcd algo cant handle neg
-    return(NA)
+getInterval_loadData = function(columns,cachePath){
+  print("Running getInterval_loadData")
+  #read in full data from parquet
+  DF = readFromParquet(glue(PATH_DB,"parquet"))
+  cols_N = length(columns)
+  
+  #For each column call getInterval and save result
+  for(i in 1:cols_N){
+    print(glue("getting interval for ",columns[i]))
+    
+    # call getInterval for column
+    vec = DF[,columns[i]][[1]] %>% na.omit
+    res = getInterval(vec)
+    
+    ## Map NA results to NA list
+    if(all(is.na(res))){
+      res = list(column = columns[i], interval = NA, confidence = NA)
+    }
+    
+    # save to cache
+    INTERVALS <<- INTERVALS %>% add_row(column = columns[i], interval = res$interval, confidence = res$confidence)
+    save(INTERVALS, file = cachePath)
   }
-  print(glue("getInterval ", column))
-  getInterval(vec)
+  
+  INTERVALS
 }
 
 
 getInterval = function(vec){
-  print("getInterval")
   nums = c()
+  ks_p = c()
   i = 1
   nums[1] = min(vec)
   max_vec = max(vec)
   
   #While below max value, find min value in chunks of 0.01
   while(max_vec > (last(nums) + 0.01)){
-    #print(last(nums))
     boundMin = ifelse(i == 1, min(vec), min(vec[!vec <= (nums[i-1]+ 0.01)]))
     bound = vec[between(vec, boundMin, boundMin + 0.01)]
-    #nums[i] = median(bound) - 0.005
-    #if(nums[i] < 0){nums[i] = 0}
     nums[i] = min(bound)
+    
+    #Use Kolmogorov-Smirnov test to check remainders are uniform(0, 0.01)
+    #H0: bound comes from unif dist
+    ks_p[i] = ks.test(bound %% 0.01,"punif",0, 0.01)$p
     i = i+1
   }
   
@@ -43,13 +58,8 @@ getInterval = function(vec){
     }
     
     intervals[k] = (numDenom[1]/numDenom[2])
-    #invs = ccpwrap_gdcFloat( nums[k], nums[k+1])
-    #Test to see if all values are multiples of the interval, to 0.000000000000001 precision (one place less than test case)
-    #validation = all((nums %%  medInterval) < (0.0000001))
-    #intervals[k] = ifelse(TRUE, invs, NA)
   }
   
-  #median(intervals)
   tableInter = table(intervals)
   candidate = as.numeric(names(tableInter[which(tableInter == max(tableInter))]))
   
@@ -57,41 +67,26 @@ getInterval = function(vec){
     return(NA)
   }
   
-  #modulo remainder iid uniform (0,0.1) by assumptions, thus mu_hat = 0.005
-  if(!0.005 == round(mean(vec %% candidate),5)){
-    return(NA)
-  }
-  
-  #Use Kolmogorov-Smirnov test to check remainders are uniform(0, 0.01) with 70
-  #If we reject H0: bound comes from unif dist, return NA
-  # As sample size is large, normalize p value 
-  # https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.518.5341&rep=rep1&type=pdf
   rem = vec %% candidate
-  ks_p = ks.test(rem,"punif",0, 0.01)$p
-  #ks_p = min(0.5, (ks.test(rem,"punif",0, 0.01)$p) * sqrt(length(rem)/100))
-  
-  if(ks_p < 0.05){
-    return(NA)
-  }
-  
-  return(candidate)
+ 
+  return(list(interval = candidate, confidence = sum(ks_p > 0.05)/length(ks_p)))
 }
 
 
-
-intervals_main = function(){  
-  print("Running intervals_main")
+intervals_main = function(cacheName){  
+  cachePath = glue(PATH_DB,"cache/",cacheName)
+  print(glue("Running intervals_main, saving to ",cachePath))
+  
   #read colnames from first row of training data
-  cols = read_csv(getFilePath("train_data"), n_max = 1, show_col_types = FALSE)  %>% removeNonNumerics() %>% dplyr::select(-customer_ID) %>% colnames()
-  intervals = list()
+  columns = read_csv(getFilePath("train_data"), n_max = 1, show_col_types = FALSE)  %>% removeNonNumerics() %>% dplyr::select(-customer_ID) %>% colnames()
+  INTERVALS <<- data.frame(column = character(), interval = numeric(), confidence = numeric())
   
   #Try load from cache
-  cachePath = glue(PATH_DB,"cache/","intervals")
-  try({load(cachePath)
-      cols = cols[!cols %in% names(intervals)]
-    })
+  try({load(cachePath, envir = .GlobalEnv)
+    columns = columns[!columns %in%  INTERVALS$column]
+  })
   
-  cols_N = length(cols)
+  cols_N = length(columns)
   
   #Return if we got em all.
   if(cols_N == 0){
@@ -99,9 +94,66 @@ intervals_main = function(){
   }
   
   #Else calc missing intervals 
-  for(i in 1:cols_N){
-    print(glue("getting interval for ",cols[i]))
-    intervals[[cols[i]]] = getInterval_loadData("train_data", cols[i])
-    save(intervals, file = cachePath)
-  }
+  getInterval_loadData(columns,cachePath)
 }
+
+getNoiseIntervals = function(){
+  
+  cachePath = glue(PATH_DB,"cache/","interval")
+  
+  if(!exists("INTERVALS")){
+    #Try load from cache
+    try({load(cachePath, envir = .GlobalEnv)
+    })
+  }
+  
+  #If not in cache
+  if(!exists("INTERVALS")){
+    print("No noise intervals found, need to run intervals_main")
+  }
+  
+  #Return only intervals where we have 95% confidence in its validity
+  inter = na.omit(INTERVALS)  %>% arrange(column)
+  return(inter[inter$confidence > 0.95,])
+}
+
+convertNoiseToInt = function(DF){
+  intervals = getNoiseIntervals()
+  for(i in 1:nrow(intervals)){
+    colName = intervals[i,]$column
+    if(colName %in% colnames(DF)){
+      DF[,colName] = as.integer(floor(DF[,colName] / (intervals[i,]$interval + 1e8))[[1]])
+    }
+  }
+  
+  DF
+}
+
+##########################################################
+######## Plot columns with results to pdf ###############
+#########################################################
+plotNoiseHistByColumn = function(){
+  print("Running plotNoiseHistByColumn, saving histograms to PDF")
+  #load DF
+  DF = readFromParquet(glue(PATH_DB,"parquet"))
+  intervals = getNoiseIntervals()
+  
+  #select pdf
+  pdf(file= glue(PATH_DB,"plots/noisePlots.pdf"),onefile=TRUE)
+  print(glue("file = ",PATH_DB,"plots/noisePlots.pdf"))
+  
+  par( mfrow= c(3,1))
+  for(i in 1:nrow(intervals)){
+    interval = intervals[i,]
+    print(glue("Saving plot to PDF : ", interval$column))
+    vec = DF[, interval$column][[1]]
+    
+    hist(vec,  main =  glue(interval$column," : ",interval$interval, "\n Confidence :", interval$confidence), breaks = 100000)
+    hist(vec, xlim = c(0,1), main =  " " , breaks = 100000)
+    hist(vec, xlim = c(0,0.2), main = " ", breaks = 100000)
+  }
+  
+  dev.off()
+}
+
+
