@@ -10,7 +10,7 @@ rf_complete <- function(pred_train , target_train ,
                         pred_val , target_val,
                         pred_test , target_test){
   #  default number of trees
-  def_tree <- 150
+  def_tree <- 100
   #tuning run - get number of trees to minimize validation error
   ntrees <- which.min(randomForest(x = pred_train , y=target_train, 
                                    xtest = pred_val, ytest = target_val,
@@ -18,7 +18,7 @@ rf_complete <- function(pred_train , target_train ,
   # test run - get confusion matrix
   conf <- randomForest(x = pred_train , y=target_train,
                        xtest = pred_test, ytest = target_test,
-                       ntree = min(def_tree, ntrees))$test$confusion
+                       mtry = 30, ntree = min(def_tree, ntrees))$test$confusion
   
   # calculate sensitivity, specificity and accuracy
   # columns are predicted values
