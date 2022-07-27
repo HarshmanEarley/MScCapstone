@@ -73,8 +73,8 @@ getNACounts = function(file,override = FALSE){
 
 cleansCols_NA = function(file, threshold = 0.1){
   #remove cols with % NA above threshold
-  x = colSums(getNACounts(file))
-  names(x)[which((x/train_data_N) >= threshold)]
+  nNA = colSums(getNACounts(file))
+  names(x)[which((nNA/train_data_N) >= threshold)]
 }
 
 ##########################################################################################
@@ -105,12 +105,22 @@ cleansCols_COROLATION = function(file, threshold = 0.95){
   colnames(x)[which(colMeans(x) > threshold)] %>% strsplit("-")  %>% lapply('[[', 2) %>% unlist()
 }
 
+##########################################################################################
+########                     Cache Unique Customer ID                           ########
+##########################################################################################
+
+getUniqueCustomerID = function(file,override = FALSE){
+  f <- function(x, pos){
+    x$customer_ID  %>% unique
+  }
+  
+  getCache(file, f, prefix = "CUSTOMERID", override = override)
+}
+
 
 ##########################################################################################
 ########                     Convert Catagorical Columns to INT                  ########
 ##########################################################################################
-#Load customer IDs
-load(glue(PATH_DB,"cache/customerID"))
 
 catagoricalToInts = function(DF){
   catagoricalToInts_debug <<- DF
@@ -135,7 +145,7 @@ catagoricalToInts = function(DF){
   cols_char = c('D_63','D_64')
   
   if('customer_ID' %in% colnames(DF)){
-    DF[,'customer_ID'] = as.integer(match(DF[,'customer_ID'][[1]], CUSTOMER_ID))
+    DF[,'customer_ID'] = as.integer(match(DF[,'customer_ID'][[1]], getUniqueCustomerID('train_data')))
   }
   
   DF
@@ -157,14 +167,11 @@ getColsToRemove = function(file = "train_data"){
 ### 
 # read csv, cleanse, and write result back to new file
 ###
-writeCleansedToParquet = function(file, newFile, chunkSize = 100000){ 
+writeCleansedToParquet = function(file, chunkSize = 100000){ 
   file = getFilePath(file,".csv")
-  newFile = paste(c(newFile,"csv"), collapse = ".")
-  newFile = paste(c(strsplit(file, "/")[[1]] %>% head(-1),newFile), collapse = "/") #put new file in same dir as old
-  
+
   f = function(x,pos){
     x = x %>%  left_join(train_labels, by="customer_ID") %>% removeCleansedCols %>% catagoricalToInts  %>% convertNoiseToInt
-    #write_csv(x, newFile, append = ifelse(pos == 1, FALSE, TRUE))
     write_parquet(x,  glue(PATH_DB,"parquet/cleansed_",pos))
   }
   
@@ -176,6 +183,7 @@ writeCleansedToParquet = function(file, newFile, chunkSize = 100000){
       progress = TRUE
     )
   )
+
 }
 
 #writeCleansedCSV(file = "train_data", newFile = "cleandata")

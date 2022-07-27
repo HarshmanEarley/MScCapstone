@@ -42,13 +42,31 @@ for(pkg in packages){
 #######################
 # PATHS ########
 #######################
+user = 'Sidney'
 
 #Working directory
-PATH_WD = '/Users/root1/Documents/DAC_Project/R/'
-setwd(PATH_WD)
+if(user == 'Sidney'){
+  if(.Platform$OS.type == 'unix'){
+    PATH_WD = '/Users/root1/Documents/DAC_Project/R/'
+    PATH_DB = '/Users/root1/Documents/amex-default-prediction/'
+  }
+  if(.Platform$OS.type == 'windows'){
+    PATH_WD = 'C:\\Users\\sidne\\Documents\\GitHub\\DAC_Project\\R\\'
+    PATH_DB = 'C:\\Users\\sidne\\Documents\\amexDatabase\\'
+  }
+}
+if(user == 'Denis'){
+  if(.Platform$OS.type == 'unix'){
+    PATH_WD = '/Users/root1/Documents/DAC_Project/R/'
+    PATH_DB = '/Users/root1/Documents/amex-default-prediction/'
+  }
+  if(.Platform$OS.type == 'windows'){
+    PATH_WD = 'C:\\Users\\sidne\\Documents\\GitHub\\DAC_Project\\R\\'
+    PATH_DB = 'C:\\Users\\sidne\\Documents\\amexDatabase\\'
+  }
+}
 
 #Database files
-PATH_DB = '/Users/root1/Documents/amex-default-prediction/'
 FILES_DB = c('test_data','train_data','train_labels')
 
 #Create cache
@@ -153,7 +171,7 @@ getCache = function(file, callbackFunc, prefix, chunkSize = 100000, override = F
 # Load Data #
 ###############
 
-train_labels = read_csv(getFilePath("train_labels"))
+train_labels = read_csv(getFilePath("train_labels"));
 
 ################
 # Packages ####
