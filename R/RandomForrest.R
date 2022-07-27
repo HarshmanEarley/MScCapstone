@@ -9,16 +9,15 @@ library(randomForest)
 rf_complete <- function(pred_train , target_train ,
                         pred_val , target_val,
                         pred_test , target_test){
-  #  default number of trees
-  def_tree <- 100
+
   #tuning run - get number of trees to minimize validation error
   ntrees <- which.min(randomForest(x = pred_train , y=target_train, 
                                    xtest = pred_val, ytest = target_val,
-                                   mtry = 30, ntree = def_tree)$test$err.rate[,1] )
+                                   mtry = 30, ntree = 100)$test$err.rate[,1] )
   # test run - get confusion matrix
   conf <- randomForest(x = pred_train , y=target_train,
                        xtest = pred_test, ytest = target_test,
-                       mtry = 30, ntree = min(def_tree, ntrees))$test$confusion
+                       mtry = 30, ntree = min(100, ntrees))$test$confusion
   
   # calculate sensitivity, specificity and accuracy
   # columns are predicted values
@@ -27,9 +26,7 @@ rf_complete <- function(pred_train , target_train ,
   spec <- conf[1,1]/sum(conf[1,c(1,2)])
   acc <- sum(diag(conf))/ sum(conf[c(1,2),c(1,2)])
   # return results as list
-  results <- list(ntrees, sens, spec, acc)
-  names(results) = c("ntrees","sens", "spec", "acc")
-  
+  results <- c(ntrees, sens, spec, acc)
   return( results)
 }
 
@@ -43,7 +40,6 @@ readFromParquet = function(filePath){
   ## Convert it to an R data frame
   as.data.frame(at)
 }
-
 
 
 # readFromParquet("/Users/root1/Documents/amex-default-prediction/parquet/")
