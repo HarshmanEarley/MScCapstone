@@ -71,10 +71,10 @@ getNACounts = function(file,override = FALSE){
 
 #getNACounts("train_data")
 
-cleansCols_NA = function(file, threshold = 0.9){
-  #threshold = pct of NA in col
-  x = getNACounts(file)
-  colnames(x)[-which(colSums(x) <= round(train_data_N*threshold))] 
+cleansCols_NA = function(file, threshold = 0.1){
+  #remove cols with % NA above threshold
+  x = colSums(getNACounts(file))
+  names(x)[which((x/train_data_N) >= threshold)]
 }
 
 ##########################################################################################
@@ -107,13 +107,47 @@ cleansCols_COROLATION = function(file, threshold = 0.95){
 
 
 ##########################################################################################
+########                     Convert Catagorical Columns to INT                  ########
+##########################################################################################
+#Load customer IDs
+load(glue(PATH_DB,"cache/customerID"))
+
+catagoricalToInts = function(DF){
+  catagoricalToInts_debug <<- DF
+  #Convert double categorical variables to ints 
+  cols_int = c('B_30', 'B_38', 'D_114', 'D_116', 'D_117', 'D_120', 'D_126', 'D_66', 'D_68')
+  cols_int = cols_int[cols_int %in% colnames(DF)]
+  
+  for(i in 1:length(cols_int)){
+    DF[,cols_int[i]] = as.integer(DF[,cols_int[i]][[1]])
+  }
+  
+  # Replace char cols with ints
+  cols_char = c('D_63','D_64')
+  cols_char = cols_char[cols_char %in% colnames(DF)]
+  #Define values to map
+  map = list(D_63 = c('CL', 'CO', 'CR','XL', 'XM', 'XZ'), D_64 =c('-1','O', 'R', 'U'))
+  for(i in 1:length(cols_char)){
+    DF[,cols_char[i]] = as.integer(match(DF[,cols_char[i]][[1]], map[cols_char[i]][[1]]))
+  }
+  
+  # Replace customer_ID with int
+  cols_char = c('D_63','D_64')
+  
+  if('customer_ID' %in% colnames(DF)){
+    DF[,'customer_ID'] = as.integer(match(DF[,'customer_ID'][[1]], CUSTOMER_ID))
+  }
+  
+  DF
+}
+##########################################################################################
 ########                     Cleansing Csv                       ########
 ##########################################################################################
 
 getColsToRemove = function(file = "train_data"){
   Reduce(union,
          list(
-           cleansCols_NA(file,threshold = 0.9),
+           cleansCols_NA(file,threshold = 0.1),
            cleansCols_COROLATION(file,threshold = 0.9),
            cleansCols_VARIANCE(file,threshold = 0.001)
          )
@@ -123,16 +157,15 @@ getColsToRemove = function(file = "train_data"){
 ### 
 # read csv, cleanse, and write result back to new file
 ###
-writeCleansedCSV = function(file, newFile, chunkSize = 1000000){ 
+writeCleansedToParquet = function(file, newFile, chunkSize = 100000){ 
   file = getFilePath(file,".csv")
   newFile = paste(c(newFile,"csv"), collapse = ".")
   newFile = paste(c(strsplit(file, "/")[[1]] %>% head(-1),newFile), collapse = "/") #put new file in same dir as old
   
   f = function(x,pos){
-    x = x %>%  left_join(train_labels, by="customer_ID") %>% removeCleansedCols %>% removeNonNumerics
-   # write_csv(x, newFile, append = ifelse(pos == 1, FALSE, TRUE))
-    print("write_parquet")
-    write_parquet(x, glue("/Users/root1/Documents/amex-default-prediction/parquet2/cleansed_",pos))
+    x = x %>%  left_join(train_labels, by="customer_ID") %>% removeCleansedCols %>% catagoricalToInts  %>% convertNoiseToInt
+    #write_csv(x, newFile, append = ifelse(pos == 1, FALSE, TRUE))
+    write_parquet(x,  glue(PATH_DB,"parquet/cleansed_",pos))
   }
   
   suppressWarnings(

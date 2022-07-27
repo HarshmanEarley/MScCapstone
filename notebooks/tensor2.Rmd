@@ -4,45 +4,70 @@ output: html_notebook
 ---
 
 ```{r}
-gc()
-```
-
-
-```{r, echo = FALSE}
 source('/Users/root1/Documents/DAC_Project/R/config.R')
-data_train = read_parquet("/Users/root1/Documents/amex-default-prediction/parquet/train.parquet")
 ```
 
 ```{r}
-head(data_train)
-```
-
-
-```{r}
-format(object.size(data_train), units = "Gb")
+kaggleParquet =  readFromParquet('/Users/root1/Downloads/train.parquet')
 ```
 
 ```{r}
-benchmark(data_train[sample(1:nrow(data_train), round(0.001*nrow(data_train)), replace=F),]
-          
-          )
-```
-
-
-
-```{r, echo = FALSE}
-source('/Users/root1/Documents/DAC_Project/R/config.R')
-data_train = read_parquet("/Users/root1/Documents/amex-default-prediction/parquet/train.parquet", n_max = 10)
+kaggleParquet
 ```
 
 ```{r}
-seq(0,1,0.001)
+data
 ```
 
 
+
 ```{r}
-p = seq(0,1,0.001)
-plot(p, p*sqrt(5500000/100), ylim = c(0,0.05),xlim = c(0,0.001), type = "l")
+readFromParquet = function(filePath){
+  ads = arrow::open_dataset(sources =  filePath)
+  ## Create a scanner
+  scan = Scanner$create(ads)
+  ## Load it as n Arrow Table in memory
+  at = scan$ToTable()
+  ## Convert it to an R data frame
+  as.data.frame(at)  
+}
+
+readFromParquet("/Users/root1/Documents/amex-default-prediction/parquet/")
+```
+
+```{r}
+
+data = readFromParquet("/Users/root1/Documents/amex-default-prediction/parquet2/") %>% group_by(customer_ID) %>%  arrange(customer_ID) %>%   slice(which.max(S_2))  %>% ungroup()  %>% dplyr::select(-c(customer_ID,S_2)) 
+
+```
+
+
+
+
+
+```{r}
+data = kaggleParquet
+```
+
+```{r}
+kagglevols = c("target", "D_39", "B_1", "R_1", "B_4",
+"B_5", "R_2", "D_47", "B_7", "D_51", "B_9", "R_3", "B_10", "S_5", 
+"S_6", "R_4", "B_12", "S_8", "R_5", "D_58", "B_14", "D_60", "S_11", "D_63",
+"D_65", "B_18", "S_12", "R_6", "S_13", "B_21", "D_71", "S_15", "P_4",
+ "B_24", "R_8", "S_16", "R_10", "R_11", "S_17", "B_28", "R_15",
+"R_16", "S_18", "D_86",  "B_31", "R_19", "B_32", "S_20",
+"R_21", "R_22",  "D_92", "D_93", "D_94", "R_24", "R_25", "D_96", 
+"D_127")
+
+
+data = data %>% select(kagglevols)
+```
+
+
+#Split target from dataframe
+```{r}
+data_y  = merge(x = data %>% select(customer_ID), y = train_labels, by = "customer_ID", all.x = TRUE)$target
+data = data  %>% dplyr::select(-c(customer_ID,S_2)) %>% scale
 ```
 
 
@@ -52,173 +77,150 @@ i_total = 1:N
 
 #sample validation index
 i_val = sample(i_total, floor(N*0.3))
-i_total = i_total[!i_total %in% i_train]
+i_total = i_total[!i_total %in% i_val]
 
 #sample test index
 i_test = sample(i_total, floor(N*0.2))
-i_total = i_total[!i_total %in% i_train]
+i_total = i_total[!i_total %in% i_test]
 
 #remainder for train
 i_train = i_total
-```
 
-```{r}
-qwe_x = data_train %>% slice_head(n = 300) %>% removeNonNumerics() %>% dplyr::select(-customer_ID)
-qwe_y = train_labels %>% slice_head(n = 300) %>% select(target)
-```
+# Assign dataframes
+x_train = data[i_train,]
+x_val = data[i_val,]
+x_test = data[i_test,]
+rm(data)
 
-```{r}
-source('/Users/root1/Documents/DAC_Project/R/config.R')
-```
-```{r}
-length(unique(DF$customer_ID))
-```
+#Assign lables
+y_train = data_y[i_train]
+y_val = data_y[i_val]
+y_test = data_y[i_test]
+rm(data_y)
 
-```{r}
-DF   %>% ungroup() %>% dplyr::select(-c(customer_ID,target))
+
 ```
 
 
 ```{r}
-
-DF  = readFromParquet("/Users/root1/Documents/amex-default-prediction/parquet2/")  %>% group_by(customer_ID) %>%  arrange(customer_ID) %>%  slice(n())  %>% ungroup()
+N_input = ncol(x_train)
 
 model <- keras_model_sequential() %>%
-  layer_dense(units = 1024, activation = 'relu', input_shape = 136, name = "dense1") %>%
-  layer_dropout(rate = 0.4) %>%
-  layer_dense(units = 1024, activation = 'relu', name = "dense2") %>%
-  layer_dropout(rate = 0.3) %>%
-  layer_dense(units = 1024, activation = 'relu', name = "dense3") %>%
-  layer_dropout(rate = 0.1) %>%  
-  layer_dense(units = 1, activation = 'sigmoid', name = "dense4")  %>% 
+  layer_dense(units = floor(N_input/2), activation = 'relu', input_shape = N_input, name = "dense1",
+              kernel_regularizer = regularizer_l2(0.01)) %>%
+  #layer_batch_normalization(center = TRUE,scale = TRUE) %>%
+  layer_dropout(rate = 0.01) %>%
+  
+  layer_dense(units = floor(N_input/4), activation = 'relu', name = "dense2",
+                            kernel_regularizer = regularizer_l2(0.01)) %>%
+  layer_dropout(rate = 0.01) %>%
+  
+  layer_dense(units = floor(N_input/8), activation = 'relu', name = "dense3",
+                            kernel_regularizer = regularizer_l2(0.01)) %>%
+  layer_dropout(rate = 0.01) %>%  
+  
+  layer_dense(units = floor(N_input/16), activation = 'relu', name = "dense4",
+                            kernel_regularizer = regularizer_l2(0.01)) %>%
+  layer_dropout(rate = 0.01) %>%    
+  
+  layer_dense(units = 1, activation = 'sigmoid', name = "dense5")  %>% 
   compile(loss = 'binary_crossentropy', 
           metrics = "accuracy",
-          optimizer = optimizer_adam(learning_rate = 0.00001),
+          optimizer = optimizer_adam(learning_rate = 0.1),
   )
 
 # training and evaluation
 fit <- model %>% fit(
-  as.matrix(DF  %>% dplyr::select(-c(customer_ID,target))),
-  DF$target,
+  x = x_train, y = y_train,
+  validation_data = list(x_val, y_val),
   #x = data[i_train,], y = (train_labels$target)[i_train],
   #validation_data = list(data[i_val,], (train_labels$target)[i_val]),
   epochs = 200,
   batch_size = 2048, #floor(nrow(data)*0.01),
   verbose = TRUE,
-  validation_split = 0.2,
+  validation_split = 0.3,
   callbacks = callback_early_stopping(monitor = "val_loss", patience = 5)
 )
 ```
 
-
-
 ```{r}
- data[i_train,] %>% removeNonNumerics() %>% dplyr::select(-customer_ID)
+tuning_run
 ```
 
 
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////v
-
-
 ```{r}
-dataset <- text_line_dataset("mtcars.csv", record_spec = mtcars_spec) %>%
-  dataset_filter(function(record) {
-    record$mpg >= 20 & record$cyl >= 6L
-  }) %>% 
-  dataset_shuffle_and_repeat(buffer_size = 1000, count = 10) %>% 
-  dataset_prepare(cyl ~ mpg + disp, batch_size = 128) %>% 
-  dataset_prefetch(1)
+  layer_batch_normalization(center = TRUE,scale = TRUE) %>%
 ```
 
-
-
-```{r}
-library(keras)
-library(tfdatasets)
-
-batch_size = 128
-steps_per_epoch = 500
-
-# function to read and preprocess mnist dataset
-mnist_dataset <- function(filename) {
-  dataset <- tfrecord_dataset(filename) %>%
-    dataset_map(function(example_proto) {
-
-      # parse record
-      features <- tf$parse_single_example(
-        example_proto,
-        features = list(
-          image_raw = tf$FixedLenFeature(shape(), tf$string),
-          label = tf$FixedLenFeature(shape(), tf$int64)
-        )
-      )
-
-      # preprocess image
-      image <- tf$decode_raw(features$image_raw, tf$uint8)
-      image <- tf$cast(image, tf$float32) / 255
-
-      # convert label to one-hot
-      label <- tf$one_hot(tf$cast(features$label, tf$int32), 10L)
-
-      # return
-      list(image, label)
-    }) %>%
-    dataset_repeat() %>%
-    dataset_shuffle(1000) %>%
-    dataset_batch(batch_size, drop_remainder = TRUE) %>%
-    dataset_prefetch(1)
-}
-
+```{r, eval = FALSE}
+# set default flags
+FLAGS <- flags(
+  flag_numeric("dropout", 0.4),
+  flag_numeric("lambda", 0.01),
+  flag_boolean("normalization", FALSE),
+  flag_numeric("lr", 0.01),
+  flag_numeric("bs", 512),
+  flag_numeric("epochs", 5),
+  flag_numeric("verbose", 1),
+  flag_string("activationHidden","relu"),
+  flag_string("activationOut","sigmoid"),
+  flag_string("loss","binary_crossentropy")
+)
+# model configuration
 model <- keras_model_sequential() %>%
-  layer_dense(units = 256, activation = 'relu', input_shape = c(784)) %>%
-  layer_dropout(rate = 0.4) %>%
-  layer_dense(units = 128, activation = 'relu') %>%
-  layer_dropout(rate = 0.3) %>%
-  layer_dense(units = 10, activation = 'softmax')
-
-model %>% compile(
-  loss = 'categorical_crossentropy',
-  optimizer = optimizer_rmsprop(),
-  metrics = c('accuracy')
+  layer_dense(units = floor(N_input/2), input_shape = N_input, activation = FLAGS$activationHidden, name = "layer_1",
+              kernel_regularizer = regularizer_l2(FLAGS$lambda)) %>%
+  layer_batch_normalization(center = FLAGS$normalization,scale = FLAGS$normalization) %>%
+  layer_dropout(rate = FLAGS$dropout) %>%
+  layer_dense(units = floor(N_input/4), activation = FLAGS$activationHidden, name = "layer_2",
+              kernel_regularizer = regularizer_l2(FLAGS$lambda)) %>%
+  layer_batch_normalization(center = FLAGS$normalization,scale = FLAGS$normalization) %>%
+  layer_dropout(rate = FLAGS$dropout) %>%
+  layer_dense(units = floor(N_input/8), activation = FLAGS$activationHidden, name = "layer_3",
+              kernel_regularizer = regularizer_l2(FLAGS$lambda)) %>%
+  layer_batch_normalization(center = FLAGS$normalization,scale = FLAGS$normalization) %>%
+  layer_dropout(rate = FLAGS$dropout) %>%
+  layer_dense(units = 1, activation = FLAGS$activationOut, name = "layer_out") %>%
+  compile(loss = FLAGS$loss, 
+          metrics = "accuracy",
+          optimizer = optimizer_adam(learning_rate = FLAGS$lr),
+  )
+# training and evaluation
+fit <- model %>% fit(
+  x = x_train, y = y_train,
+  validation_data = list(x_val, y_val),
+  epochs = FLAGS$epochs,
+  batch_size = FLAGS$bs,
+  verbose = FLAGS$verbose,
+  callbacks = callback_early_stopping(monitor = "val_loss", patience = 10)
 )
-
-history <- model %>% fit(
-  mnist_dataset("mnist/train.tfrecords"),
-  steps_per_epoch = steps_per_epoch,
-  epochs = 20,
-  validation_data = mnist_dataset("mnist/validation.tfrecords"),
-  validation_steps = steps_per_epoch
-)
-
+# store accuracy on test set for each run
 score <- model %>% evaluate(
-  mnist_dataset("mnist/test.tfrecords"),
-  steps = steps_per_epoch
+  x_test, y_test,
+  verbose = FLAGS$verbose
 )
-
-print(score)
-```
-```{r}
-writeCleansedCSV(file = "train_data", newFile = "cleandata",chunkSize = 100000)
 ```
 
+```{r}
+system('pwd')
+```
 
 ```{r}
-read_parquet( "/Users/root1/Documents/amex-default-prediction/parquet2")
+tuning_run("/Users/root1/Documents/DAC_Project/R/CNN.R",
+                        runs_dir = "runs_CNN",
+                        flags = list(
+                          dropout = c(0.1,0.2,0.3),
+                          lambda =  c(0,0.001,0.01,0.1),
+                          normalization = c(TRUE,FALSE),
+                          lr = c(0.01,0.1,0.2),
+                          bs = 512,
+                          epochs = 50,
+                          verbose = 1,
+                          activationHidden = c('relu',"sigmoid"),
+                          activationOut = 'sigmoid',
+                          loss = "binary_crossentropy"
+                        ),
+                        confirm = FALSE
+                  )
 ```
 
