@@ -1,16 +1,16 @@
-getInterval_loadData = function(columns,cachePath){
-  print("Running getInterval_loadData")
+estimateInterval_loadData = function(columns,cachePath){
+  print("Running estimateInterval_loadData")
   #read in full data from parquet
   DF = readFromParquet(glue(PATH_DB,"parquet"))
   cols_N = length(columns)
   
-  #For each column call getInterval and save result
+  #For each column call estimateInterval and save result
   for(i in 1:cols_N){
     print(glue("getting interval for ",columns[i]))
     
-    # call getInterval for column
+    # call estimateInterval for column
     vec = DF[,columns[i]][[1]] %>% na.omit
-    res = getInterval(vec)
+    res = estimateInterval(vec)
     
     ## Map NA results to NA list
     if(all(is.na(res))){
@@ -26,7 +26,7 @@ getInterval_loadData = function(columns,cachePath){
 }
 
 
-getInterval = function(vec){
+estimateInterval = function(vec){
   nums = c()
   ks_p = c()
   i = 1
@@ -73,8 +73,8 @@ getInterval = function(vec){
 }
 
 
-intervals_main = function(cacheName){  
-  cachePath = glue(PATH_DB,"cache/",cacheName)
+intervals_main = function(){  
+  cachePath = glue(PATH_DB,"cache/intervals")
   print(glue("Running intervals_main, saving to ",cachePath))
   
   #read colnames from first row of training data
@@ -94,7 +94,7 @@ intervals_main = function(cacheName){
   }
   
   #Else calc missing intervals 
-  getInterval_loadData(columns,cachePath)
+  estimateInterval_loadData(columns,cachePath)
 }
 
 getNoiseIntervals = function(){
@@ -109,7 +109,7 @@ getNoiseIntervals = function(){
   
   #If not in cache
   if(!exists("INTERVALS")){
-    print("No noise intervals found, need to run intervals_main")
+    intervals_main()
   }
   
   #Return only intervals where we have 95% confidence in its validity

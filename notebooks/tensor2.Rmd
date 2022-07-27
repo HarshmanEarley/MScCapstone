@@ -2,9 +2,108 @@
 title: "R Notebook"
 output: html_notebook
 ---
+```{r}
+setwd(PATH_WD) 
+```
+```{r}
+getFilePath("train_labels")
+```
+```{r}
+
+source(getFilePath("Noise", ".R", checkDBOnly = FALSE))
+source(getFilePath("cleansing_v2", ".R", checkDBOnly = FALSE))
+```
+
 
 ```{r}
-source('/Users/root1/Documents/DAC_Project/R/config.R')
+file = 'train_data'
+writeCleansedToParquet = function(file, chunkSize = 100000){ 
+  file = getFilePath(file,".csv")
+
+  f = function(x,pos){
+    x = x %>%  left_join(train_labels, by="customer_ID") %>% removeCleansedCols %>% catagoricalToInts  %>% convertNoiseToInt
+    write_parquet(x,  glue(PATH_DB,"parquet/cleansed_",pos))
+  }
+  
+  suppressWarnings(
+    read_csv_chunked(
+      file,
+      SideEffectChunkCallback$new(f), 
+      chunk_size = chunkSize,
+      progress = TRUE
+    )
+  )
+}
+
+```
+
+```{r}
+writeCleansedToParquet( 'train_data')
+```
+
+```{r}
+columns = c('P_2')
+cachePath = glue(PATH_DB,"cache/","interval")
+```
+
+```{r}
+estimateInterval_loadData
+
+function(columns,cachePath){
+  print("Running estimateInterval_loadData")
+  #read in full data from parquet
+  DF = readFromParquet(glue(PATH_DB,"parquet"))
+  cols_N = length(columns)
+  
+  #For each column call estimateInterval and save result
+  for(i in 1:cols_N){
+    print(glue("getting interval for ",columns[i]))
+    
+    # call estimateInterval for column
+    vec = DF[,columns[i]][[1]] %>% na.omit
+    res = estimateInterval(vec)
+    
+    ## Map NA results to NA list
+    if(all(is.na(res))){
+      res = list(column = columns[i], interval = NA, confidence = NA)
+    }
+    
+    # save to cache
+    INTERVALS <<- INTERVALS %>% add_row(column = columns[i], interval = res$interval, confidence = res$confidence)
+    save(INTERVALS, file = cachePath)
+  }
+  
+  INTERVALS
+}function(columns,cachePath){
+  print("Running estimateInterval_loadData")
+  #read in full data from parquet
+  DF = readFromParquet(glue(PATH_DB,"parquet"))
+  cols_N = length(columns)
+  
+  #For each column call estimateInterval and save result
+  for(i in 1:cols_N){
+    print(glue("getting interval for ",columns[i]))
+    
+    # call estimateInterval for column
+    vec = DF[,columns[i]][[1]] %>% na.omit
+    res = estimateInterval(vec)
+    
+    ## Map NA results to NA list
+    if(all(is.na(res))){
+      res = list(column = columns[i], interval = NA, confidence = NA)
+    }
+    
+    # save to cache
+    INTERVALS <<- INTERVALS %>% add_row(column = columns[i], interval = res$interval, confidence = res$confidence)
+    save(INTERVALS, file = cachePath)
+  }
+  
+  INTERVALS
+}
+```
+
+```{r}
+source('C:/Users/sidne/Documents/GitHub/DAC_Project/R/config.R')
 ```
 
 
