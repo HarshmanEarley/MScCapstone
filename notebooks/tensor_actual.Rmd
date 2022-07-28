@@ -2,10 +2,8 @@
 title: "R Notebook"
 output: html_notebook
 ---
-
-
 ```{r}
-source("/Users/root1/Documents/DAC_Project/R/config.R")
+source("C:\\Users\\sidne\\Documents\\GitHub\\DAC_Project\\R\\config.R")
 ```
 
 ```{r}
@@ -37,13 +35,11 @@ for(i in 1:length(catCols)){
 data = data %>% mutate_all(~ifelse(is.na(.), median(., na.rm = TRUE), .))
 ```
 
-
-
 ```{r}
 N = nrow(data)
 
 #Load index
-load(glue(PATH_DB,"trainTestIndex"))
+load(getFilePath('trainTestIndex',''))
 
 trainTestIndex =  c(trainTestIndex, partition(trainTestIndex$trainVal, p = c(train = 0.7, val= 0.3)))
 
