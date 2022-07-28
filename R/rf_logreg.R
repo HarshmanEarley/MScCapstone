@@ -1,6 +1,8 @@
 
 gc()
 
+source('C:\\Users\\sidne\\Documents\\GitHub\\DAC_Project\\R\\config.R')
+
 library(arrow)
 library(magrittr)
 library(tidyverse)
@@ -9,6 +11,7 @@ library(splitTools)
 library(randomForest)
 library(ROCR)
 library(glue)
+library(caret)
 
 readFromParquet = function(filePath){
   ads = arrow::open_dataset(sources =  filePath)
@@ -31,8 +34,7 @@ tabfunc <- function(pred, obs){
 }
 
 
-parquets_dir <- "C:/Users/denis/Documents/ACM40960 - Projects in Maths Modelling/parquets/data_lastPerCustomerID.parquet"
-
+parquets_dir <- getFilePath('data_lastPerCustomerID','.parquet')
 data <- readFromParquet(parquets_dir)
 #dim(data)
 
@@ -83,7 +85,7 @@ data$D_64 <- as.factor(data$D_64)
 
 
 # train/val and test split 
-load("C:/Users/denis/Documents/ACM40960 - Projects in Maths Modelling/parquets/trainTestIndex")
+load(getFilePath('trainTestIndex',''))
 #trainTestIndex$trainVal
 #trainTestIndex$test
 
@@ -95,19 +97,22 @@ y_test <- data_y[trainTestIndex$test]
 
 rm(data, data_y)
 
-
+library(parallel)
+library(doParallel)
+cl <- makeCluster(8)
+registerDoParallel(cores=4)
 
 # RANDOM FOREST
 ###################################################################################
 
 
 # three folds and 10 repeats
-train_ctrl <- trainControl(method = "repeatedcv", number = 3, repeats = 10, allowParallel = TRUE)
+train_ctrl <- caret::trainControl(method = "repeatedcv", number = 3, repeats = 5, allowParallel = TRUE)
 
-tune_grid <- expand.grid( mtry = c(10,20,30,40,50) )
+tune_grid <- expand.grid( mtry = c(5,10,15))
 
-rf <- train(x = x_trainval, y = as.factor(y_trainval), method = "rf",
-                      trControl = train_ctrl, tuneGrid = tune_grid, ntree = 150)
+rf <- caret::train(x = x_trainval, y = as.factor(y_trainval), method = "rf",
+                      trControl = train_ctrl, tuneGrid = tune_grid, ntree = 10, verbose = TRUE)
 
 
 pred <- predict(rf, newdata = x_test)
@@ -122,10 +127,10 @@ tabfunc(y_test, pred) # test results
 ###################################################################################
 
 # three folds and 10 repeats
-train_ctrl <- trainControl(method = "repeatedcv", number = 3, repeats = 10, allowParallel = TRUE)
+train_ctrl <- caret::trainControl(method = "repeatedcv", number = 3, repeats = 10, allowParallel = TRUE)
 
 # fit model
-lr <- train(x = x_trainval, y = as.factor(y_trainval), method = "glm", family = "binomial",trControl = train_ctrl)
+lr <- caret::train(x = x_trainval, y = as.factor(y_trainval), method = "glm", family = "binomial",trControl = train_ctrl)
 
 
 

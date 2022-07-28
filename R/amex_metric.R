@@ -20,7 +20,7 @@ amex_metric = function(target, pred){
     # define weight (negative labels are given a weight of 20 to adjust for down sampling)
     df[,'weight'] = ifelse(df[,'target'] == 0, 20, 1)
     # get rows under 4% cutoff
-    pctCut = as.integer(sum(0.04*D[,'weight']))
+    pctCut = as.integer(sum(0.04*df[,'weight']))
     pctCut = df[cumsum(df[,'weight']) <= pctCut,]
     
     # return
