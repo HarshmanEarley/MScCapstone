@@ -15,6 +15,7 @@ packages = c(
   "rbenchmark",
   "tensorflow",
   "keras",
+  'tfruns',
   "tfdatasets",
   "inline",
   "Rcpp",
