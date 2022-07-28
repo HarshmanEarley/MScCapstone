@@ -15,6 +15,11 @@ source(getFilePath("cleansing_v2", ".R", checkDBOnly = FALSE))
 ```
 
 
+
+```{r}
+dir(path=glue(PATH_DB,"parquet"),  pattern="cleansed")
+```
+
 ```{r}
 file = 'train_data'
 writeCleansedToParquet = function(file, chunkSize = 100000){ 
@@ -38,7 +43,77 @@ writeCleansedToParquet = function(file, chunkSize = 100000){
 ```
 
 ```{r}
+source(glue(PATH_WD,'config.R'))
 writeCleansedToParquet( 'train_data')
+```
+
+```{r}
+columns = columns[!columns %in% nonNumerics]
+```
+
+```{r}
+intervals_main
+
+function(){  
+  cachePath = glue(PATH_DB,"cache/intervals")
+  print(glue("Running intervals_main, saving to ",cachePath))
+  
+  #read colnames from first row of training data
+  columns = (open_dataset(sources = glue(PATH_DB,"parquet"))$schema$names) 
+  nonNumerics = c("customer_ID",'S_2', 'B_30', 'B_38', 'D_114', 'D_116', 'D_117', 'D_120', 'D_126', 'D_63', 'D_64', 'D_66', 'D_68')
+  columns = columns[!columns %in% nonNumerics]
+  
+  INTERVALS <<- data.frame(column = character(), interval = numeric(), confidence = numeric())
+  
+  #Try load from cache
+  try({load(cachePath, envir = .GlobalEnv)
+    columns = columns[!columns %in%  INTERVALS$column]
+  })
+  
+  cols_N = length(columns)
+  
+  #Return if we got em all.
+  if(cols_N == 0){
+    return(1)
+  }
+  
+  #Else calc missing intervals 
+  estimateInterval_loadData(columns,cachePath)
+}
+```
+
+
+```{r}
+open_dataset(sources = glue(PATH_DB,"parquet"))$schema$names
+```
+
+```{r}
+function(columns,cachePath){
+  print("Running estimateInterval_loadData")
+  #read in full data from parquet
+  DF = readFromParquet(glue(PATH_DB,"parquet"))
+  cols_N = length(columns)
+  
+  #For each column call estimateInterval and save result
+  for(i in 1:cols_N){
+    print(glue("getting interval for ",columns[i]))
+    
+    # call estimateInterval for column
+    vec = DF[,columns[i]][[1]] %>% na.omit
+    res = estimateInterval(vec)
+    
+    ## Map NA results to NA list
+    if(all(is.na(res))){
+      res = list(column = columns[i], interval = NA, confidence = NA)
+    }
+    
+    # save to cache
+    INTERVALS <<- INTERVALS %>% add_row(column = columns[i], interval = res$interval, confidence = res$confidence)
+    save(INTERVALS, file = cachePath)
+  }
+  
+  INTERVALS
+}
 ```
 
 ```{r}
@@ -104,6 +179,9 @@ function(columns,cachePath){
 
 ```{r}
 source('C:/Users/sidne/Documents/GitHub/DAC_Project/R/config.R')
+```
+```{r}
+system('pwd')
 ```
 
 

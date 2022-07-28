@@ -22,7 +22,8 @@ packages = c(
   "onlinePCA",
   "missMDA",
   "mltools",
-  "splitTools"
+  "splitTools",
+  "xgboost"
 )
 
 install.packages(
@@ -179,3 +180,4 @@ train_labels = read_csv(getFilePath("train_labels"));
 
 source(getFilePath("Noise", ".R", checkDBOnly = FALSE))
 source(getFilePath("cleansing_v2", ".R", checkDBOnly = FALSE))
+source(getFilePath("amex_metric", ".R", checkDBOnly = FALSE))
