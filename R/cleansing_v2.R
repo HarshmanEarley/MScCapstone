@@ -52,7 +52,7 @@ getVariance = function(file,override = FALSE){
 
 cleansCols_VARIANCE = function(file, threshold = 0.001){
   x = getVariance(file)
-  colnames(x)[colMeans(x) < 0.001]
+  colnames(x)[colMeans(x) < threshold]
 }
 
 
@@ -74,7 +74,7 @@ getNACounts = function(file,override = FALSE){
 cleansCols_NA = function(file, threshold = 0.1){
   #remove cols with % NA above threshold
   nNA = colSums(getNACounts(file))
-  names(x)[which((nNA/train_data_N) >= threshold)]
+  names(nNA)[which((nNA/train_data_N) >= threshold)]
 }
 
 ##########################################################################################
@@ -114,7 +114,7 @@ getUniqueCustomerID = function(file,override = FALSE){
     x$customer_ID  %>% unique
   }
   
-  getCache(file, f, prefix = "CUSTOMERID", override = override)
+  unique(c(getCache(file, f, prefix = "CUSTOMERID", override = override)))
 }
 
 
@@ -142,8 +142,6 @@ catagoricalToInts = function(DF){
   }
   
   # Replace customer_ID with int
-  cols_char = c('D_63','D_64')
-  
   if('customer_ID' %in% colnames(DF)){
     DF[,'customer_ID'] = as.integer(match(DF[,'customer_ID'][[1]], getUniqueCustomerID('train_data')))
   }
@@ -171,7 +169,7 @@ writeCleansedToParquet = function(file, chunkSize = 100000){
   file = getFilePath(file,".csv")
 
   f = function(x,pos){
-    x = x %>%  left_join(train_labels, by="customer_ID") %>% removeCleansedCols %>% catagoricalToInts  %>% convertNoiseToInt
+    x = x %>%  left_join(train_labels, by="customer_ID") %>% removeCleansedCols %>% catagoricalToInts
     write_parquet(x,  glue(PATH_DB,"parquet/cleansed_",pos))
   }
   
@@ -183,6 +181,23 @@ writeCleansedToParquet = function(file, chunkSize = 100000){
       progress = TRUE
     )
   )
+  
+  # Now we have a parquet file, run intervals_main to process column noise
+  intervals_main()
+  
+  #Get temp files list so we can delete them later 
+  toDelete = dir(path=glue(PATH_DB,"parquet"))
+  
+  #Read in paraquet data
+  DF = readFromParquet(glue(PATH_DB,"parquet")) %>% convertNoiseToInt
+  
+  #Delete partitioned files
+  for(i in 1:length(toDelete)){
+    file.remove(glue(PATH_DB,"parquet/",toDelete[i]))
+  }
+  
+  #Write single cleansed file to disk
+  write_parquet(DF,  glue(PATH_DB,"parquet/data_train.parquet"))
 
 }
 
@@ -202,3 +217,24 @@ readFromParquet = function(filePath){
 
 #  readFromParquet("/Users/root1/Documents/amex-default-prediction/parquet2/")
 
+
+##########################################################################################
+########                     Write Dataframe to paraquet in chunks                   ########
+##########################################################################################
+
+writeParaquetInChunks = function(data,dirName,chunks){
+  chunks = 20
+  n = 1:nrow(data)
+  splits = split(n, cut(seq_along(n), chunks, labels = FALSE))
+  
+  for(j in 1:chunks){
+    write_parquet(
+      dplyr::slice(data, splits[[j]]), 
+      glue(PATH_DB, "parquetTVT/",dirName,"/",dirName,"_",j,".parquet")
+    )
+  }
+}
+
+#writeParaquetTVT(x_train, "train", 20)
+#writeParaquetTVT(x_val, "validation", 20)
+#writeParaquetTVT(x_test, "test", 20)

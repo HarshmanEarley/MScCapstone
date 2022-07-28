@@ -1,0 +1,178 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+source("/Users/root1/Documents/DAC_Project/R/config.R")
+```
+
+```{r}
+data = readFromParquet(getFilePath("data_lastPerCustomerID",".parquet")) 
+
+#partition target
+data_y = data$target
+
+# Remove customer_ID ,date and target
+data = data  %>% dplyr::select(-c(customer_ID,S_2,target))
+
+
+#Scale floats
+for(i in 1:ncol(data)){
+  if("double" == typeof(data[,i][[1]])){
+    data[,i] = scale(data[,i][[1]])
+  }
+}
+
+#One hot encode categoricals
+catCols = intersect(c('B_30', 'B_38', 'D_114', 'D_116', 'D_117', 'D_120', 'D_126', 'D_66', 'D_68','D_63','D_64'), colnames(data))
+for(i in 1:length(catCols)){
+  data = cbind(data, data %>% select(catCols[i]) %>% mutate(across(catCols[i],factor)) %>% as.data.table %>% one_hot()) %>% select(-catCols[i])
+}
+
+#Replace all remaining NA with zero
+data = data %>% mutate_all(~replace(., is.na(.), 0))
+```
+
+
+
+```{r}
+N = nrow(data)
+
+#Load index
+load(glue(PATH_DB,"trainTestIndex"))
+
+trainTestIndex =  c(trainTestIndex, partition(trainTestIndex$trainVal, p = c(train = 0.7, val= 0.3)))
+
+# Assign dataframes
+x_train = data[trainTestIndex$train,] %>% as.matrix()  
+x_val = data[trainTestIndex$val,]   %>% as.matrix() 
+x_test = data[trainTestIndex$test,]  %>% as.matrix() 
+rm(data)
+
+#Assign lables
+y_train = data_y[trainTestIndex$train]
+y_val = data_y[trainTestIndex$val]
+y_test = data_y[trainTestIndex$test]
+rm(data_y)
+
+gc()
+```
+
+
+```{r}
+#Fit PCA
+pca_fit = prcomp(x_train)
+
+#Get variance and select number of PCA components needed to capture for 95% of variance
+pca_var <- pca_fit$sdev^2
+pca_cumVar <- cumsum(pca_var / sum(pca_var))
+pca_comps = which(pca_cumVar >= 0.95) %>% min
+```
+
+
+```{r}
+plot(pca_cumVar,
+     type = 'l',
+     main = 'Cumulative Proportion of the Variance Explained',
+     xlab = 'Numer of Principal Components',
+     ylab = 'Variance Explained'
+     )
+
+abline(h = 0.95,  col = 'blue', lty = 2)
+abline(v = pca_comps,  col = 'blue', lty = 2)
+text(25,0.99, label = '95% variance threshold', col = 'blue', cex = 0.7)
+text(pca_comps+5,0.15, label = pca_comps, col = 'blue', cex = 0.7)
+```
+
+Get pca comps for each dataset
+
+```{r}
+x_train_pca <- pca_fit$x[,1:pca_comps]
+x_val_pca <- x_val %*% pca_fit$rotation[,1:pca_comps]
+x_test_pca <- x_test %*% pca_fit$rotation[,1:pca_comps]
+```
+
+
+```{r, eval = FALSE}
+N_input = ncol(x_train_pca)
+
+model <- keras_model_sequential() %>%
+  layer_dense(units = floor(N_input/2), activation = 'sigmoid', input_shape = N_input, name = "dense1",
+              kernel_regularizer = regularizer_l2(0.01)) %>%
+  layer_batch_normalization(center = TRUE,scale = TRUE) %>%
+  layer_dropout(rate = 0.01) %>%
+  
+  layer_dense(units = floor(N_input/4), activation = 'sigmoid', name = "dense2",
+                            kernel_regularizer = regularizer_l2(0.01)) %>%
+  layer_batch_normalization(center = TRUE,scale = TRUE) %>%
+  #layer_dropout(rate = 0.01) %>%
+  
+  layer_dense(units = floor(N_input/8), activation = 'sigmoid', name = "dense3",
+                            kernel_regularizer = regularizer_l2(0.01)) %>%
+  #layer_dropout(rate = 0.01) %>%  
+  
+  layer_dense(units = 1, activation = 'sigmoid', name = "dense4")  %>% 
+  compile(loss = 'binary_crossentropy', 
+          metrics = metric_auc(),
+          optimizer = optimizer_adam(learning_rate = 0.0001),
+          #optimizer = "adam"
+  )
+
+# training and evaluation
+fit <- model %>% fit(
+  x = x_train_pca, y = y_train,
+  validation_data = list(x_val_pca, y_val),
+  epochs = 100,
+  batch_size = round(nrow(x_train_pca)*0.1),
+  verbose = TRUE,
+  callbacks = callback_early_stopping(monitor = "val_loss", patience = 20, restore_best_weights = TRUE)
+)
+
+```
+
+
+```{r, eval = FALSE}
+score <- model %>% evaluate(
+  x_test_pca, y_test,
+  verbose = 1
+)
+```
+
+```{r, eval = FALSE}
+predicts = model %>% predict(x_test_pca)
+amex_metric(y_test,ifelse(predicts > 0.5, 1,0))
+```
+
+```{r}
+glue(PATH_DB,"NN_tuningRuns/DNN_1")
+```
+
+```{r}
+getFilePath("DNN",".R", checkDBOnly = FALSE)
+```
+
+
+```{r}
+library(tfruns)
+tuning_run(getFilePath("DNN",".R", checkDBOnly = FALSE),
+                        runs_dir = glue(PATH_DB,"NN_tuningRuns/DNN_1"),
+                        flags = list(
+                          N_input = N_input,
+                          dropout = c(0.001,0.01,0.1,0.2,0.3),
+                          lambda =  c(0,0.001,0.01,0.1), #l2 reg
+                          normalization = c(TRUE,FALSE),
+                          lr = c(0.001,0.01,0.1,0.2),
+                          bs = round(nrow(x_train_pca)*0.1),
+                          epochs = 200,
+                          verbose = 1,
+                          activationHidden = c('relu',"sigmoid"),
+                          activationOut = 'sigmoid',
+                          loss = "binary_crossentropy"
+                        ),
+                        confirm = FALSE
+                  )
+```
+
+

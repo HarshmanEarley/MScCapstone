@@ -1,4 +1,4 @@
-estimateInterval_loadData = function(columns,cachePath){
+estimateInterval_loadData = function(columns){
   print("Running estimateInterval_loadData")
   #read in full data from parquet
   DF = readFromParquet(glue(PATH_DB,"parquet"))
@@ -19,7 +19,7 @@ estimateInterval_loadData = function(columns,cachePath){
     
     # save to cache
     INTERVALS <<- INTERVALS %>% add_row(column = columns[i], interval = res$interval, confidence = res$confidence)
-    save(INTERVALS, file = cachePath)
+    save(INTERVALS, file = glue(PATH_DB,"cache/intervals"))
   }
   
   INTERVALS
@@ -77,9 +77,10 @@ intervals_main = function(){
   cachePath = glue(PATH_DB,"cache/intervals")
   print(glue("Running intervals_main, saving to ",cachePath))
   
-  #read colnames from first row of training data
-  columns = read_csv(getFilePath("train_data"), n_max = 1, show_col_types = FALSE)  %>% removeNonNumerics() %>% dplyr::select(-customer_ID) %>% colnames()
-  INTERVALS <<- data.frame(column = character(), interval = numeric(), confidence = numeric())
+  #read colnames from paraquet schema
+  columns = (open_dataset(sources = glue(PATH_DB,"parquet"))$schema$names) 
+  nonNumerics = c("customer_ID",'S_2', 'B_30', 'B_38', 'D_114', 'D_116', 'D_117', 'D_120', 'D_126', 'D_63', 'D_64', 'D_66', 'D_68')
+  columns = columns[!columns %in% nonNumerics]
   
   #Try load from cache
   try({load(cachePath, envir = .GlobalEnv)
@@ -94,7 +95,7 @@ intervals_main = function(){
   }
   
   #Else calc missing intervals 
-  estimateInterval_loadData(columns,cachePath)
+  estimateInterval_loadData(columns)
 }
 
 getNoiseIntervals = function(){
