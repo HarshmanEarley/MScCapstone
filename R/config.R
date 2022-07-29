@@ -35,7 +35,7 @@ install.packages(
 )
 
 for(pkg in packages){
-  library(pkg, character.only = TRUE)
+  suppressPackageStartupMessages(library(pkg, character.only = TRUE))
 }
 
 #install_tensorflow()
