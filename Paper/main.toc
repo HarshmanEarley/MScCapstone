@@ -10,9 +10,9 @@
 \contentsline {subsection}{\numberline {3.3}Data Engineering}{6}{subsection.3.3}%
 \contentsline {subsection}{\numberline {3.4}Data Cleaning}{6}{subsection.3.4}%
 \contentsline {section}{\numberline {4}Methods}{7}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Random Forest (RF)}{7}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Support Vector Machines (SVM)}{7}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Deep Neural Network (DNN)}{8}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.1}Logistic Regression (LR)}{7}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Random Forest (RF)}{7}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Deep Neural Network (DNN)}{7}{subsection.4.3}%
 \contentsline {subsection}{\numberline {4.4}Evaluation}{8}{subsection.4.4}%
 \contentsline {section}{\numberline {5}Results}{9}{section.5}%
 \contentsline {section}{\numberline {6}Discussion}{10}{section.6}%

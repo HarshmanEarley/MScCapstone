@@ -14,7 +14,7 @@ FLAGS <- flags(
 )
 # model configuration
 model <- keras_model_sequential() %>%
-  layer_dense(units = floor(N_input/2), input_shape = N_input, activation = FLAGS$activationHidden, name = "layer_1",
+  layer_dense(units = floor(N_input), input_shape = N_input, activation = FLAGS$activationHidden, name = "layer_1",
               kernel_regularizer = regularizer_l2(FLAGS$lambda)) %>%
               layer_batch_normalization(center = FLAGS$normalization,scale = FLAGS$normalization) %>%
               layer_dropout(rate = FLAGS$dropout) %>%
@@ -24,10 +24,9 @@ model <- keras_model_sequential() %>%
               layer_batch_normalization(center = FLAGS$normalization,scale = FLAGS$normalization) %>%
               layer_dropout(rate = FLAGS$dropout) %>%
   
-  layer_dense(units = floor(N_input/2), activation = FLAGS$activationHidden, name = "layer_3",
+  layer_dense(units = floor(N_input/8), activation = FLAGS$activationHidden, name = "layer_3",
               kernel_regularizer = regularizer_l2(FLAGS$lambda)) %>%
               layer_batch_normalization(center = FLAGS$normalization,scale = FLAGS$normalization) %>%
-              layer_dropout(rate = FLAGS$dropout) %>%
   
   layer_dense(units = 1, activation = FLAGS$activationOut, name = "layer_out") %>%
   compile(loss = FLAGS$loss, 
@@ -41,7 +40,7 @@ fit <- model %>% fit(
   epochs = FLAGS$epochs,
   batch_size = FLAGS$bs,
   verbose = FLAGS$verbose,
-  callbacks = callback_early_stopping(monitor = "val_loss", patience = 40, restore_best_weights = TRUE)
+  callbacks = callback_early_stopping(monitor = "val_loss", patience = 10, restore_best_weights = TRUE)
 )
 # store accuracy on test set for each run
 score <- model %>% evaluate(
