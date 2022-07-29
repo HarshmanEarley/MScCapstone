@@ -24,7 +24,8 @@ packages = c(
   "missMDA",
   "mltools",
   "splitTools",
-  "xgboost"
+  "xgboost",
+  "ROCR"
 )
 
 install.packages(
@@ -63,13 +64,13 @@ if(user == 'Denis'){
     PATH_DB = '/Users/root1/Documents/amex-default-prediction/'
   }
   if(.Platform$OS.type == 'windows'){
-    PATH_WD = 'C:\\Users\\sidne\\Documents\\GitHub\\DAC_Project\\R\\'
-    PATH_DB = 'C:\\Users\\sidne\\Documents\\amexDatabase\\'
+    PATH_WD = 'C:/Users/denis/Documents/GitHub/DAC_Project/R/'
+    PATH_DB = 'C:/Users/denis/Documents/ACM40960 - Projects in Maths Modelling/database/'
   }
 }
 
 #Database files
-FILES_DB = c('test_data','train_data','train_labels')
+FILES_DB = c('train_data','train_labels')
 
 #Create cache
 DB_CACHE = glue(PATH_DB,"cache")
