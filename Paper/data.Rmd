@@ -38,7 +38,6 @@ There are 11 categorical variables - B_30, B_38, D_114, D_116, D_117, D_120, D_1
  
 The remaining two unaccounted for features are the variable S_2 which contains the date of the statement and `customer_ID` which can used to match to the target label.
 
-5531451 
 \spacing{1}
 \scriptsize
 ```{r, echo=FALSE, message=FALSE, results='hide'}
@@ -55,7 +54,7 @@ sample <- matrix(data = c("0000099d6bd597052cdcda90ffabf56573fe9d7c79be5fbac11a8
 ```{r, echo=FALSE}
 kable(sample, col.names = c("customer_ID","S_2","P_2","D_39"),label="Sample", caption ="First five rows and columns from train_data.csv  ")
 ```
-\spacing{1.25}
+\spacing{1.1}
 \normalsize
 
 **Other Data**  
@@ -71,12 +70,12 @@ Brief bit on load, chunking and caching process?
 - Remove NA columns,    
 - remove low variance columns    
 - remove highly correlated columns  
--  incremental PCA now with Imputation   
+- noise removal  
+- merge label and data  
+- save as parquet
 Anything else?
 
-include the "why" - methods don't work with missing values, very wide dataset - reduce dimensions to increase efficiency
 
-merge label and data
 
 [^kag]:
 https://www.kaggle.com/getting-started/44916
