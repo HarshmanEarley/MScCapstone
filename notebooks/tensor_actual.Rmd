@@ -4,6 +4,7 @@ output: html_notebook
 ---
 
 
+
 ```{r, eval = FALSE}
 install.packages("tensorflow")
 
@@ -29,165 +30,6 @@ install_keras(envname = "r-reticulate")
 
 library(tensorflow)
 tf$constant("Hello Tensorflow!")
-```
-
-```{r}
-data = readFromParquet(getFilePath("data_lastPerCustomerID",".parquet")) 
-
-#partition target
-data_y = data$target
-
-# Remove customer_ID ,date and target
-data = data  %>% dplyr::select(-c(customer_ID,S_2,target))
-
-catCols = intersect(c('B_30', 'B_38', 'D_114', 'D_116', 'D_117', 'D_120', 'D_126', 'D_66', 'D_68','D_63','D_64'), colnames(data))
-numericCols =  colnames(data)[!colnames(data) %in% catCols]
-
-#Scale numerics
-for(i in 1:length(numericCols)){
-  if("double" == typeof(data[,i][[1]])){
-    data[,i] = scale(data[,i][[1]])
-  }
-}
-
-#One hot encode categoricals
-catCols = intersect(c('B_30', 'B_38', 'D_114', 'D_116', 'D_117', 'D_120', 'D_126', 'D_66', 'D_68','D_63','D_64'), colnames(data))
-for(i in 1:length(catCols)){
-  data = cbind(data, data %>% select(catCols[i]) %>% mutate(across(catCols[i],factor)) %>% as.data.table %>% one_hot()) %>% select(-catCols[i])
-}
-
-#Replace all remaining NA with zero
-data = data %>% mutate_all(~replace(., is.na(.), 0))
-```
-
-```{r}
-N = nrow(data)
-
-#Load index
-load(getFilePath('trainTestIndex',''))
-
-trainTestIndex =  c(trainTestIndex, partition(trainTestIndex$trainVal, p = c(train = 0.7, val= 0.3)))
-
-# Assign dataframes
-x_train = data[trainTestIndex$train,] %>% as.matrix()  
-x_val = data[trainTestIndex$val,]   %>% as.matrix() 
-x_test = data[trainTestIndex$test,]  %>% as.matrix() 
-rm(data)
-
-#Assign lables
-y_train = data_y[trainTestIndex$train]
-y_val = data_y[trainTestIndex$val]
-y_test = data_y[trainTestIndex$test]
-rm(data_y)
-
-gc()
-```
-
-
-```{r}
-#Fit PCA
-pca_fit = prcomp(x_train)
-
-#Get variance and select number of PCA components needed to capture for 95% of variance
-pca_var <- pca_fit$sdev^2
-pca_cumVar <- cumsum(pca_var / sum(pca_var))
-pca_comps = which(pca_cumVar >= 0.95) %>% min
-```
-
-
-```{r}
-plot(pca_cumVar,
-     type = 'l',
-     main = 'Cumulative Proportion of the Variance Explained',
-     xlab = 'Numer of Principal Components',
-     ylab = 'Variance Explained'
-     )
-
-abline(h = 0.95,  col = 'blue', lty = 2)
-abline(v = pca_comps,  col = 'blue', lty = 2)
-text(25,0.99, label = '95% variance threshold', col = 'blue', cex = 0.7)
-text(pca_comps+5,0.15, label = pca_comps, col = 'blue', cex = 0.7)
-```
-
-Get pca comps for each dataset
-
-```{r}
-x_train_pca <- pca_fit$x[,1:pca_comps]
-x_val_pca <- x_val %*% pca_fit$rotation[,1:pca_comps]
-x_test_pca <- x_test %*% pca_fit$rotation[,1:pca_comps]
-```
-
-
-```{r, eval = TRUE}
-N_input = ncol(x_train_pca)
-
-model <- keras_model_sequential() %>%
-  layer_dense(units = floor(N_input/2), activation = 'sigmoid', input_shape = N_input, name = "dense1",
-              kernel_regularizer = regularizer_l2(0.01)) %>%
-  layer_batch_normalization(center = TRUE,scale = TRUE) %>%
-  layer_dropout(rate = 0.01) %>%
-  
-  layer_dense(units = floor(N_input/2), activation = 'sigmoid', name = "dense2",
-                            kernel_regularizer = regularizer_l2(0.01)) %>%
-  layer_batch_normalization(center = TRUE,scale = TRUE) %>%
-  layer_dropout(rate = 0.01) %>%
-  
-  layer_dense(units = floor(N_input/2), activation = 'sigmoid', name = "dense3",
-                            kernel_regularizer = regularizer_l2(0.01)) %>%
-  layer_dropout(rate = 0.01) %>%  
-  
-  layer_dense(units = 1, activation = 'sigmoid', name = "dense4")  %>% 
-  compile(loss = 'binary_crossentropy', 
-          metrics = metric_auc(),
-          optimizer = optimizer_adam(learning_rate = 0.0001),
-          #optimizer = "adam"
-  )
-
-# training and evaluation
-fit <- model %>% fit(
-  x = x_train_pca, y = y_train,
-  validation_data = list(x_val_pca, y_val),
-  epochs = 100,
-  batch_size = round(nrow(x_train_pca)*0.1),
-  verbose = TRUE,
-  callbacks = callback_early_stopping(monitor = "val_loss", patience = 20, restore_best_weights = TRUE)
-)
-
-```
-
-
-```{r, eval = FALSE}
-score <- model %>% evaluate(
-  x_test_pca, y_test,
-  verbose = 1
-)
-```
-
-```{r, eval = FALSE}
-predicts = model %>% predict(x_test_pca)
-amex_metric(y_test,ifelse(predicts > 0.5, 1,0))
-```
-
-```{r, FALSE}
-library(tfruns)
-library(tensorflow)
-tuning_run(getFilePath("DNN",".R", checkDBOnly = FALSE),
-                        runs_dir = glue(PATH_DB,"NN_tuningRuns/DNN_1"),
-                        flags = list(
-                          N_input =  ncol(x_train_pca),
-                          dropout = c(0.001,0.01,0.1),
-                          lambda =  c(0,0.001,0.01), #l2 reg
-                          normalization = c(TRUE,FALSE),
-                          lr = c(0.001,0.01),
-                          bs = round(nrow(x_train_pca)*0.1),
-                          epochs = 200,
-                          verbose = 1,
-                          activationHidden = c('relu',"sigmoid"),
-                          activationOut = 'sigmoid',
-                          loss = "binary_crossentropy"
-                        ),
-                        confirm = FALSE
-                  )
 ```
 
 
@@ -225,80 +67,71 @@ plot_learning_curve <- function(x, ylab = NULL, cols = NULL, top = NULL, topCol 
 }
 ```
 
-
 ```{r}
 # extract results
 metrics <- read_metrics(glue(PATH_DB,"NN_tuningRuns/"))
 # extract validation accuracy
 acc <- sapply(metrics, "[[", "val_accuracy")
 loss <- sapply(metrics, "[[", "val_loss")
+evaluation <- sapply(metrics, "[[", "evaluation")
 ```
 
-```{r}
-apply(sapply(out, "[[", "val_accuracy"), 2, max, na.rm = TRUE)
-```
+
 
 ```{r}
 val_res = data.frame(
   i = 1:length(metrics),
-  val_accuracy = apply(sapply(metrics, "[[", "val_accuracy"), 2, max, na.rm = TRUE),
-  val_loss =  apply(sapply(metrics, "[[", "val_loss"), 2, max, na.rm = TRUE)
+  val_accuracy = apply(acc, 2, max, na.rm = TRUE),
+  val_loss =  apply(sapply(metrics, "[[", "val_loss"), 2, min, na.rm = TRUE),
+  evaluation = evaluation[2,]
 )
 
-val_res = val_res %>% arrange(val_loss, -val_accuracy)
+val_res = val_res %>% arrange(-val_accuracy,val_loss)
 top3 = val_res[1:3,]
 ```
-```{r}
-top3[1,]$i
-```
 
-```{r}
-#Get best performing model
-topModel = as.data.frame(metrics)[1,which(colnames(as.data.frame(metrics)) %like% top3[1,]$i)]
-
-# Replace colnames
-colnames(topModel) = colnames(as.data.frame(metrics)[,1:16])
-
-# select flags
-topModel[,5:15]
-```
-
-
-```{r}
-topModel[,5:15]
-```
-
-```{r}
-colnames(topModel) = colnames(as.data.frame(metrics)[,1:16])
-```
-
-```{r}
-as.data.frame(metrics)[,seq((top3[1,]$i*16)+1,(top3[1,]$i*16)+16)]
-```
-```{r}
-1152/16
-```
-
-
-```{r}
-resultsDF = as.data.frame(out) 
-resultsDF$index = 1:nrow(resultsDF)
-resultsDF = resultsDF %>% arrange(val_loss, -val_accuracy)
-
-
-resultsDF_top5 = resultsDF[1:5,1:16]
-resultsDF_top5
-```
-
+Plot learning curves for loss and accuracy
 ```{r}
 par(mfrow = c(1,2))
 plot_learning_curve(acc, col = adjustcolor("black", 0.3), ylim = c(0.5, 1),ylab = "Val accuracy", top = top3$i)
 plot_learning_curve(loss, col = adjustcolor("black", 0.3), ylim = c(0, 1),ylab = "Val loss", top = top3$i, topCol = 'orange')
 ```
 
+Boxplots
 ```{r}
 par(mfrow = c(1,2))
 boxplot(val_res$val_accuracy, outline=FALSE)
 boxplot(val_res$val_loss, outline=FALSE)
 ```
 
+```{r}
+#Get best performing model
+bestModel = as.data.frame(metrics)[1,which(colnames(as.data.frame(metrics)) %like% top3[1,]$i)]
+
+# Replace colnames
+colnames(bestModel) = colnames(as.data.frame(metrics)[,1:16])
+
+# select flags
+bestModelFlags = bestModel[,5:15]
+```
+
+
+```{r}
+source(getFilePath("NeuralNetwork", ".R", checkDBOnly = FALSE))
+```
+
+```{r}
+targetPrediction = model_neuralNetwork(getFilePath("data_lastPerCustomerID",".parquet"), tuning = FALSE, bestModelFlags = bestModelFlags)
+```
+
+
+Amex Prediction Score
+
+```{r, eval = FALSE}
+amex_metric(targetPrediction$target, targetPrediction$prediction)
+```
+```{r}
+par(mfrow = c(1,2))
+hist(targetPrediction$target)
+hist(ifelse(targetPrediction$prediction > 0.5, 1,0)[,1], )
+```
