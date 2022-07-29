@@ -54,8 +54,8 @@ if(user == 'Sidney'){
     PATH_DB = '/Users/root1/Documents/amex-default-prediction/'
   }
   if(.Platform$OS.type == 'windows'){
-    PATH_WD = 'C:\\Users\\sidne\\Documents\\GitHub\\DAC_Project\\R\\'
-    PATH_DB = 'C:\\Users\\sidne\\Documents\\amexDatabase\\'
+    PATH_WD = 'C:/Users/sidne/Documents/GitHub/DAC_Project/R/'
+    PATH_DB = 'C:/Users/sidne/Documents/amexDatabase/'
   }
 }
 if(user == 'Denis'){
@@ -223,7 +223,7 @@ getCache = function(file, func, prefix, override = FALSE){
 # Load Data #
 ###############
 
-train_labels = read_csv(getFilePath("train_labels"));
+train_labels = read_csv(getFilePath("train_labels"),show_col_types = FALSE);
 
 ################
 # Packages ####
