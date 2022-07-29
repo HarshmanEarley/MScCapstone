@@ -86,6 +86,16 @@ PATH = ls()[unlist(lapply(ls(), function(vec) 'PATH' %in% strsplit(vec,"_")[[1]]
 #######      Database management     #####
 ##########################################
 
+readFromParquet = function(filePath){
+  ads = arrow::open_dataset(sources =  filePath)
+  ## Create a scanner
+  scan = Scanner$create(ads)
+  ## Load it as n Arrow Table in memory
+  at = scan$ToTable()
+  ## Convert it to an R data frame
+  as.data.frame(at)
+}
+
 
 getDB = function(db){
   res = if(db == 'csv'){
@@ -123,15 +133,24 @@ getFilePath = function(fileN, ext = ".csv", checkDBOnly = TRUE){
     res = append(res, found)
   }
   
-  if(length(res) == 0){ #Return null string if no file found
-    return("")
+  #Return null string if no file found
+  stopifnot("No file found" = length(res) != 0)
+  
+  
+  #If we get files of similar names, find exact name
+  if(!length(res) == 1){
+    f = (res %>% str_split("/",simplify = TRUE))
+    res = res[fileN == f[,ncol(f)]]
   }
+  
+  #If wmultiple, throw error 
   stopifnot("Multiple files found" = length(res) == 1)
+  
   
   return(res[[1]])
 }
 
-getCache = function(file, callbackFunc, prefix, chunkSize = 100000, override = FALSE){
+getCacheCSV = function(file, callbackFunc, prefix, chunkSize = 100000, override = FALSE){
   
   filePath = getFilePath(file,".csv")
   cacheName = glue(prefix,"-",file)
@@ -169,6 +188,36 @@ getCache = function(file, callbackFunc, prefix, chunkSize = 100000, override = F
   return(get(cacheName))
 }
 
+
+getCache = function(file, func, prefix, override = FALSE){
+  
+  filePath = getFilePath(file,".parquet")
+  cacheName = glue(prefix,"-",file)
+  cachePath = getFilePath(cacheName,"")
+  
+  if(!override){ #If were not override updating the current cache
+    if(!cachePath == ""){ #And we can find a cached file
+      if(!exists(cacheName)){ 
+        load(cachePath, envir = .GlobalEnv) #Load if cache not in memory
+      }
+      res = get(cacheName) 
+      return(res)
+    }
+  }
+  
+  print(glue(cacheName," - ","creating cache from parquet: ",filePath))
+  
+  assign(cacheName,
+         func(readFromParquet(getFilePath(file,".parquet"))),
+         envir = .GlobalEnv
+  )
+  
+  print(glue(cacheName," - ","saving to cache"))
+  # Save cache to disk and return
+  cachePath = glue(PATH_DB,"cache/",cacheName)
+  save(list = cacheName, file = cachePath)
+  return(get(cacheName))
+}
 
 ##############
 # Load Data #
