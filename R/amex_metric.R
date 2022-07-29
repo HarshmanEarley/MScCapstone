@@ -15,8 +15,8 @@ amex_metric = function(target, pred){
       
     df = data.frame(target, pred)
     
-    # Descending predictions (y_hat == 1 first)
-    df = df  %>% arrange(-y_hat)
+    # Descending predictions (pred == 1 first)
+    df = df  %>% arrange(-pred)
     # define weight (negative labels are given a weight of 20 to adjust for down sampling)
     df[,'weight'] = ifelse(df[,'target'] == 0, 20, 1)
     # get rows under 4% cutoff
@@ -30,7 +30,7 @@ amex_metric = function(target, pred){
   weighted_gini = function(target, pred){
     
     df = data.frame(target, pred)
-    df = df  %>% arrange(-y_hat)
+    df = df  %>% arrange(-pred)
     # define weight (negative labels are given a weight of 20 to adjust for down sampling)
     df[,'weight'] = ifelse(df[,'target'] == 0, 20, 1)
     df[,'random'] = cumsum(df[,'weight'] / sum(df[,'weight']))

@@ -2,8 +2,33 @@
 title: "R Notebook"
 output: html_notebook
 ---
-```{r}
-source("C:\\Users\\sidne\\Documents\\GitHub\\DAC_Project\\R\\config.R")
+
+
+```{r, eval = FALSE}
+install.packages("tensorflow")
+
+#Next, configure R with a Python installation it can use, like this:
+
+library(reticulate)
+#path_to_python <- install_python()
+virtualenv_create("r-reticulate")
+
+#Note that if you already have Python installed, you don’t need to call install_python() and instead can just supply an absolute path to the Python executable.
+
+#Then, use the install_tensorflow() function to install TensorFlow.
+
+library(tensorflow)
+install_tensorflow(envname = "r-reticulate")
+
+#You can also use keras::install_keras(), which installes Tensorflow, in addition to some commonly used packages like “scipy” and “tensorflow-datasets”.
+
+install.packages("keras")
+install_keras(envname = "r-reticulate")
+
+#You can confirm that the installation succeeded with:
+
+library(tensorflow)
+tf$constant("Hello Tensorflow!")
 ```
 
 ```{r}
@@ -15,9 +40,11 @@ data_y = data$target
 # Remove customer_ID ,date and target
 data = data  %>% dplyr::select(-c(customer_ID,S_2,target))
 
+catCols = intersect(c('B_30', 'B_38', 'D_114', 'D_116', 'D_117', 'D_120', 'D_126', 'D_66', 'D_68','D_63','D_64'), colnames(data))
+numericCols =  colnames(data)[!colnames(data) %in% catCols]
 
-#Scale floats
-for(i in 1:ncol(data)){
+#Scale numerics
+for(i in 1:length(numericCols)){
   if("double" == typeof(data[,i][[1]])){
     data[,i] = scale(data[,i][[1]])
   }
@@ -30,9 +57,7 @@ for(i in 1:length(catCols)){
 }
 
 #Replace all remaining NA with zero
-#data = data %>% mutate_all(~replace(., is.na(.), 0))
-
-data = data %>% mutate_all(~ifelse(is.na(.), median(., na.rm = TRUE), .))
+data = data %>% mutate_all(~replace(., is.na(.), 0))
 ```
 
 ```{r}
@@ -93,7 +118,7 @@ x_test_pca <- x_test %*% pca_fit$rotation[,1:pca_comps]
 ```
 
 
-```{r}
+```{r, eval = TRUE}
 N_input = ncol(x_train_pca)
 
 model <- keras_model_sequential() %>%
@@ -102,14 +127,14 @@ model <- keras_model_sequential() %>%
   layer_batch_normalization(center = TRUE,scale = TRUE) %>%
   layer_dropout(rate = 0.01) %>%
   
-  layer_dense(units = floor(N_input/4), activation = 'sigmoid', name = "dense2",
+  layer_dense(units = floor(N_input/2), activation = 'sigmoid', name = "dense2",
                             kernel_regularizer = regularizer_l2(0.01)) %>%
   layer_batch_normalization(center = TRUE,scale = TRUE) %>%
-  #layer_dropout(rate = 0.01) %>%
+  layer_dropout(rate = 0.01) %>%
   
-  layer_dense(units = floor(N_input/8), activation = 'sigmoid', name = "dense3",
+  layer_dense(units = floor(N_input/2), activation = 'sigmoid', name = "dense3",
                             kernel_regularizer = regularizer_l2(0.01)) %>%
-  #layer_dropout(rate = 0.01) %>%  
+  layer_dropout(rate = 0.01) %>%  
   
   layer_dense(units = 1, activation = 'sigmoid', name = "dense4")  %>% 
   compile(loss = 'binary_crossentropy', 
@@ -131,28 +156,29 @@ fit <- model %>% fit(
 ```
 
 
-```{r}
+```{r, eval = FALSE}
 score <- model %>% evaluate(
   x_test_pca, y_test,
   verbose = 1
 )
 ```
 
-```{r}
+```{r, eval = FALSE}
 predicts = model %>% predict(x_test_pca)
 amex_metric(y_test,ifelse(predicts > 0.5, 1,0))
 ```
 
-```{r, eval = FALSE}
+```{r, FALSE}
 library(tfruns)
+library(tensorflow)
 tuning_run(getFilePath("DNN",".R", checkDBOnly = FALSE),
                         runs_dir = glue(PATH_DB,"NN_tuningRuns/DNN_1"),
                         flags = list(
-                          N_input = N_input,
-                          dropout = c(0.001,0.01,0.1,0.2,0.3),
-                          lambda =  c(0,0.001,0.01,0.1), #l2 reg
+                          N_input =  ncol(x_train_pca),
+                          dropout = c(0.001,0.01,0.1),
+                          lambda =  c(0,0.001,0.01), #l2 reg
                           normalization = c(TRUE,FALSE),
-                          lr = c(0.001,0.01,0.1,0.2),
+                          lr = c(0.001,0.01),
                           bs = round(nrow(x_train_pca)*0.1),
                           epochs = 200,
                           verbose = 1,
@@ -164,4 +190,115 @@ tuning_run(getFilePath("DNN",".R", checkDBOnly = FALSE),
                   )
 ```
 
+
+
+```{r}
+read_metrics <- function(path, files = NULL){
+  path <- paste0(path, "/")
+  if ( is.null(files) ) files <- list.files(path)
+  n <- length(files)
+  out <- vector("list", n)
+  for ( i in 1:n ) {
+  dir <- paste0(path, files[i], "/tfruns.d/")
+  out[[i]] <- jsonlite::fromJSON(paste0(dir, "metrics.json"))
+  out[[i]]$flags <- jsonlite::fromJSON(paste0(dir, "flags.json"))
+  out[[i]]$evaluation <- jsonlite::fromJSON(paste0(dir, "evaluation.json"))
+  }
+  return(out)
+}
+
+plot_learning_curve <- function(x, ylab = NULL, cols = NULL, top = NULL, topCol = "deepskyblue2", span = 0.4, ...){
+  # to add a smooth line to points
+  smooth_line <- function(y) {
+    x <- 1:length(y)
+    out <- predict( loess(y ~ x, span = span) )
+    return(out)
+  }
+  matplot(x, ylab = ylab, xlab = "Epochs", type = "n",...)
+  grid()
+  matplot(x, pch = 19, col = adjustcolor(cols, 0.3), add = TRUE)
+  tmp <- apply(x, 2, smooth_line)
+  tmp <- sapply( tmp, "length<-", max(lengths(tmp)) )
+  cl <- rep(cols, ncol(tmp))
+  cl[top] <- topCol
+  matlines(tmp, lty = 1, col = cl, lwd = 2)
+}
+```
+
+
+```{r}
+# extract results
+metrics <- read_metrics(glue(PATH_DB,"NN_tuningRuns/"))
+# extract validation accuracy
+acc <- sapply(metrics, "[[", "val_accuracy")
+loss <- sapply(metrics, "[[", "val_loss")
+```
+
+```{r}
+apply(sapply(out, "[[", "val_accuracy"), 2, max, na.rm = TRUE)
+```
+
+```{r}
+val_res = data.frame(
+  i = 1:length(metrics),
+  val_accuracy = apply(sapply(metrics, "[[", "val_accuracy"), 2, max, na.rm = TRUE),
+  val_loss =  apply(sapply(metrics, "[[", "val_loss"), 2, max, na.rm = TRUE)
+)
+
+val_res = val_res %>% arrange(val_loss, -val_accuracy)
+top3 = val_res[1:3,]
+```
+```{r}
+top3[1,]$i
+```
+
+```{r}
+#Get best performing model
+topModel = as.data.frame(metrics)[1,which(colnames(as.data.frame(metrics)) %like% top3[1,]$i)]
+
+# Replace colnames
+colnames(topModel) = colnames(as.data.frame(metrics)[,1:16])
+
+# select flags
+topModel[,5:15]
+```
+
+
+```{r}
+topModel[,5:15]
+```
+
+```{r}
+colnames(topModel) = colnames(as.data.frame(metrics)[,1:16])
+```
+
+```{r}
+as.data.frame(metrics)[,seq((top3[1,]$i*16)+1,(top3[1,]$i*16)+16)]
+```
+```{r}
+1152/16
+```
+
+
+```{r}
+resultsDF = as.data.frame(out) 
+resultsDF$index = 1:nrow(resultsDF)
+resultsDF = resultsDF %>% arrange(val_loss, -val_accuracy)
+
+
+resultsDF_top5 = resultsDF[1:5,1:16]
+resultsDF_top5
+```
+
+```{r}
+par(mfrow = c(1,2))
+plot_learning_curve(acc, col = adjustcolor("black", 0.3), ylim = c(0.5, 1),ylab = "Val accuracy", top = top3$i)
+plot_learning_curve(loss, col = adjustcolor("black", 0.3), ylim = c(0, 1),ylab = "Val loss", top = top3$i, topCol = 'orange')
+```
+
+```{r}
+par(mfrow = c(1,2))
+boxplot(val_res$val_accuracy, outline=FALSE)
+boxplot(val_res$val_loss, outline=FALSE)
+```
 
