@@ -23,18 +23,103 @@ readFromParquet = function(filePath){
   as.data.frame(at)
 }
 
-#sensitivity specificity and accuracy
-tabfunc <- function(pred, obs){
-  tab <-table(obs, pred)
-  acc <- sum(diag(tab))/sum(tab)
-  sens <- tab[2,2]/sum(tab[2,c(1,2)])
-  spec <- tab[1,1]/sum(tab[1,c(1,2)])
-  return(c(sens, spec, acc))
+
+# parquets_dir <- getFilePath('data_lastPerCustomerID','.parquet')
+
+parquets_dir <- "C:/Users/denis/Documents/ACM40960 - Projects in Maths Modelling/parquets/"
+
+
+rf_lr <- function(path){
+  
+  #data <- readFromParquet()
+  data <-readFromParquet(paste(path, "data_lastPerCustomerID.parquet", sep=""))
+  
+  #partition target
+  data_y = data$target
+  
+  # Remove customer_ID and target
+  data = data  %>% dplyr::select(-c(customer_ID,target, S_2)) 
+
+  #Scale floats
+  for(i in 1:ncol(data)){
+    if("double" == typeof(data[,i][[1]])){
+      data[,i] = scale(data[,i][[1]])
+    }
+  }
+  
+  #Replace all remaining NA with zero
+  data = data %>% mutate_all(~replace(., is.na(.), 0))
+  
+  data <- as.data.frame(data)
+  
+  
+  data$B_30 <- as.factor(data$B_30)
+  data$B_38 <- as.factor(data$B_38)
+  data$D_114 <- as.factor(data$D_114)
+  data$D_116 <- as.factor(data$D_116)
+  data$D_117 <- as.factor(data$D_117)
+  data$D_120 <- as.factor(data$D_120)
+  data$D_126 <- as.factor(data$D_126)
+  data$D_66 <- as.factor(data$D_66)
+  data$D_68 <- as.factor(data$D_68)
+  data$D_63 <- as.factor(data$D_63)
+  data$D_64 <- as.factor(data$D_64)
+  
+  
+  load(paste(path,'trainTestIndex', sep=""))
+
+  x_trainval <- data[trainTestIndex$trainVal,]
+  x_test <- data[trainTestIndex$test,]
+  
+  y_trainval <- data_y[trainTestIndex$trainVal]
+  y_test <- data_y[trainTestIndex$test]
+  
+  rm(data, data_y)
+  
+  cl <- makeCluster(8)
+  registerDoParallel(cores=4)
+  
+  # three folds and 10 repeats
+  train_ctrl <- caret::trainControl(method = "repeatedcv", number = 3, repeats = 5, allowParallel = TRUE)
+  
+  tune_grid <- expand.grid( mtry = c(10,20,30,40))
+  
+  print("starting lr")
+  
+  rf <- caret::train(x = x_trainval, y = as.factor(y_trainval), method = "rf",
+                     trControl = train_ctrl, tuneGrid = tune_grid, ntree = 100)
+  
+  
+  saveRDS(rf, file = paste(path, "rf_model.rds", sep=""))
+  print("starting lr")
+
+  # fit model
+  lr <- caret::train(x = x_trainval, y = as.factor(y_trainval), method = "glm", family = "binomial",trControl = train_ctrl)
+  
+  saveRDS(lr, file = paste(path, "lr_model.rds", sep=""))
   
 }
 
 
-parquets_dir <- getFilePath('data_lastPerCustomerID','.parquet')
+rf_lr(parquets_dir)
+
+
+rf <- readRDS(paste(parquets_dir, "rf_model.rds", sep=""))
+lr <- readRDS(paste(parquets_dir, "lr_model.rds", sep=""))
+
+
+
+
+
+
+############################################################################################################################################
+############################################################################################################################################
+
+
+
+
+
+
 data <- readFromParquet(parquets_dir)
 #dim(data)
 
@@ -102,6 +187,16 @@ library(doParallel)
 cl <- makeCluster(8)
 registerDoParallel(cores=4)
 
+#sensitivity specificity and accuracy
+tabfunc <- function(pred, obs){
+  tab <-table(obs, pred)
+  acc <- sum(diag(tab))/sum(tab)
+  sens <- tab[2,2]/sum(tab[2,c(1,2)])
+  spec <- tab[1,1]/sum(tab[1,c(1,2)])
+  return(c(sens, spec, acc))
+  
+}
+
 # RANDOM FOREST
 ###################################################################################
 
@@ -127,16 +222,17 @@ tabfunc(y_test, pred) # test results
 ###################################################################################
 
 # three folds and 10 repeats
-train_ctrl <- caret::trainControl(method = "repeatedcv", number = 3, repeats = 10, allowParallel = TRUE)
+train_ctrl <- caret::trainControl(method = "repeatedcv", number = 3, repeats = 1, allowParallel = TRUE)
 
 # fit model
-lr <- caret::train(x = x_trainval, y = as.factor(y_trainval), method = "glm", family = "binomial",trControl = train_ctrl)
+lr <- caret::train(x = x_trainval[1:1000,], y = as.factor(y_trainval)[1:1000], method = "glm", family = "binomial",trControl = train_ctrl)
 
 
 
 # predict test data
 # extract probability to revier/tune tau
-pred <- predict(lr, newdata = x_test, type = "prob")[,2]
+pred <- predict(lr, newdata = x_test[1:100], type = "prob")[,2]
+
 # load ROCR
 library(ROCR)
 pred_obj <- prediction(pred, y_test)
@@ -151,8 +247,16 @@ pred <- ifelse(pred > tau[best], 1, 0)
 tabfunc(pred, y_test) # test results
 tau[best] # optimal tau
 
-gc()
 
+#sensitivity specificity and accuracy
+tabfunc <- function(pred, obs){
+  tab <-table(obs, pred)
+  acc <- sum(diag(tab))/sum(tab)
+  sens <- tab[2,2]/sum(tab[2,c(1,2)])
+  spec <- tab[1,1]/sum(tab[1,c(1,2)])
+  return(c(sens, spec, acc))
+  
+}
 
 
 
