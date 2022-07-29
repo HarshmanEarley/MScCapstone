@@ -174,7 +174,7 @@ getCache = function(file, callbackFunc, prefix, chunkSize = 100000, override = F
 # Load Data #
 ###############
 
-train_labels = read_csv(getFilePath("train_labels"));
+train_labels = read_csv(getFilePath("train_labels"),show_col_types = FALSE);
 
 ################
 # Packages ####
