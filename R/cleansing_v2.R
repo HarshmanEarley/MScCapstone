@@ -20,7 +20,7 @@
 }()
 
 #####################################################################
-#######      cleansing functions (look to generalise)        #####
+#######      cleansing functions                               #####
 #####################################################################
   
   
@@ -43,7 +43,7 @@ removeCleansedCols <- function(data){
 
 
 getVariance = function(file,override = FALSE){
-  f <- function(x, pos){
+  f <- function(x){
     x %>% removeNonNumerics %>% summarise_if(is.numeric, var, na.rm = TRUE)
   }
   
@@ -52,7 +52,7 @@ getVariance = function(file,override = FALSE){
 
 cleansCols_VARIANCE = function(file, threshold = 0.001){
   x = getVariance(file)
-  colnames(x)[colMeans(x) < threshold]
+  colnames(x)[x < threshold]
 }
 
 
@@ -62,10 +62,7 @@ cleansCols_VARIANCE = function(file, threshold = 0.001){
 
 
 getNACounts = function(file,override = FALSE){
-  f <- function(x, pos){
-    x %>% removeNonNumerics %>% is.na %>% colSums 
-  }
-  
+  f = function(x){x %>% is.na %>% colSums}
   getCache(file, f, prefix = "NA", override = override)
 }
 
@@ -73,7 +70,7 @@ getNACounts = function(file,override = FALSE){
 
 cleansCols_NA = function(file, threshold = 0.1){
   #remove cols with % NA above threshold
-  nNA = colSums(getNACounts(file))
+  nNA = getNACounts(file)
   names(nNA)[which((nNA/train_data_N) >= threshold)]
 }
 
@@ -90,11 +87,12 @@ flattenCorMatrix <- function(corMatrix) {
 }
 
 getCorolations = function(file,override = FALSE){
-  f <- function(x, pos){
+  f <- function(x,pos){
    x  %>% removeNonNumerics %>% sapply(as.numeric) %>% as.matrix  %>% cor(use = "pairwise.complete.obs") %>% flattenCorMatrix() %>% t()
   }
   
-  getCache(file, f, prefix = "COR", override = override)
+  #Have to use chunking method as is memory safe
+  getCacheCSV(file, f, prefix = "COR", override = override)
 }
 
 #getCorolations("train_data")
@@ -165,12 +163,12 @@ getColsToRemove = function(file = "train_data"){
 ### 
 # read csv, cleanse, and write result back to new file
 ###
-writeCleansedToParquet = function(file, chunkSize = 100000){ 
+writeCsvToParquet = function(file, chunkSize = 100000){ 
   file = getFilePath(file,".csv")
 
   f = function(x,pos){
-    x = x %>%  left_join(train_labels, by="customer_ID") %>% removeCleansedCols %>% catagoricalToInts
-    write_parquet(x,  glue(PATH_DB,"parquet/cleansed_",pos))
+    x = x %>%  left_join(train_labels, by="customer_ID") 
+    write_parquet(x,  glue(PATH_DB,"parquet/parquet_",pos))
   }
   
   suppressWarnings(
@@ -182,14 +180,13 @@ writeCleansedToParquet = function(file, chunkSize = 100000){
     )
   )
   
-  # Now we have a parquet file, run intervals_main to process column noise
-  intervals_main()
+  gc()
   
   #Get temp files list so we can delete them later 
   toDelete = dir(path=glue(PATH_DB,"parquet"))
   
   #Read in paraquet data
-  DF = readFromParquet(glue(PATH_DB,"parquet")) %>% convertNoiseToInt
+  DF = readFromParquet(glue(PATH_DB,"parquet"))
   
   #Delete partitioned files
   for(i in 1:length(toDelete)){
@@ -197,27 +194,49 @@ writeCleansedToParquet = function(file, chunkSize = 100000){
   }
   
   #Write single cleansed file to disk
-  write_parquet(DF,  glue(PATH_DB,"parquet/data_train.parquet"))
-
+  write_parquet(DF,  glue(PATH_DB,"parquet/",file,".parquet"))
+  
+  gc()
+  
 }
 
 #writeCleansedCSV(file = "train_data", newFile = "cleandata")
 #getColsToRemove()
 
-
-readFromParquet = function(filePath){
-  ads = arrow::open_dataset(sources =  filePath)
-  ## Create a scanner
-  scan = Scanner$create(ads)
-  ## Load it as n Arrow Table in memory
-  at = scan$ToTable()
-  ## Convert it to an R data frame
-  as.data.frame(at)  
+writeCleanedParaquet = function(parquetFile){
+  write_parquet(
+    x = readFromParquet(getFilePath(parquetFile,".parquet")) %>% removeCleansedCols %>% catagoricalToInts %>% convertNoiseToInt,
+    sink = glue(PATH_DB,"parquet/",parquetFile,"_cleansed.parquet")
+  )
 }
 
-#  readFromParquet("/Users/root1/Documents/amex-default-prediction/parquet2/")
+#writeCleanedParaquet("train_data")
 
+writeLastRowPerCustomerDF = function(parquetFile){
+  write_parquet(
+    x = readFromParquet(getFilePath(parquetFile,".parquet"))  %>% group_by(customer_ID) %>% slice_max(S_2) %>% ungroup(),
+    sink = glue(PATH_DB,"parquet/",parquetFile,"_lastPerCustomerID.parquet")
+  )
+}
 
+#writeLastRowPerCustomerDF("train_data")
+
+writeLagDF = function(parquetFile){
+  write_parquet(
+    x = readFromParquet(getFilePath(parquetFile,".parquet"))  %>% group_by(customer_ID) %>% slice_max(S_2) %>% ungroup(),
+    sink = glue(PATH_DB,"parquet/",parquetFile,"_lag.parquet")
+  )
+}
+
+#writeLagDF("train_data")
+
+######### DEPRICATED CODE ######### ######### ######### ######### ######### ######### ######### 
+######### ######### ######### ######### ######### ######### ######### ######### ######### ######### 
+######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### 
+######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### 
+######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### 
+######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### 
+######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### 
 ##########################################################################################
 ########                     Write Dataframe to paraquet in chunks                   ########
 ##########################################################################################

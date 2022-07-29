@@ -1,1 +1,19 @@
 # Results
+
+\spacing{1}
+\scriptsize
+
+```{r}
+# load result vectors
+library()
+
+load("C:/Users/denis/Documents/GitHub/DAC_Project/R/log_reg_results/y_test.rda")
+load("C:/Users/denis/Documents/GitHub/DAC_Project/R/log_reg_results/pred_lr.rda")
+load("C:/Users/denis/Documents/GitHub/DAC_Project/R/log_reg_results/pred_rf.rda")
+
+kable(table(y_test,pred_lr, dnn = c("Observed", "Predicted")), caption = "Cross-Tabulation of Logistic Regression Model",label = "Columns Predicted")
+
+```
+
+\spacing{1.25}
+\normalsize
