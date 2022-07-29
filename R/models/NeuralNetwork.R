@@ -1,4 +1,4 @@
-model_neuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = FALSE){
+model_neuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
   
  # Early exit
   if((!tuning) & is.na(bestModelFlags)){
@@ -115,7 +115,7 @@ model_neuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = FALSE)
      flag_numeric("lr", bestModelFlags$flags.lr),
      flag_numeric("bs", bestModelFlags$flags.bs),
      flag_numeric("epochs", 100),
-     flag_numeric("verbose", 1),
+     flag_numeric("verbose", 0),
      flag_string("activationHidden",bestModelFlags$flags.activationHidden),
      flag_string("activationOut",bestModelFlags$flags.activationOut),
      flag_string("loss",bestModelFlags$flags.loss)
