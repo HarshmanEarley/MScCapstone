@@ -1,6 +1,7 @@
 # set default flags
 FLAGS <- flags(
   flag_numeric("N_input", 0),
+  flag_boolean("equalWidths", TRUE),
   flag_numeric("dropout", 0.4),
   flag_numeric("lambda", 0.01),
   flag_boolean("normalization", FALSE),
@@ -19,12 +20,12 @@ model <- keras_model_sequential() %>%
               layer_batch_normalization(center = FLAGS$normalization,scale = FLAGS$normalization) %>%
               layer_dropout(rate = FLAGS$dropout) %>%
   
-  layer_dense(units = floor(N_input/2), activation = FLAGS$activationHidden, name = "layer_2",
+  layer_dense(units = floor(N_input/ifelse(FLAGS$equalWidths,1,2)), activation = FLAGS$activationHidden, name = "layer_2",
               kernel_regularizer = regularizer_l2(FLAGS$lambda)) %>%
               layer_batch_normalization(center = FLAGS$normalization,scale = FLAGS$normalization) %>%
               layer_dropout(rate = FLAGS$dropout) %>%
   
-  layer_dense(units = floor(N_input/8), activation = FLAGS$activationHidden, name = "layer_3",
+  layer_dense(units = floor(N_input/ifelse(FLAGS$equalWidths,1,8)), activation = FLAGS$activationHidden, name = "layer_3",
               kernel_regularizer = regularizer_l2(FLAGS$lambda)) %>%
               layer_batch_normalization(center = FLAGS$normalization,scale = FLAGS$normalization) %>%
   

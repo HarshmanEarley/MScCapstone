@@ -1,12 +1,5 @@
 model_neuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
   
- # Early exit
-  if((!tuning) & is.na(bestModelFlags)){
-    print('Must either specify tuning or bestModelFlags arguments')
-    return(NA)
-  }
-  
-  
   #####################################
   #####    Load data              #####
   #####################################
@@ -80,21 +73,22 @@ model_neuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
   x_test_pca <- x_test %*% pca_fit$rotation[,1:pca_comps]
   
   N_input = ncol(x_train_pca)
-  
+
   #########################################
   #####     Neural Network Tuning     ####
   ########################################  
   if(tuning == TRUE){
     print(glue('Tuning Neural Network'))
     tuning_run(getFilePath("DNN",".R", checkDBOnly = FALSE),
-             runs_dir = glue(PATH_DB,"NN_tuningRuns2"),
+             runs_dir = glue(PATH_DB,"NN_tuningRuns3"),
              flags = list(
                N_input =  ncol(x_train_pca),
-               dropout = c(0,0.001,0.0001),
+               dropout = c(0,0.25,0.5),
+               equalWidths = c(TRUE,FALSE),
                lambda =  c(0,0.001,0.0001), #l2 reg
                normalization = c(TRUE,FALSE),
                lr = 0.0001,
-               bs = 1024,
+               bs = c(512,1024),
                epochs = 100,
                verbose = 0,
                activationHidden = 'relu',
@@ -110,12 +104,13 @@ model_neuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
    FLAGS <- flags(
      flag_numeric("N_input", ncol(x_train_pca)),
      flag_numeric("dropout", bestModelFlags$flags.dropout),
+     flag_boolean("equalWidths", bestModelFlags$flags.equalWidths),
      flag_numeric("lambda", bestModelFlags$flags.lambda),
      flag_boolean("normalization", bestModelFlags$flags.normalization),
      flag_numeric("lr", bestModelFlags$flags.lr),
      flag_numeric("bs", bestModelFlags$flags.bs),
-     flag_numeric("epochs", 100),
-     flag_numeric("verbose", 0),
+     flag_numeric("epochs", bestModelFlags$flags.epochs),
+     flag_numeric("verbose", bestModelFlags$flags.verbose),
      flag_string("activationHidden",bestModelFlags$flags.activationHidden),
      flag_string("activationOut",bestModelFlags$flags.activationOut),
      flag_string("loss",bestModelFlags$flags.loss)
@@ -127,12 +122,12 @@ model_neuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
      layer_batch_normalization(center = FLAGS$normalization,scale = FLAGS$normalization) %>%
      layer_dropout(rate = FLAGS$dropout) %>%
      
-     layer_dense(units = floor(N_input/2), activation = FLAGS$activationHidden, name = "layer_2",
+     layer_dense(units = floor(N_input/ifelse(FLAGS$equalWidths,1,2)), activation = FLAGS$activationHidden, name = "layer_2",
                  kernel_regularizer = regularizer_l2(FLAGS$lambda)) %>%
      layer_batch_normalization(center = FLAGS$normalization,scale = FLAGS$normalization) %>%
      layer_dropout(rate = FLAGS$dropout) %>%
      
-     layer_dense(units = floor(N_input/8), activation = FLAGS$activationHidden, name = "layer_3",
+     layer_dense(units = floor(N_input/ifelse(FLAGS$equalWidths,1,8)), activation = FLAGS$activationHidden, name = "layer_3",
                  kernel_regularizer = regularizer_l2(FLAGS$lambda)) %>%
      layer_batch_normalization(center = FLAGS$normalization,scale = FLAGS$normalization) %>%
      
@@ -153,7 +148,6 @@ model_neuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
    
    #Get predicted lables
    predictions = model %>% predict(x_test_pca)
-   predictions = ifelse(predictions>0.5,1,0)[,1]
    
    return(list(target = y_test, prediction = predictions))
  }
