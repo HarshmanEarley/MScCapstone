@@ -4,7 +4,6 @@ output: html_notebook
 ---
 
 
-
 ```{r, eval = FALSE}
 install.packages("tensorflow")
 
@@ -41,10 +40,10 @@ read_metrics <- function(path, files = NULL){
   n <- length(files)
   out <- vector("list", n)
   for ( i in 1:n ) {
-  dir <- paste0(path, files[i], "/tfruns.d/")
-  out[[i]] <- jsonlite::fromJSON(paste0(dir, "metrics.json"))
-  out[[i]]$flags <- jsonlite::fromJSON(paste0(dir, "flags.json"))
-  out[[i]]$evaluation <- jsonlite::fromJSON(paste0(dir, "evaluation.json"))
+    dir <- paste0(path,'/', files[i], "/tfruns.d/")
+    out[[i]] <- jsonlite::fromJSON(paste0(dir, "metrics.json"))
+    out[[i]]$flags <- jsonlite::fromJSON(paste0(dir, "flags.json"))
+    out[[i]]$evaluation <- jsonlite::fromJSON(paste0(dir, "evaluation.json"))
   }
   return(out)
 }
@@ -69,13 +68,12 @@ plot_learning_curve <- function(x, ylab = NULL, cols = NULL, top = NULL, topCol 
 
 ```{r}
 # extract results
-metrics <- read_metrics(glue(PATH_DB,"NN_tuningRuns/"))
+metrics <- read_metrics(glue(PATH_DB,"NN_tuningRuns3/"))
 # extract validation accuracy
 acc <- sapply(metrics, "[[", "val_accuracy")
 loss <- sapply(metrics, "[[", "val_loss")
 evaluation <- sapply(metrics, "[[", "evaluation")
 ```
-
 
 
 ```{r}
@@ -87,6 +85,7 @@ val_res = data.frame(
 )
 
 val_res = val_res %>% arrange(-val_accuracy,val_loss)
+#val_res = val_res %>% arrange(evaluation)
 top3 = val_res[1:3,]
 ```
 
@@ -110,28 +109,29 @@ bestModel = as.data.frame(metrics)[1,which(colnames(as.data.frame(metrics)) %lik
 
 # Replace colnames
 colnames(bestModel) = colnames(as.data.frame(metrics)[,1:16])
+```
 
-# select flags
-bestModelFlags = bestModel[,5:15]
+```{r}
+bestModelFlags$flags.epochs = 5
+
 ```
 
 
 ```{r}
-source(getFilePath("NeuralNetwork", ".R", checkDBOnly = FALSE))
-```
-
-```{r}
-targetPrediction = model_neuralNetwork(getFilePath("data_lastPerCustomerID",".parquet"), tuning = FALSE, bestModelFlags = bestModelFlags)
+targetPrediction = model_neuralNetwork(getFilePath("data_lastPerCustomerID",".parquet"), tuning = FALSE, bestModelFlags = bestModel)
 ```
 
 
 Amex Prediction Score
 
 ```{r, eval = FALSE}
-amex_metric(targetPrediction$target, targetPrediction$prediction)
+prediction = ifelse(targetPrediction$prediction>0.5,1,0)[,1]
+NNroc = roc(response = targetPrediction$target, predictor = targetPrediction$prediction)
+plot(NNroc, print.auc=TRUE)
 ```
+
 ```{r}
 par(mfrow = c(1,2))
 hist(targetPrediction$target)
-hist(ifelse(targetPrediction$prediction > 0.5, 1,0)[,1], )
+hist(targetPrediction$prediction)
 ```
