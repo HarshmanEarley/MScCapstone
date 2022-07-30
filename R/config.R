@@ -140,7 +140,7 @@ getFilePath = function(fileN, ext = ".csv", checkDBOnly = TRUE){
   #If we get files of similar names, find exact name
   if(!length(res) == 1){
     f = (res %>% str_split("/",simplify = TRUE))
-    res = res[fileN == f[,ncol(f)]]
+    res = res[glue(fileN,ext) == f[,ncol(f)]]
   }
   
   #If wmultiple, throw error 
