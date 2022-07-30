@@ -15,8 +15,10 @@
 \contentsline {subsection}{\numberline {4.3}Deep Neural Network (DNN)}{7}{subsection.4.3}%
 \contentsline {subsection}{\numberline {4.4}Evaluation}{8}{subsection.4.4}%
 \contentsline {section}{\numberline {5}Results}{9}{section.5}%
-\contentsline {section}{\numberline {6}Discussion}{10}{section.6}%
-\contentsline {section}{\numberline {7}Conclusion}{12}{section.7}%
+\contentsline {section}{\numberline {6}Discussion}{12}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Context of Results}{12}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Future Research}{12}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Conclusion}{14}{section.7}%
 \contentsline {section}{\numberline {8}Bibliography}{a}{section.8}%
 \contentsline {section}{\numberline {9}Appendices}{b}{section.9}%
 \contentsline {subsection}{\numberline {9.1}Appendix A: additional tables}{b}{subsection.9.1}%
