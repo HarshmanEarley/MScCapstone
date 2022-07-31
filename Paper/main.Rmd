@@ -3,7 +3,7 @@ title: " "
 output:
   pdf_document:
     number_sections: TRUE
-geometry: "left = 2.5cm, right = 2cm, top = 2cm, bottom = 2cm"
+geometry: "left = 2.8cm, right = 2.8cm, top = 2cm, bottom = 2cm"
 fontsize: 11pt
 header-includes:
   - \usepackage{float}
@@ -33,7 +33,7 @@ options(tinytex.verbose = TRUE)
 
 \begin{centering}
 
-\vspace{3cm}
+\vspace{2cm}
 
 ```{r uni_logo, echo=F, out.width="20%"}
 knitr::include_graphics("Universitycollegedublinlogo.png")
@@ -56,27 +56,30 @@ knitr::include_graphics("Universitycollegedublinlogo.png")
       MACHINE LEARNING METHODS AT  PREDICTING\\
       CREDIT CARD DEFAULT}
 
-\vspace{1 cm}
+\vspace{0.5 cm}
 
 \normalsize
 \singlespacing
 By
-
-\vspace{0.5 cm}
 
 \Large
 
 {\bf Sidney Harshman-Earley \\
 Denis O'Riordan}
 
-\vspace{1.5 cm}
+\vspace{1 cm}
 
 in partial fulfilment of ACM40960 - \\
 Projects in Maths Modelling required \\
 for the completion of the degree \\ 
 MSc in Data and Computational Sciences
 
-\vspace{1.5 cm}
+\vspace{1 cm}
+
+\bf{Principal Supervisor:} \Large{Dr Sarp Akcay} \\
+\bf{Programme Coordinator:} \Large{Assoc. Professor Lennon \'{O} N\'{a}raigh}
+
+\vspace{1 cm}
 
 \normalsize
 July 2022
@@ -88,26 +91,34 @@ July 2022
 
 \pagenumbering{gobble}
 
-
+\spacing{1.1}
 \begin{centering}
+
+\Large
+We hereby certify that the submitted work is our own work, was completed while registered as candidates for the degree stated on the Title Page, and we have not obtained a degree elsewhere on the basis of the research presented in this submitted work.
+
+\vspace{1 cm}
+
+---  
+
+\vspace{1 cm}
+
+\normalsize
 
 {\bf Abstract}
 
 \end{centering}
 
-\spacing{1.5}
-
-(the spacing is set to 1.5)
+\spacing{1.2}
 
 no more than 250 words for the abstract
+- a description of the research question/knowledge gap what we know and what we don't know  
+- how your research has attempted to fill this gap  
+- a brief description of the methods  
+- brief results  
+- key conclusions that put the research into a larger context  
 
-- a description of the research question/knowledge gap what we know and what we don't know
-- how your research has attempted to fill this gap
-
-- a brief description of the methods
-- brief results
-- key conclusions that put the research into a larger context
-
+Research into utilising ML methods to predict credit card default has largely been limited to one historic data set. As part of an applied data science competition organised by the American Express credit card company, an industrial-sized dataset was released which in turn provided the foundation to further research in this field. A subset of the data was used and feature engineered to create a dataset of 458'913 individual customer observations and 129 features, with masked feature labels. Exploratory data analysis found the P_2 variable, in particular, displayed a strong positive correlation with the target variable - defaulting on credit card payment. Four ML classification models were trained, validated and tested on independent data to predict the target - logistic regression, logistic regression (P_2 variable only), Random Forrest and Artificial Neural Networks. 
 
 
 \pagenumbering{roman}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  25 JUL 2022 15:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  30 JUL 2022 23:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -303,8 +303,7 @@ Package graphics Info: Driver file: pdftex.def on input line 107.
 File: l3backend-pdftex.def 2022-07-01 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count285
 \l__pdf_internal_box=\box53
-)
-No file lit_review.aux.
+) (./lit_review.aux)
 \openout1 = `lit_review.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
@@ -332,6 +331,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 Package hyperref Info: Link coloring OFF on input line 67.
+(./lit_review.out) (./lit_review.out)
 \@outlinefile=\write3
 \openout3 = `lit_review.out'.
 
@@ -371,11 +371,11 @@ Package hyperref Info: Link coloring OFF on input line 67.
 
 ! Undefined control sequence.
 l.69 \spacing
-             {1.25} 
+             {1} 
 Here is how much of TeX's memory you used:
- 10283 strings out of 479983
- 160940 string characters out of 5886392
- 450305 words of memory out of 5000000
+ 10289 strings out of 479983
+ 161030 string characters out of 5886392
+ 450432 words of memory out of 5000000
  28377 multiletter control sequences out of 15000+600000
  472249 words of font info for 29 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191

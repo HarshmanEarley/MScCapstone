@@ -11,24 +11,17 @@ Chou, T. \harvardand\ Lo, M.  \harvardyearleft 2018\harvardyearright ,
   learning models', {\em International Journal of Computer Theory and
   Engineering} {\bf 10},~105--110.
 
-\harvarditem{Egan}{2021}{trap5146}
-Egan, C.  \harvardyearleft 2021\harvardyearright , Improving credit default
-  prediction using explainable ai, Master's thesis, Dublin, National College of
-  Ireland.
-\newline\harvardurl{http://norma.ncirl.ie/5146/}
-
-\harvarditem{Fitzpatrick \harvardand\ Mues}{2016}{FITZPATRICK2016427}
-Fitzpatrick, T. \harvardand\ Mues, C.  \harvardyearleft 2016\harvardyearright ,
-  `An empirical comparison of classification algorithms for mortgage default
-  prediction: evidence from a distressed mortgage market', {\em European
-  Journal of Operational Research} {\bf 249}(2),~427--439.
-\newline\harvardurl{https://www.sciencedirect.com/science/article/pii/S0377221715008383}
-
 \harvarditem[Goodfellow et~al.]{Goodfellow, Bengio \harvardand\
   Courville}{2016}{Goodfellow-et-al-2016}
 Goodfellow, I., Bengio, Y. \harvardand\ Courville, A.  \harvardyearleft
   2016\harvardyearright , {\em Deep Learning}, MIT Press.
 \newblock \url{http://www.deeplearningbook.org}.
+
+\harvarditem{Harrell}{2015}{alma9945667093902959}
+Harrell, F.~E.  \harvardyearleft 2015\harvardyearright , {\em Regression
+  modeling strategies : with applications to linear models, logistic and
+  ordinal regression, and survival analysis / Frank E. Harrell, Jr.}, Springer
+  series in statistics, second edition. edn, Springer, Cham.
 
 \harvarditem[Hsu et~al.]{Hsu, Liou, Wang, Huang \harvardand\
   Che-Lin}{2019}{8682212}
