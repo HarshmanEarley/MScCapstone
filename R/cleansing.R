@@ -1,6 +1,15 @@
+#######################################################################
+#######################################################################
+############# Library of Function used to process csv  ################
+#######################################################################
+#######################################################################
+
+
 ##########################################
 #######      Get table counts        #####
 ##########################################
+# Lambda to read the row length of train_data.csv file using bash
+# Value is stored in cache for quick retrieval
 
 {function ()
   if(!exists('train_data_N')){ #Check if train_data_N exists
@@ -8,9 +17,8 @@
     if(cachePath == ""){ # Check if value cached
       #Get counts and cache
       train_data_N  <<-system(paste0("wc -l ", getFilePath("train_data",".csv")), intern=T) %>% str_trim %>% strsplit(" ") %>% unlist %>% first  %>% as.integer
-      test_data_N <<-system(paste0("wc -l ", getFilePath("test_data",".csv")), intern=T) %>% str_trim %>% strsplit(" ") %>% unlist %>% first  %>% as.integer
       cachePath = glue(PATH_DB,"cache/CSVRowCounts")
-      save(list = c("test_data_N", "train_data_N"), file = cachePath)
+      save(list = c("train_data_N"), file = cachePath)
       
     } else {
       # else load from cache
@@ -22,8 +30,9 @@
 #####################################################################
 #######      cleansing functions                               #####
 #####################################################################
-  
-  
+# Functions to remove specified columns from data
+# removeNonNumerics - removes catagorical columns plus date
+# removeCleansedCols - removes columns returned by getColsToRemove 
 removeNonNumerics <- function(data){
   return(
     data[ , -which(names(data) %in% c(
@@ -40,7 +49,8 @@ removeCleansedCols <- function(data){
 ##########################################################################
 ########               low variance variables                     ########
 ##########################################################################
-
+# Calculate and cache variances for all columns
+# getVariance("train_data")
 
 getVariance = function(file,override = FALSE){
   f <- function(x){
@@ -49,6 +59,9 @@ getVariance = function(file,override = FALSE){
   
   getCache(file, f, prefix = "VARIANCE", override = override)
 }
+
+# Use stored variances to specify columns that are below target variance threshold
+# cleansCols_VARIANCE("train_data")
 
 cleansCols_VARIANCE = function(file, threshold = 0.001){
   x = getVariance(file)
@@ -59,14 +72,16 @@ cleansCols_VARIANCE = function(file, threshold = 0.001){
 ########################################
 #######      NA/Missing values     #####
 ########################################
-
+# Get total counts of NA columns and cache
+# getNACounts("train_data")
 
 getNACounts = function(file,override = FALSE){
   f = function(x){x %>% is.na %>% colSums}
   getCache(file, f, prefix = "NA", override = override)
 }
 
-#getNACounts("train_data")
+# Use stored NA counts to specify columns that are above target threshold
+# cleansCols_NA("train_data")
 
 cleansCols_NA = function(file, threshold = 0.1){
   #remove cols with % NA above threshold
@@ -77,14 +92,9 @@ cleansCols_NA = function(file, threshold = 0.1){
 ##########################################################################################
 ########                      correlation between variables                       ########
 ##########################################################################################
-
-flattenCorMatrix <- function(corMatrix) {
-  ut <- upper.tri(corMatrix)
-  data.frame(
-    cor  =(corMatrix)[upper.tri(corMatrix)],
-    row.names = paste( rownames(corMatrix)[row(corMatrix)[ut]], rownames(corMatrix)[col(corMatrix)[ut]], sep="-")
-  )
-}
+# Get pairwise correlations by batch from csv
+# Process done iteratively as to be memory safe
+# getCorolations("train_data")
 
 getCorolations = function(file,override = FALSE){
   f <- function(x,pos){
@@ -95,17 +105,47 @@ getCorolations = function(file,override = FALSE){
   getCacheCSV(file, f, prefix = "COR", override = override)
 }
 
-#getCorolations("train_data")
+# Use stored correlations to specify columns that are above target threshold
+# As correlations taken in bathes of 100000, mean value is considered per column pair across all batches  
+# cleansCols_COROLATION("train_data")
 
-
-cleansCols_COROLATION = function(file, threshold = 0.95){
+cleansCols_COROLATION = function(file, threshold = 0.9){
   x = getCorolations(file)
-  colnames(x)[which(colMeans(x) > threshold)] %>% strsplit("-")  %>% lapply('[[', 2) %>% unlist()
+  colnames(x)[which(abs(colMeans(x)) > threshold)] %>% strsplit("-")  %>% lapply('[[', 2) %>% unlist()
+}
+
+# Auxiliary function to flatten upper triangle of correlation matrix for storage
+
+flattenCorMatrix <- function(corMatrix) {
+  ut <- upper.tri(corMatrix)
+  data.frame(
+    cor  =(corMatrix)[upper.tri(corMatrix)],
+    row.names = paste( rownames(corMatrix)[row(corMatrix)[ut]], rownames(corMatrix)[col(corMatrix)[ut]], sep="-")
+  )
 }
 
 ##########################################################################################
 ########                     Cache Unique Customer ID                           ########
 ##########################################################################################
+# Wrapper function to call each of cleansCols_NA, cleansCols_COROLATION and cleansCols_VARIANCE.
+# Return Union of columns 
+# getColsToRemove("train_data")
+
+getColsToRemove = function(file = "train_data"){
+  Reduce(union,
+         list(
+           cleansCols_NA(file,threshold = 0.1),
+           cleansCols_COROLATION(file,threshold = 0.9),
+           cleansCols_VARIANCE(file,threshold = 0.001)
+         )
+  )
+}
+
+##########################################################################################
+########                     Cache Unique Customer ID                           ########
+##########################################################################################
+# Function to get exaustive list of unique customer IDs from specified file and cache
+# getUniqueCustomerID("train_data")
 
 getUniqueCustomerID = function(file,override = FALSE){
   f <- function(x, pos){
@@ -117,8 +157,11 @@ getUniqueCustomerID = function(file,override = FALSE){
 
 
 ##########################################################################################
-########                     Convert Catagorical Columns to INT                  ########
+########                     Convert Categorical Columns to INT                  ########
 ##########################################################################################
+# Uses mappings to convert categorical variables to integer for storage improvements.
+# More robust than using factors as when batching not all levels may be available.
+# Solution deprecated by use of parquet files, but still maintained
 
 catagoricalToInts = function(DF){
   catagoricalToInts_debug <<- DF
@@ -146,23 +189,13 @@ catagoricalToInts = function(DF){
   
   DF
 }
-##########################################################################################
-########                     Cleansing Csv                       ########
-##########################################################################################
 
-getColsToRemove = function(file = "train_data"){
-  Reduce(union,
-         list(
-           cleansCols_NA(file,threshold = 0.1),
-           cleansCols_COROLATION(file,threshold = 0.9),
-           cleansCols_VARIANCE(file,threshold = 0.001)
-         )
-  )
-}
+##########################################################################################
+########                     CSV -> PARQUET                     ########
+##########################################################################################
+# Convert CSV to Parquet file in chunks
+# Join labels by customer_ID 
 
-### 
-# read csv, cleanse, and write result back to new file
-###
 writeCsvToParquet = function(file, chunkSize = 100000){ 
   file = getFilePath(file,".csv")
 
@@ -193,67 +226,34 @@ writeCsvToParquet = function(file, chunkSize = 100000){
     file.remove(glue(PATH_DB,"parquet/",toDelete[i]))
   }
   
-  #Write single cleansed file to disk
+  #Write single file to disk
   write_parquet(DF,  glue(PATH_DB,"parquet/",file,".parquet"))
   
   gc()
   
 }
 
-#writeCleansedCSV(file = "train_data", newFile = "cleandata")
-#getColsToRemove()
+##########################################################################################
+########                   Transform Parquet Files                                 ########
+##########################################################################################
+# Read in Parquet file from disk, transform and write down in place
+# writeCleanedParaquet - use cleansing functions to transform the data
+# writeCleanedParaquet("train_data")
 
 writeCleanedParaquet = function(parquetFile){
   write_parquet(
     x = readFromParquet(getFilePath(parquetFile,".parquet")) %>% removeCleansedCols %>% catagoricalToInts %>% convertNoiseToInt,
-    sink = glue(PATH_DB,"parquet/",parquetFile,"_cleansed.parquet")
+    sink =getFilePath(parquetFile,".parquet")
   )
 }
 
-#writeCleanedParaquet("train_data")
-
+# writeLastRowPerCustomerDF - Save last row by date only
+# writeLastRowPerCustomerDF("train_data")
 writeLastRowPerCustomerDF = function(parquetFile){
   write_parquet(
     x = readFromParquet(getFilePath(parquetFile,".parquet"))  %>% group_by(customer_ID) %>% slice_max(S_2) %>% ungroup(),
-    sink = glue(PATH_DB,"parquet/",parquetFile,"_lastPerCustomerID.parquet")
+    sink = getFilePath(parquetFile,".parquet")
   )
 }
 
 #writeLastRowPerCustomerDF("train_data")
-
-writeLagDF = function(parquetFile){
-  write_parquet(
-    x = readFromParquet(getFilePath(parquetFile,".parquet"))  %>% group_by(customer_ID) %>% slice_max(S_2) %>% ungroup(),
-    sink = glue(PATH_DB,"parquet/",parquetFile,"_lag.parquet")
-  )
-}
-
-#writeLagDF("train_data")
-
-######### DEPRICATED CODE ######### ######### ######### ######### ######### ######### ######### 
-######### ######### ######### ######### ######### ######### ######### ######### ######### ######### 
-######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### 
-######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### 
-######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### 
-######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### 
-######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### ######### 
-##########################################################################################
-########                     Write Dataframe to paraquet in chunks                   ########
-##########################################################################################
-
-writeParaquetInChunks = function(data,dirName,chunks){
-  chunks = 20
-  n = 1:nrow(data)
-  splits = split(n, cut(seq_along(n), chunks, labels = FALSE))
-  
-  for(j in 1:chunks){
-    write_parquet(
-      dplyr::slice(data, splits[[j]]), 
-      glue(PATH_DB, "parquetTVT/",dirName,"/",dirName,"_",j,".parquet")
-    )
-  }
-}
-
-#writeParaquetTVT(x_train, "train", 20)
-#writeParaquetTVT(x_val, "validation", 20)
-#writeParaquetTVT(x_test, "test", 20)

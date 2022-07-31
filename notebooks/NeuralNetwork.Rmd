@@ -37,6 +37,10 @@ Batch normalisation is available on each layer. When activated output of each la
 5) Learning Rate 
 Learning Rate 
 
+```{r}
+
+unique(c('B_30', 'B_38', 'D_114', 'D_116', 'D_117', 'D_120', 'D_126', 'D_66', 'D_68','D_63','D_64',getNoiseIntervals()$column))
+```
 
 
 
@@ -140,7 +144,6 @@ top3
 
 
 Inspecting the accuracy and loss learning curves of the tuning runs there is an evident ceiling / floor that each model reaches.    
-
 
 ```{r}
 par(mfrow = c(1,2))

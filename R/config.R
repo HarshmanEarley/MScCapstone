@@ -152,6 +152,13 @@ getFilePath = function(fileN, ext = ".csv", checkDBOnly = FALSE){
   return(res[[1]])
 }
 
+#################################
+#######   Caching Utilities    #####
+##################################
+# Look for required object in memory and in cache
+# If not available, process specified csv in chunks using callbackFunc
+# Save resulting object to cache
+
 getCacheCSV = function(file, callbackFunc, prefix, chunkSize = 100000, override = FALSE){
   
   filePath = getFilePath(file,".csv")
@@ -190,6 +197,9 @@ getCacheCSV = function(file, callbackFunc, prefix, chunkSize = 100000, override 
   return(get(cacheName))
 }
 
+# Similar to getCacheCSV
+# If not available, process specified parquet using callbackFunc
+# Save resulting object to cache
 
 getCache = function(file, func, prefix, override = FALSE){
   
@@ -233,5 +243,5 @@ train_labels = read_csv(getFilePath("train_labels"),show_col_types = FALSE);
 ################
 
 source(getFilePath("Noise", ".R", checkDBOnly = FALSE))
-source(getFilePath("cleansing_v2", ".R", checkDBOnly = FALSE))
+source(getFilePath("cleansing", ".R", checkDBOnly = FALSE))
 source(getFilePath("amex_metric", ".R", checkDBOnly = FALSE))
