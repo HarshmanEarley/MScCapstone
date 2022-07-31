@@ -134,8 +134,14 @@ model_NeuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
    
    #Get predicted lables
    predictions = model %>% predict(x_test)
+   NN = list(model = model, target = y_test, prediction = predictions)
    
-   return(list(model = model, target = y_test, prediction = predictions))
+   # save model
+   savePath = glue(PATH_DB,"models/","NN_model.rds")
+   print(glue("saving model to : ",savePath))
+   saveRDS(NN, file = savePath)
+   
+   return(NN)
  }
   
 }
