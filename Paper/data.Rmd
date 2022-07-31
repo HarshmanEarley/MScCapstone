@@ -84,21 +84,25 @@ $H_A :$ The sample does not comes from the specified theoretical distribution
 The test statistic is the absolute value of the largest distance between the two distributions functions.
 $$D = sup_x |F_n(X) - F(X)|$$
 
-where $n$ is the sample size, $F_n(X)$ is the observed cumulative frequency distribution of a random sample of n observations and $F(X)$ is the theoretical cumulative distribution function
+where:
+
+* $n$ is the sample size
+* $F_n(X)$ is the observed cumulative frequency distribution of a random sample of n observations
+* $F(X)$ is the theoretical cumulative distribution function
 
 This test statistic is evaluated against the K-S tables to give a p-value. For evaluating if noise $[0,0.01]$ had been added the data, the bounds for each noise pillar are found iteratively by taking the smallest value in the dataset and adding $0.01$ to it to create and upper bound. All values that lie within this pillar are first scaled to the interval $[0,0.01]$ by taking the remainder modulo $0.01$. The scaled values are sampled using the Kolmogorov-Smirnov test against the $U(0,0.01)$ distribution. These values are then omitted and the next minimum data point is selected.     
 
 There are two values of interest:  
-**1)** The interval between observed values with noise removed   
+**1)** The interval between observed values with noise removed.        
 Each minimum value recorded is rounded to the nearest rational number, with the smallest accepted value being 0.01. Limiting the lower bound of acceptable rational numbers removes the possibility of overlap between pillars. We accept the interval as the most observed interval across all pillars, as values are assumed uniformly discrete.
 
-**2)** The acceptances criteria for if noise has been added to the data   
+**2)** The acceptances criteria for if noise has been added to the data.       
 The acceptance criteria is the percentage of total pillars that do not reject the null hypothesis. As we are observing the null hypothesis, on each test with $p > 0.05$ we can only not reject that the observed values come from a uniform distribution. As such a high threshold of 0.95 for the acceptance criteria is chosen to ensure variables selected are highly likely to have had noise added.  
 
 Variables that were identified as having noise added are converted to an ordinal array of integers representing the underlying rational number. This is done for each variable by first selecting the interval between values, An arbitrarily small number ($1\times10^{-8}$) is added as to avoid machine precision errors. Each value in the column is divided by this augmented interval. The floor of the values is obtained and then converted to an integer. It was found using the K_S goodness of fit test that 42 variables had noise added. Each of these received noise reduction as outlined above and were converted to ordinal integer form.
 
 **Final Dataset**  
-This cleansed data was merged with the default labels data. Due to computational limitations, the full data set could not reasonably be used in any full capacity to train computationally intensive ML algorithms. To reduce the length of the data, the most recent statement data per customer_id was retained and all preceding months data was dropped. This reduced the data to its final form of 458'913 individual customer observations and 129 features which was used for further analysis.
+This cleansed data was merged with the default labels data. Due to computational limitations, the full data set could not reasonably be used in any full capacity to train computationally intensive ML algorithms. To reduce the length of the data, the most recent observation by date (variable S_2) per customer_id was retained and all preceding months data was dropped. This reduced the data to its final form of 458'913 individual customer observations and 129 features which was used for further analysis.
 
 
 
