@@ -47,7 +47,7 @@ Feature engineering functions are stored within 3 files:
 -   cleansing.R
 -   noise.R
 
-![Structure 1](mdimages/structure1.png)
+![Structure 1](readme/images/structure1.png)
 
 ## Machine Learning Models
 
