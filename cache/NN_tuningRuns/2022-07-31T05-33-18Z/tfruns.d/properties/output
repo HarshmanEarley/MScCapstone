@@ -1,0 +1,23 @@
+
+> # set default flags
+> FLAGS <- flags(
++   flag_numeric("N_input", 0),
++   flag_boolean("equalWidths", TRUE),
++   flag_numeric("dropout", 0.4),
++   f .... [TRUNCATED] 
+
+> # model configuration
+> model <- keras_model_sequential() %>%
++   layer_dense(units = floor(N_input), input_shape = N_input, activation = FLAGS$acti .... [TRUNCATED] 
+
+> # training and evaluation
+> fit <- model %>% fit(
++   x = x_train, y = y_train,
++   validation_data = list(x_val, y_val),
++   epochs = FLAGS$epochs, .... [TRUNCATED] 
+
+> # store accuracy on test set for each run
+> score <- model %>% evaluate(
++   x_test, y_test,
++   verbose = FLAGS$verbose
++ )
