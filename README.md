@@ -133,7 +133,7 @@ Feature engineering functions are stored within 3 files:
 -   noise.R
     -   Functions to remove injected noise in features.
 
-![Structure 1](images/structure1.png)
+![Structure 1](readme/images/structure1.png)
 
 ### Machine Learning Models
 
