@@ -47,13 +47,13 @@ Drive](https://drive.google.com/drive/u/0/folders/1C2TYJRsVH681dylc8ZX5A4gP-Lsoa
 Each of the software packages below must be installed a a prerequisite
 to viewing the models
 
-#### R / R-Studio
+### R / R-Studio
 
 R-Studio is required to be installed in order to review the codebase.  
 Installation guide:
 <https://rstudio-education.github.io/hopr/starting.html>
 
-#### Tensorflow
+### Tensorflow
 
 Tensorflow and keras are required to be installed to run the Neural
 Network Model.  
@@ -80,7 +80,7 @@ script for more details.
 
 # :triangular_ruler: Structure
 
-#### Github
+### Github
 
     CreditCardDefault
     │   README.md
@@ -103,7 +103,7 @@ script for more details.
     │   │   Noise.R
     │   │   rf_logreg.R
 
-#### Google Drive
+### Google Drive
 
 Data store for original CSV files and processed parquet files.  
 Results available here including tuned models stored in RDS files.
@@ -116,13 +116,13 @@ Results available here including tuned models stored in RDS files.
 
 # :floppy_disk: Scripts
 
-#### main.R
+### main.R
 
 Primary file used to load all scripts.  
 2 directories need to be specified on the host machine: PATH_WD and
 PATH_DB.
 
-#### Feature Engineering
+### Feature Engineering
 
 Feature engineering functions are stored within 3 files:
 
@@ -133,10 +133,9 @@ Feature engineering functions are stored within 3 files:
 -   noise.R
     -   Functions to remove injected noise in features.
 
-![Structure
-1](/Users/root1/Documents/DAC_Project/readme/images/structure1.png)
+![Structure 1](images/structure1.png)
 
-#### Machine Learning Models
+### Machine Learning Models
 
 4 Models are evaluated as part of the project
 
@@ -154,7 +153,7 @@ Feature engineering functions are stored within 3 files:
         -   Functions to analyse neural network tuning results, and
             train network on best parameters
 
-#### Auxiliary Scripts
+### Auxiliary Scripts
 
 -   amex_metric.R
     -   Function to compute competition metric (Normalized Gini
