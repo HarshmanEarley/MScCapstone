@@ -137,7 +137,7 @@ Feature engineering functions are stored within 3 files:
 # :vertical_traffic_light: Run Times
 
 Because of the large amount of data involved (even after feature engineering) the models take a significant length of time to run.    
-Tuned models are available for inspection in the Google Drive under results.
+Tuned models are available for inspection in the Google Drive under results, loaded into the MODELS global variable.
 
 Model | Script | Tuning Length
 ------------- | ------------- | -------------

@@ -220,3 +220,14 @@ source(getFilePath("NeuralNetwork", ".R", checkDBOnly = FALSE))
 source(getFilePath("NN_tuningResults", ".R", checkDBOnly = FALSE))
 source(getFilePath("Noise", ".R", checkDBOnly = FALSE))
 source(getFilePath("rf_logreg", ".R", checkDBOnly = FALSE))
+
+##########################################################################################
+########               Load Models                              ########
+##########################################################################################
+
+
+MODELS = list(RF = readRDS(getFilePath("rf_model",".rds")),
+              LR = readRDS(getFilePath("lr_model",".rds")),
+              LR_P2 = readRDS(getFilePath("P_2_model",".rds")),
+              NN = readRDS(getFilePath("model_NN",".rds"))
+)
