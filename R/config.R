@@ -18,14 +18,9 @@ packages = c(
   'tfruns',
   "tfdatasets",
   "inline",
-  "Rcpp",
   "e1071",
-  "onlinePCA",
-  "missMDA",
   "mltools",
   "splitTools",
-  "xgboost",
-  'ParamHelpers',
   'mlr',
   "ROCR"
 )
