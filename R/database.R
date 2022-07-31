@@ -50,7 +50,7 @@ user = 'Sidney'
 #Working directory
 if(user == 'Sidney'){
   if(.Platform$OS.type == 'unix'){
-    PATH_WD = '/Users/root1/Documents/DAC_Project/R/'
+    PATH_WD = '/Users/root1/Documents/DAC_Project/'
     PATH_DB = '/Users/root1/Documents/amex-default-prediction/'
   }
   if(.Platform$OS.type == 'windows'){
@@ -207,5 +207,5 @@ train_labels = read_csv(getFilePath("train_labels"),show_col_types = FALSE);
 
 
 source(getFilePath("Noise", ".R", checkDBOnly = FALSE))
-source(getFilePath("cleansing_v2", ".R", checkDBOnly = FALSE))
+source(getFilePath("cleansing", ".R", checkDBOnly = FALSE))
 source(getFilePath("amex_metric", ".R", checkDBOnly = FALSE))

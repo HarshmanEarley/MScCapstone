@@ -5,20 +5,23 @@
 
 # Model of target vs P_2 as most highly corolated value to target variable
 P2_logisticModel = function(){
-  DF = readFromParquet(getFilePath("data_train",".parquet"))  %>% select(c(P_2,target))
+  DF = readFromParquet(getFilePath("train_data",".parquet"))  %>% select(c(P_2,target))
   
   # Remove NA values from P_2
   DF = DF[is.na(DF$P_2) == 0,]
-  trainTestIndex =  partition(1:nrow(y), p = c(train = 0.7, test= 0.2))
+  # Scale
+  DF$P_2 = scale(DF$P_2)
+  
+  trainTestIndex =  partition(1:nrow(DF), p = c(train = 0.7, test= 0.2))
   
   trainval = dplyr::slice(DF, trainTestIndex$train)
   test  =  dplyr::slice(DF, trainTestIndex$test)
   
   # three folds and 10 repeats
-  train_ctrl <- caret::trainControl(method = "repeatedcv", number = 3, repeats = 10, allowParallel = TRUE)
+  train_ctrl <- caret::trainControl(method = "repeatedcv", number = 3, repeats = 5, allowParallel = TRUE)
   
   # fit model
-  lr <- caret::train(x = trainval[,'P_2'], y = as.factor(trainval$target), method = "glm", family = "binomial",trControl = train_ctrl)
+  lr <- caret::train(x = as.data.frame(trainval[,'P_2']), y = as.factor(trainval$target), method = "glm", family = "binomial",trControl = train_ctrl)
   
   
   
