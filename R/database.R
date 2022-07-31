@@ -24,8 +24,14 @@ packages = c(
   "missMDA",
   "mltools",
   "splitTools",
-  "xgboost",
-  "ROCR"
+  "magrittr",
+  "ROCR",
+  "randomForest",
+  "caret",
+  "ggpubr",
+  "parallel",
+  "doParallel"
+  
 )
 
 install.packages(
