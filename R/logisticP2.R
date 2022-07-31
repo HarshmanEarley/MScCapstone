@@ -4,7 +4,7 @@
 #############################################
 
 # Model of target vs P_2 as most highly corolated value to target variable
-P2_logisticModel = function(){
+model_logisticP2 = function(){
   DF = readFromParquet(getFilePath("train_data",".parquet"))  %>% select(c(P_2,target))
   
   # Remove NA values from P_2
@@ -23,6 +23,10 @@ P2_logisticModel = function(){
   # fit model
   lr <- caret::train(x = as.data.frame(trainval[,'P_2']), y = as.factor(trainval$target), method = "glm", family = "binomial",trControl = train_ctrl)
   
+  # save model
+  savePath = glue(PATH_DB,"models/","lrP2_model.rds")
+  print(glue("saving model to : ",savePath))
+  saveRDS(lr, file = savePath)
   
   
   # predict test data

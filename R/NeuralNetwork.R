@@ -1,11 +1,14 @@
-model_neuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
+
+############################################
+#####    Neural Network Model Wrapper #####
+############################################
+
+model_NeuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
   
-  #####################################
-  #####    Load data              #####
-  #####################################
-  
+  # laod data
   print(glue('Reading data from ',dataPath))
   data = readFromParquet(dataPath) 
+  
   #dataPath = getFilePath("data_lastPerCustomerID",".parquet")
   
   #########################################
