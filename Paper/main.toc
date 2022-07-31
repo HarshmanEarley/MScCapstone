@@ -2,25 +2,24 @@
 \contentsline {section}{List of Tables}{iv}{section*.3}%
 \contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
 \contentsline {section}{\numberline {2}Review of Literature}{2}{section.2}%
-\contentsline {section}{\numberline {3}Data}{3}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Underlying Data}{3}{subsection.3.1}%
+\contentsline {section}{\numberline {3}Exploratory Data Analysis}{3}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Background}{3}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}Data Structure}{3}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Feature Engineering}{4}{subsection.3.3}%
-\contentsline {section}{\numberline {4}Methods}{6}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Models}{6}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Training/Validation}{8}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Evaluation}{8}{subsection.4.3}%
-\contentsline {section}{\numberline {5}Results}{9}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Exploratorry Data Aanalysis}{9}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Model Tuning Results}{10}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Model Comparrison}{10}{subsection.5.3}%
-\contentsline {section}{\numberline {6}Discussion}{13}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Context of Results}{13}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Limitations \& Future Research}{13}{subsection.6.2}%
-\contentsline {section}{\numberline {7}Conclusion}{14}{section.7}%
-\contentsline {section}{\numberline {8}Bibliography}{a}{section.8}%
-\contentsline {section}{\numberline {9}Appendices}{b}{section.9}%
-\contentsline {subsection}{\numberline {9.1}Appendix A: additional tables}{b}{subsection.9.1}%
-\contentsline {subsection}{\numberline {9.2}Appendix B: additional figures}{c}{subsection.9.2}%
-\contentsline {subsection}{\numberline {9.3}Appendix C: code}{d}{subsection.9.3}%
-\contentsline {section}{\numberline {10}Abbreviations}{f}{section.10}%
+\contentsline {subsection}{\numberline {3.3}Correlation to Target Variable}{4}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Feature Engineering}{5}{section.4}%
+\contentsline {section}{\numberline {5}Methods}{8}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Models}{8}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Evaluation}{9}{subsection.5.2}%
+\contentsline {section}{\numberline {6}Results}{11}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Model Tuning Results}{11}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Model Comparrison}{11}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Discussion}{14}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Context of Results}{14}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Limitations \& Future Research}{14}{subsection.7.2}%
+\contentsline {section}{\numberline {8}Conclusion}{15}{section.8}%
+\contentsline {section}{\numberline {9}Bibliography}{a}{section.9}%
+\contentsline {section}{\numberline {10}Appendices}{b}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Appendix A: additional tables}{b}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Appendix B: additional figures}{c}{subsection.10.2}%
+\contentsline {subsection}{\numberline {10.3}Appendix C: AMEX\_Metric Code}{d}{subsection.10.3}%
+\contentsline {section}{\numberline {11}Abbreviations}{e}{section.11}%

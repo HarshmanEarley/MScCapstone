@@ -24,22 +24,22 @@ In terms of accuracy, NN and RF both slightly outperform LR and achieve an accur
 
 As the Sensitivity has a positive effect in the calculation of the AMEX metric, it is only logical that NN and RF would fare better than the two LR models. With a value fo 0.71, the NN model is the only one to record a AMEX metric greater than 0.7. The RF model records an metric value of 0.69 while the full and simple LR models achieved values of 0.61 and 0.58 respectively.
 
-```{r echo=F,fig.align='center', out.width="50%",fig.cap="Bar Chart of Results by Model", fig.pos="H"}
+```{r echo=F,fig.align='center', out.width="60%",fig.cap="Bar Chart of Results by Model", fig.pos="H"}
 knitr::include_graphics("bar.png")
 ```
 
 
 On initial inspection, the four ROC curves produced by the model appear quite, however the ROC curves for the simple LR model and the RF model don't extend as close to the top-left of the plot as much as the full LR and the NN models. This is confirmed when comparing the Areas Under the Curve (AUC). The full LR and NN models recorded an AUC of over 0.95 while the other two models only recorded AUC's of 0.92.
 
-```{r, echo=F,fig.align='center', out.height = "50%",out.width = "50%", fig.cap="Receiver Operating Characteristic (ROC) curve for each Model.", fig.pos="H"}
+```{r, echo=F,fig.align='center', out.height = "70%",out.width = "70%", fig.cap="Receiver Operating Characteristic (ROC) curve for each Model.", fig.pos="H"}
 
 knitr::include_graphics("roc_plot.png")
 ```
 
-```{r, echo=F,fig.align='center', out.height = "40%",out.width = "40%", fig.cap="FourFold Plot of Test Data Results", fig.pos="H"}
+```{r, echo=F,fig.align='center', out.height = "60%",out.width = "60%", fig.cap="FourFold Plot of Test Data Results", fig.pos="H"}
 knitr::include_graphics("fourfoldplot.png")
 ```
-The fourfold plots of the four models produced show largely similar shapes. Upon reading the corresponding section labels clear distinctions can be made. 
+The fourfold plots of the four models produced show largely similar shapes. Upon reading the corresponding section labels clear distinctions can be made. The neural network has correctly identified the most defaults. While Logistic regression has identified the most non-defaults.
 
 [^corr]:
 https://statistics.laerd.com/statistical-guides/pearson-correlation-coefficient-statistical-guide.php
