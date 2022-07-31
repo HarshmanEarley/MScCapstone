@@ -102,8 +102,7 @@ intervals_main = function(){
 }
 
 getNoiseIntervals = function(){
-  
-  cachePath = glue(PATH_DB,"cache/","interval")
+  cachePath = getFilePath('interval','')
   
   if(!exists("INTERVALS")){
     #Try load from cache
