@@ -1,0 +1,59 @@
+
+\spacing{1.1}
+# Methods
+## Models
+**1. Logistic Regression (LR)**    
+Logistic regression is one of the most simple classification algorithms and is used to model a binary categorical variable given a collection of numerical and/or categorical predictors, \citet{alma9945667093902959}. The model applies the logistic function to the linear regression model which is used to model the probability of a binary event occurring. \spacing{0.5}
+
+$$ p_i = Pr(Y_i = 1 | x_i) = \frac{exp(w_0 + x_i^Tw)}{1 + exp(w_0 + x_i^Tw)} $$
+
+
+**2. Random Forest (RF)**  
+\spacing{1.1}
+Random Forests, \citet{rfor}, are a very powerful ensemble classification method. Ensemble learning is an aggregation of predictions made by multiple classifiers with the goal of improving accuracy. The method uses Classification Trees and bootstrapping extensively. A random forest is, effectively, a random collection of Classification Trees estimated on random subsets of the data.  
+A Classification Tree is an iterative process of splitting the data into partitions based on values of the observations, and then splitting it up further on each of the branches. The classifier is trained in order to produce pure groups of observations or 'buckets', by minimising the entropy or spread of the target variable in each bucket. The majority value of the target variable in a bucket is then used for predictions. The main disadvantage is that Classification Trees suffer from over-fitting and bias and using a single Classification Tree would present an over simplistic model.  
+In a Random Forest, each Classification Tree is  grown independently, and each individual Classification Tree has an equal vote as to what the outcome is. Random forests provide an improvement by means of a small tweak that reduces the dependence among the trees. The main idea is to use only a random subset of the predictor variables at each split of the classification tree fitting step, this is generally taken as $\sqrt{N}$ where N is the number of features but can be specified by the user. If we build classifiers on subsets of the variables, then they will behave more independently than if we build them on all of the data. This increases diversity and averaging results across independent classifiers will be more stable than averaging results on dependent ones. The main parameter of the Random Forests to be tuned is the number of variables used at each split and is tuned to prevent overfitting and improve efficiency.  
+
+
+**3. Deep Neural Network (DNN)**  
+Neural networks are machine learning methods that simulate the biological learning mechanism of the brain (\citet{Goodfellow-et-al-2016}, \citet{zhang2021dive}). Neural networks allow to learn representation features encompassing complex relations between inputs and output. Representation learning is the use of Machine Learning to not only learn the mapping from representation features to output, but also to learn the representation itself. Deep Learning methods introduce representations that are expressed in terms of other simpler representations, thus enabling to derive complex concepts out of simpler concepts. In practice, a neural network is a series of layers, made up of nodes with subsequent layers separated by activation functions.  
+
+A number of steps are taken in pre-processing of the data. Scaling of numeric variables is important as to not saturate hidden neurons, balancing the learning rate of all neurons. Categorical variables are one-hot-encoded as to normalise each to a [0,1] range.
+
+The model used is a fully connected deep neural network with 3 layers. As the labels are binary, binary classification is used. ReLU (Rectified Linear Unit) activation is implemented for hidden layers and sigmoid activation on the output layer. The Adam optimizer with default learning rate of 0.0001 is chosen for its computational efficiency and wide adoption in DNN models.
+
+During tuning, a number of parameters are grid searched through to give results of a number different style models.
+
+The parameters used in the Neural Network are:  
+**Dropout:** The first and second layers of neurons have an optional dropout layer. When active the dropout rate is either a low 0.25 of higher value of 0.5. Dropout layers randomly deactivate neurons with a frequency of the specified rate during training as to limit dependence on any subset.  
+**Width Size:** This flag equal Widths indicates whether the neural network will have equal widths of neurons at all layers, each the width of the input layer. If false, each subsequent layers is half the width of the previous.  
+**Regularization:** l2 regularization is available on each layer, adding the squared magnitude of coefficients as penalty to the loss function. This is a feature to help generalise the model and stop overfitting. Values of 0, 0.001 and 0.0001 are used to tune.  
+**Normalization:** Batch normalisation is available on each layer. When activated output of each layer is scaled and centred before being passed to subsequent layers.  
+The best performing model by validation accuracy has neurons of equal widths, and is utilizing each of regularization, normalization and dropout layers.
+
+## Training/Validation
+
+The data is first randomly split 80:20 into training/validation and test sets.
+For the LR and RF models, optimally tuned models are obtained using a three-fold cross-validation method over ten replications. 
+
+## Evaluation
+
+The models are compared on a number of metrics based on the correspondence of predicted labels for the test data versus observed labels of the test data.   
+
+<div class="figure" style="text-align: center">
+<img src="crosstable.png" alt="Cross tabulations between predicted and actual outcomes" width="45%" height="45%" />
+<p class="caption">Cross tabulations between predicted and actual outcomes</p>
+</div>
+
+Sensitivity, otherwise known as the True Positive Rate (TPR), quantifies the proportion those who defaulted were predicted to have defaulted. It is calculated by TP/(TP + FN). Specificity, otherwise known as the True Negative Rate (TNR) quantifies the proportion those who did not default were were  predicted to not have defaulted. It is calculated by TN/(TN + FP). Accuracy is the overall classification accuracy of a results set and is given by (TP + TN)/(TP + TN + FP + FN).   
+
+As the binary classification models can produce their predictions in the form of probabilities, varying the classification threshold - probability threshold to which default label is applied - affects the predictions and therefore the performance of each model. Further evaluation and comparison can be performed by comparing the performance of a classification model at all classification thresholds. The receiver operating characteristic - ROC curve plots Sensitivity versus 1 - Specificity over. The curve illustrates the diagnostic ability of a binary classifier as the classification threshold is varied. The ROC determines how often will a randomly chosen 1 outcome have a higher probability of being predicted to be a 1 outcome than a randomly chosen true 0. The larger the area under the curve - AUC, the better is the discrimination. A perfect classifier would have AUC = 1. A classifier not better than random guessing would have AUC = 0.5 and the corresponding ROC curve would resemble a plot of the identity function ($y = x$).[^AUC]    
+
+A fourth metric was also used to compare models. The evaluation metric used for the Kaggle competition [^met2] is the mean of two measures of rank ordering - Normalized Gini Coefficient,$G$, and default rate captured at 4% , $D$. $M = 0.5 \times (G + D)$. $G$ is an extension of the AUC and is calculated as $G = 2 \times AUC- 1$. The Default rate captured at 4% is the Sensitivity for a classification threshold set at 4% of weighted total sample count. 
+
+
+[^AUC]:
+https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc
+
+[^met2]:
+https://www.kaggle.com/competitions/amex-default-prediction/overview/evaluation

@@ -2,28 +2,41 @@
 \spacing{1.1}
 # Methods
 ## Models
-### Logistic Regression (LR)  
-
+**1. Logistic Regression (LR)**    
 Logistic regression is one of the most simple classification algorithms and is used to model a binary categorical variable given a collection of numerical and/or categorical predictors, \citet{alma9945667093902959}. The model applies the logistic function to the linear regression model which is used to model the probability of a binary event occurring. \spacing{0.5}
 
 $$ p_i = Pr(Y_i = 1 | x_i) = \frac{exp(w_0 + x_i^Tw)}{1 + exp(w_0 + x_i^Tw)} $$
 
 
-### Random Forest (RF)  
+**2. Random Forest (RF)**  
 \spacing{1.1}
 Random Forests, \citet{rfor}, are a very powerful ensemble classification method. Ensemble learning is an aggregation of predictions made by multiple classifiers with the goal of improving accuracy. The method uses Classification Trees and bootstrapping extensively. A random forest is, effectively, a random collection of Classification Trees estimated on random subsets of the data.  
 A Classification Tree is an iterative process of splitting the data into partitions based on values of the observations, and then splitting it up further on each of the branches. The classifier is trained in order to produce pure groups of observations or 'buckets', by minimising the entropy or spread of the target variable in each bucket. The majority value of the target variable in a bucket is then used for predictions. The main disadvantage is that Classification Trees suffer from over-fitting and bias and using a single Classification Tree would present an over simplistic model.  
 In a Random Forest, each Classification Tree is  grown independently, and each individual Classification Tree has an equal vote as to what the outcome is. Random forests provide an improvement by means of a small tweak that reduces the dependence among the trees. The main idea is to use only a random subset of the predictor variables at each split of the classification tree fitting step, this is generally taken as $\sqrt{N}$ where N is the number of features but can be specified by the user. If we build classifiers on subsets of the variables, then they will behave more independently than if we build them on all of the data. This increases diversity and averaging results across independent classifiers will be more stable than averaging results on dependent ones. The main parameter of the Random Forests to be tuned is the number of variables used at each split and is tuned to prevent overfitting and improve efficiency.  
 
 
-### Deep Neural Network (DNN)  
+**3. Deep Neural Network (DNN)**  
+Neural networks are machine learning methods that simulate the biological learning mechanism of the brain (\citet{Goodfellow-et-al-2016}, \citet{zhang2021dive}). Neural networks allow to learn representation features encompassing complex relations between inputs and output. Representation learning is the use of Machine Learning to not only learn the mapping from representation features to output, but also to learn the representation itself. Deep Learning methods introduce representations that are expressed in terms of other simpler representations, thus enabling to derive complex concepts out of simpler concepts. In practice, a neural network is a series of layers, made up of nodes with subsequent layers separated by activation functions.  
 
-Neural networks are machine learning methods that simulate the biological learning mechanism of the brain (\citet{Goodfellow-et-al-2016}, \citet{zhang2021dive}). Neural networks allow to learn representation features encompassing complex relations between inputs and output. Representation learning is the use of Machine Learning to not only learn the mapping from representation features to output, but also to learn the representation itself. Deep Learning methods introduce representations that are expressed in terms of other simpler representations, thus enabling to derive complex concepts out of simpler concepts. In practice, a neural network is a series of layers, made up of nodes with subsequent layers separated by activation functions.
+A number of steps are taken in pre-processing of the data. Scaling of numeric variables is important as to not saturate hidden neurons and to balance the learning rate of all neurons. Neural Networks cannot process categorical variables as inputs so the categorical variables are one-hot-encoded to create a set of dummy features each with a { 0, 1 } set of values.[^onehot]
+
+The model used is a fully connected deep neural network with 3 layers. ReLU (Rectified Linear Unit) activation is implemented for hidden layers. As the labels are binary, binary classification is used and therefore the sigmoid activation is applied on the output layer. The Adam optimizer with default learning rate of 0.0001 is chosen for its computational efficiency and wide adoption in DNN models. During tuning, a number of other parameters are grid searched through to give results of a number different style models.
+
+The parameters used in the Neural Network are:  
+**Width Size:** This flag equal Widths indicates whether the neural network will have equal widths of neurons at all layers, each the width of the input layer. If false, each subsequent layers is half the width of the previous.  
+**Dropout:** The first and second layers of neurons have an optional dropout layer. When active the dropout rate is either a low 0.25 of higher value of 0.5. Dropout layers randomly deactivate neurons with a frequency of the specified rate during training as to limit dependence on any subset.  
+**Regularization:** l2 regularization is available on each layer, adding the squared magnitude of coefficients as penalty to the loss function. This is a feature to help generalise the model and stop overfitting. Values of 0, 0.001 and 0.0001 are used to tune.  
+**Normalization:** Batch normalisation is available on each layer. When activated output of each layer is scaled and centred before being passed to subsequent layers.  
+
+```{r, echo=F,fig.align='center', out.height = "45%",out.width = "45%", fig.cap="Cross tabulations between predicted and actual outcomes"}
+
+knitr::include_graphics("crosstable.png")
+```
 
 ## Training/Validation
 
 The data is first randomly split 80:20 into training/validation and test sets.
-For the LR and RF models, optimally tuned models are obtained using a three-fold cross-validation method over ten replications. 
+For the LR and RF models, optimally tuned models are obtained using a three-fold cross-validation method over ten replications. A grid of values - 20, 30, 40 50-  for the number of variables used at each split of the RF is evaluated and the optimal value is chosen.  
 
 ## Evaluation
 
@@ -46,3 +59,6 @@ https://developers.google.com/machine-learning/crash-course/classification/roc-a
 
 [^met2]:
 https://www.kaggle.com/competitions/amex-default-prediction/overview/evaluation
+
+[^onehot]:
+https://www.kaggle.com/code/dansbecker/using-categorical-data-with-one-hot-encoding/notebook

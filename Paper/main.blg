@@ -4,45 +4,45 @@ The top-level auxiliary file: main.aux
 The style file: agsm.bst
 Database file #1: bibliography.bib
 Warning--empty booktitle in Neema2017TheCO
-You've used 9 entries,
+You've used 10 entries,
             2909 wiz_defined-function locations,
-            706 strings with 6687 characters,
-and the built_in function-call counts, 33223 in all, are:
-= -- 5304
-> -- 509
+            715 strings with 6984 characters,
+and the built_in function-call counts, 38286 in all, are:
+= -- 6132
+> -- 579
 < -- 0
-+ -- 2508
-- -- 154
-* -- 2848
-:= -- 6757
-add.period$ -- 10
-call.type$ -- 9
-change.case$ -- 125
-chr.to.int$ -- 9
-cite$ -- 10
-duplicate$ -- 154
-empty$ -- 309
-format.name$ -- 191
-if$ -- 5969
++ -- 2909
+- -- 175
+* -- 3300
+:= -- 7758
+add.period$ -- 11
+call.type$ -- 10
+change.case$ -- 139
+chr.to.int$ -- 10
+cite$ -- 11
+duplicate$ -- 170
+empty$ -- 344
+format.name$ -- 215
+if$ -- 6880
 int.to.chr$ -- 5
 int.to.str$ -- 0
-missing$ -- 11
-newline$ -- 33
-num.names$ -- 93
-pop$ -- 45
+missing$ -- 12
+newline$ -- 37
+num.names$ -- 104
+pop$ -- 47
 preamble$ -- 1
-purify$ -- 135
+purify$ -- 150
 quote$ -- 0
-skip$ -- 122
+skip$ -- 135
 stack$ -- 0
-substring$ -- 7407
-swap$ -- 27
-text.length$ -- 126
+substring$ -- 8589
+swap$ -- 30
+text.length$ -- 140
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 32
+type$ -- 36
 warning$ -- 1
-while$ -- 196
+while$ -- 218
 width$ -- 0
-write$ -- 123
+write$ -- 138
 (There was 1 warning)

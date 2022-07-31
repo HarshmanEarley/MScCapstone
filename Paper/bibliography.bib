@@ -189,3 +189,16 @@ title = {Regression modeling strategies : with applications to linear models, lo
 year = {2015},
 language = {eng},
 }
+
+@article{JSSv095i10,
+ title={Computing the Kolmogorov-Smirnov Distribution When the Underlying CDF is Purely Discrete, Mixed, or Continuous},
+ volume={95},
+ url={https://www.jstatsoft.org/index.php/jss/article/view/v095i10},
+ doi={10.18637/jss.v095.i10},
+ abstract={The distribution of the Kolmogorov-Smirnov (KS) test statistic has been widely studied under the assumption that the underlying theoretical cumulative distribution function (CDF), F (x), is continuous. However, there are many real-life applications in which fitting discrete or mixed distributions is required. Nevertheless, due to inherent difficulties, the distribution of the KS statistic when F (x) has jump discontinuities has been studied to a much lesser extent and no exact and efficient computational methods have been proposed in the literature. In this paper, we provide a fast and accurate method to compute the (complementary) CDF of the KS statistic when F (x) is discontinuous, and thus obtain exact p values of the KS test. Our approach is to express the complementary CDF through the rectangle probability for uniform order statistics, and to compute it using fast Fourier transform (FFT). Secondly, we provide a C++ and an R implementation of the proposed method, which fills the existing gap in statistical software. We give also a useful extension of the Schmid’s asymptotic formula for the distribution of the KS statistic, relaxing his requirement for F (x) to be increasing between jumps and thus allowing for any general mixed or purely discrete F (x). The numerical performance of the proposed FFT-based method, implemented both in C++ and in the R package KSgeneral, available from https://CRAN.R-project.org/package=KSgeneral, is illustrated when F (x) is mixed, purely discrete, and continuous. The performance of the general asymptotic formula is also studied.},
+ number={10},
+ journal={Journal of Statistical Software},
+ author={Dimitrova, Dimitrina S. and Kaishev, Vladimir K. and Tan, Senren},
+ year={2020},
+ pages={1–42}
+}

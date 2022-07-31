@@ -1,23 +1,21 @@
-\spacing{1.25}
+\spacing{1}
 # Data
 
 ## Underlying Data
 
-Data used for this project was obtained from the Kaggle website, an online platform and community for data scientists.[^kag] One of Kaggles main features is it's competition platform.[^comp] Kaggle allows users to organise and host competitions, these range from commercially-purposed prediction problems to more experimental research competitions. They give entrants the opportunity to test and grow their data science skills while competing for prizes and gives hosts an outlet to tackle tough business problems by turning them into a competition and allowing Kaggles user base of 10 million to provide potential solutions.  
-
-Access to the data required registering with Kaggle and joining the American Express - Default Prediction competition.[^kagamex] American Express is a globally integrated payments company and the largest payment card issuer in the world.[^AMEX] This competition provides an industrial scale data set to build a machine learning model to predict credit card default using time-series behavioural data and anonymised customer profile information over the period of March 2017 to March 2018. The target binary variable i.e. default is calculated by observing 18 months performance window after the latest credit card statement, and if the customer does not pay due amount in 120 days after their latest statement date it is considered a default event.
+Data used for this project was obtained from the Kaggle website. One of Kaggles main features is it's competition platform.[^comp] Kaggle allows users to organise and host data science competitions. Access to the data requires registering with Kaggle and joining the American Express - Default Prediction competition.[^kagamex] American Express is the largest payment card issuer in the world.[^AMEX] This competition provides an industrial scale data set to build a machine learning model. The model is used tp predict credit card default using time-series behavioural data and anonymised customer profile information over the period of March 2017 to March 2018. The target binary variable i.e. default is calculated by observing 18 months performance window after the latest credit card statement, and if the customer does not pay due amount in 120 days after their latest statement date it is considered a default event.
 
 ## Data Structure
 \spacing{1}
 **train_labels.csv**   
 A list of unique customer identifiers `customer_ID` with the target label `target` indicating a default event with `target = 1` indicating a default, `target = 0` indicating no default. There are 458913 observations in this data meaning 458913 unique AMEX customers. 74.1% of customers in the data did not default on payment while 25.9% defaulted.
 
-```{r def, echo=F,fig.align='center', out.height="35%",out.width="35%", fig.cap="Breakdown of defaults in training data"}
+```{r def, echo=F,fig.align='center', out.height="35%",out.width="35%", fig.cap="Breakdown of defaults in training data", echo=FALSE, eval=FALSE}
 knitr::include_graphics("default.png")
 ```
 
 **train_data.csv**  
-This is a tabular data set corresponding to the training data, consisting of 190 features. It contains multiple statement dates per customer_ID, each observation corresponds to a monthly statement for a customer. The data is ordered firstly by `customer_ID`, corresponding with the train_labels.csv file and secondly ordered chronologically by statement date. The dataset contains aggregated profile features for each customer at each statement date. There are 177 numeric features which are anonymised and normalized, and fall into the following general categories:
+This is a tabular data set corresponding to the training data, consisting of 190 features and over 5.5 million observations. It contains multiple statement dates per customer_ID, each observation corresponds to a monthly statement for a customer. The data is ordered firstly by `customer_ID`, corresponding with the train_labels.csv file and secondly ordered chronologically by statement date. The dataset contains aggregated profile features for each customer at each statement date. There are 177 numeric features which are anonymised and normalized, and fall into the following general categories:
 \spacing{0.75}
 ```{r, echo=FALSE, message=FALSE, results='hide'}
 library(knitr)
@@ -51,34 +49,59 @@ sample <- matrix(data = c("0000099d6bd597052cdcda90ffabf56573fe9d7c79be5fbac11a8
 ```
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, eval=FALSE}
 kable(sample, col.names = c("customer_ID","S_2","P_2","D_39"),label="Sample", caption ="First five rows and columns from train_data.csv  ")
 ```
-\spacing{1.1}
+\spacing{1}
 \normalsize
 
-**Other Data**  
-The competition data also includes two other files but are not within the scope of this project. test_data.csv is test data used to evaluate entries in the competition. However, labels for this data are not included an the evaluation for the models performance on this data is limited to the competitions own evaluation metric.[^met] sample_submission.csv is a sample submission file for the competition in the correct format.
+## Feature Engineering
+**Dimension Reduction**  
+A number of feature engineering steps were performed independently on the predictor variables. This was done in order to create a more manageable sized data set with uninformative features removed. Most ML algorithms do not allow missing or NA values as part of the inputs. Features dominated by a single value or small range of values do not hold much information and would not contribute to an effective classification model. Highly intercorrelated features particularly affect the interpretation of a regression model as then the regression coefficients are not unique and have influences from other features. More broadly, multi-collinear features increase dimensionality which increases the computational intensity of ML algorithms without adding extra information which could be used to predict the target.  
+Columns with a proportion of NA values higher than 10% or variance lower than 0.001 were identified. A list of these columns were added to a list of single columns from any pair with pairwise correlation greater than a high correlation threshold of 0.9. This process reduced the number of features from 189 to 129. 
 
-\newpage
+```{r echo=F,fig.align='center', out.width="45%",fig.cap="Proportion Missing, and Variance of Feature Columns ", fig.show="hold", fig.pos="H"}
+knitr::include_graphics(c("naHist.png", "variance.png"))
+```
 
-## Data Engineering
-Brief bit on load, chunking and caching process?
+```{r echo=F,fig.align='center', out.width="40%",fig.cap="Pairwise Correlation of Feature Variable", fig.show="hold", fig.pos="H"}
+knitr::include_graphics("correlation.png")
+```
 
-## Data Cleaning
+**Noise Removal**  
+As part of anonymising the data, noise was injected into a number of rational variables. This can be observed by plotting the histogram of variables. Viewing the variables S6, D111 and B16 we can see that there are pillars of high frequencies with no observations between them. Each variable has a different interval for which values are seen, but the commonality is the width of each pillar is 0.01. This can be easily rationalized trying to anonymising the standard interval for US currency ($\$ 0.01$), but has been applied across a number of discrete variables to make them continuous.
 
-- Remove NA columns,    
-- remove low variance columns    
-- remove highly correlated columns  
-- noise removal  
-- merge label and data  
-- save as parquet
-Anything else?
+```{r echo=F,fig.align='center', out.width="50%",fig.cap="Sample of features with noise added", fig.show="hold", fig.pos="H"}
+knitr::include_graphics("noise.png")
+```
+
+To identify these intervals where noise occurs a one sided Kolmogorov-Smirnov goodness of fit test is implemented. The Kolmogorov-Smirnov test is a nonparametric test which measures agreement between the cumulative distribution function of observed data to a specified distribution \citep{JSSv095i10}. In this case, we are comparing to a uniform $U(0,0.01)$ distribution for each test. 
+
+The hypothesis being tested is:   
+$H_0 :$ The sample comes from the specified theoretical distribution  
+$H_A :$ The sample does not comes from the specified theoretical distribution
+
+The test statistic is the absolute value of the largest distance between the two distributions functions.
+$$D = sup_x |F_n(X) - F(X)|$$
+
+where $n$ is the sample size, $F_n(X)$ is the observed cumulative frequency distribution of a random sample of n observations and $F(X)$ is the theoretical cumulative distribution function
+
+This test statistic is evaluated against the K-S tables to give a p-value. For evaluating if noise $[0,0.01]$ had been added the data, the bounds for each noise pillar are found iteratively by taking the smallest value in the dataset and adding $0.01$ to it to create and upper bound. All values that lie within this pillar are first scaled to the interval $[0,0.01]$ by taking the remainder modulo $0.01$. The scaled values are sampled using the Kolmogorov-Smirnov test against the $U(0,0.01)$ distribution. These values are then omitted and the next minimum data point is selected.     
+
+There are two values of interest:  
+**1)** The interval between observed values with noise removed   
+Each minimum value recorded is rounded to the nearest rational number, with the smallest accepted value being 0.01. Limiting the lower bound of acceptable rational numbers removes the possibility of overlap between pillars. We accept the interval as the most observed interval across all pillars, as values are assumed uniformly discrete.
+
+**2)** The acceptances criteria for if noise has been added to the data   
+The acceptance criteria is the percentage of total pillars that do not reject the null hypothesis. As we are observing the null hypothesis, on each test with $p > 0.05$ we can only not reject that the observed values come from a uniform distribution. As such a high threshold of 0.95 for the acceptance criteria is chosen to ensure variables selected are highly likely to have had noise added.  
+
+Variables that were identified as having noise added are converted to an ordinal array of integers representing the underlying rational number. This is done for each variable by first selecting the interval between values, An arbitrarily small number ($1\times10^{-8}$) is added as to avoid machine precision errors. Each value in the column is divided by this augmented interval. The floor of the values is obtained and then converted to an integer. It was found using the K_S goodness of fit test that 42 variables had noise added. Each of these received noise reduction as outlined above and were converted to ordinal integer form.
+
+**Final Dataset**  
+This cleansed data was merged with the default labels data. Due to computational limitations, the full data set could not reasonably be used in any full capacity to train computationally intensive ML algorithms. To reduce the length of the data, the most recent statement data per customer_id was retained and all preceding months data was dropped. This reduced the data to its final form of 458'913 individual customer observations and 129 features which was used for further analysis.
 
 
 
-[^kag]:
-https://www.kaggle.com/getting-started/44916
 
 [^kagamex]:
 https://www.kaggle.com/competitions/amex-default-prediction/data
@@ -88,6 +111,3 @@ https://about.americanexpress.com/our-company/our-business/our-business/default.
 
 [^comp]:
 https://www.kaggle.com/docs/competitions
-
-[^met]:
-https://www.kaggle.com/competitions/amex-default-prediction/overview/evaluation

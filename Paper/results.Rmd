@@ -1,20 +1,40 @@
 # Results
 
-## EDA
+## Exploratorry Data Aanalysis
 
-## Final Models 
-\spacing{0.9}
-The training and validation process yielded the following four models which were used to predict the test observations.\vspace{-0.5cm}   
+As feature labels are masked and the values are normalised, most traditional Exploratory Data Analysis (EDA) would prove to be of limited value to the study. The Pearson Correlation Coefficient is a measure of the strength of the linear association between two variables is calculated between the target variable and each feature. The coefficient can take a range of values in the range [ -1,1 ]. A value of 0 indicates that there is no association between the two variables. A value greater than 0 indicates a positive association i.e. as the value of one variable increases, so does the value of the other variable. Conversely, a value less than 0 indicates a negative association - as the value of one variable increases, the value of the other variable decreases.[^corr]  
+
+```{r echo=F,fig.align='center', out.width="47%",fig.show="hold", fig.pos="H",fig.cap="Relationship of features to Target Variable"}
+knitr::include_graphics(c("corolationToTarget.png", "P2.png"))
+```
+
+Payment variable P_2 shows strongest linear relationship with the target variable. It is the only variable to achieve an absolute correlation value in excess of 0.6. It is a negative value so for the sample as P_2 increases the likelihood of a card holder defaulting increases. The majority of variables have an absolute correlation value of less than 0.3 which would demonstrate a weak or even non-existent linear relationship. Looking at the variable categories, Balance (B_* ) and (D_*) Delinquency variables are the majority of features with a correlation with the target of greater than 0.4.
+
+
+Exploring the P_2 variable in more detail, the extent of its relationship with the target is clear. The distribution of this variable, split by target value depicts a left-skew peaking at 0.9 for those not in default and an approximately normal distribution with mean of 0.5 for those who default. The vast majority of observations with a value of P_2 greater than 0.5 are not in default where there are approximately even numbers who are in default and not in default with a value of P_2 less than 0.5. This could indicate the feature being related to or a function of a type of credit worthiness or credit score variable. This variable is now used as a baseline for predictions of models created. A simple logistic regression model with P_2 as the sole predictor is added to the list of models already being evaluated and compared. It is trained tuned and evaluated in an identical format to the full logistic regression model.
+
+## Model Tuning Results  
+
+```{r echo=F,fig.align='center', out.width="60%",fig.show="hold", fig.pos="H",fig.cap=" Accuracy and Loss learning curves of the tuning runs "}
+knitr::include_graphics("train_curve.png")
+```
+
+```{r echo=F,fig.align='center', out.width="60%",fig.show="hold", fig.pos="H",fig.cap="Boxplot of Accurac and Loss"}
+knitr::include_graphics("boxplot.png")
+```
+
+
+The training and validation process yielded the following four models which were used to predict the test observations.\spacing{0.9} \vspace{-0.5cm}    
 
 - Logistic regression model of all features using a classification threshold of 0.223. This will be referred to as the "full LR" model.  
 - Logistic regression model using P_2 feature as the only predictor variable using a threshold of 0.208. This will be referred to as the "reduced LR" or "simple LR" model.  
 - The optimal Random Forest model best on repeated cross-validation was found to use a random sample of 20 variables at each split and generating 100 trees.  
-- Brief format of Final NN
+- Deep Neural Network consisting of three hidden layers, with 160 units in each layer. A dropout of 0.5 and the first two hidden layers. $L_2$ regularization at each layer with a $\lambda$ of 0.001 and batch normalization at each layer. The Adam optimizer with default learning rate of 0.0001.
 
 \spacing{1.1}
 ## Model Comparrison
 
-A full table of result metrics can be seen in Appendix A.
+Full table of result metrics can be seen in Appendix A.
 
 In terms of accuracy, NN and RF both slightly outperform LR and achieve an accuracy that is 0.07 greater than the accuracy produced by the reduced LR model. That pattern of results is repeated in the Sensitivity. Of all the customers who defaulted in the test set, the Neural Network and Random Forest correctly identified over 90% of them. The full LR model correctly identified 85% while the simple LR identified under 80%. The full LR model achieves the highest specificity on the test data out of the four models with over 0.91 recorded. The simple LR model records the second highest specificity with 0.89 while both the Neural and Random Forrest recorded specificities of 0.78.
 
@@ -37,4 +57,5 @@ knitr::include_graphics("fourfoldplot.png")
 ```
 The fourfold plots of the four models produced show largely similar shapes. Upon reading the corresponding section labels clear distinctions can be made. 
 
-
+[^corr]:
+https://statistics.laerd.com/statistical-guides/pearson-correlation-coefficient-statistical-guide.php
