@@ -90,19 +90,11 @@ plotAccLossBoxplots = function(){
   boxplot(val_res$val_loss, outline=TRUE, xlab = 'validation loss')
 }
 
-
-singleInstanceNNTraining = function(){
-  bestModel = as.data.frame(metrics[[top3[1,]$i]])[1,5:16]
-  model_neuralNetwork(getFilePath("data_lastPerCustomerID",".parquet"), tuning = FALSE, bestModelFlags = bestModel)
-}
-
-
-
 ####################################################
 # Auxiliary functions, not individually meaningful
 ####################################################
 read_metrics = function(){
-  path = glue(PATH_DB,"/NN_tuningRuns/")
+  path = glue(PATH_DB,"results/NN_tuningRuns/")
   files = list.files(path)
   n = length(files)
   out = vector("list", n)

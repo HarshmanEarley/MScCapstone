@@ -44,10 +44,6 @@ for(pkg in packages){
   suppressPackageStartupMessages(library(pkg, character.only = TRUE))
 }
 
-#install_tensorflow()
-#install_keras()
-
-
 #######################
 # PATHS ########
 #######################
@@ -65,10 +61,6 @@ if(user == 'Sidney'){
   }
 }
 if(user == 'Denis'){
-  if(.Platform$OS.type == 'unix'){
-    PATH_WD = '/Users/root1/Documents/DAC_Project/R/'
-    PATH_DB = '/Users/root1/Documents/amex-default-prediction/'
-  }
   if(.Platform$OS.type == 'windows'){
     PATH_WD = 'C:/Users/denis/Documents/GitHub/DAC_Project/R/'
     PATH_DB = 'C:/Users/denis/Documents/ACM40960 - Projects in Maths Modelling/database/'
@@ -92,6 +84,9 @@ PATH = ls()[unlist(lapply(ls(), function(vec) 'PATH' %in% strsplit(vec,"_")[[1]]
 #######      Database management     #####
 ##########################################
 
+##########################################
+#### Read Parquet File
+##########################################
 readFromParquet = function(filePath){
   ads = arrow::open_dataset(sources =  filePath)
   ## Create a scanner
@@ -102,7 +97,9 @@ readFromParquet = function(filePath){
   as.data.frame(at)
 }
 
-
+############################################################################
+#### Return file path of requested file using defined path variables
+############################################################################
 getFilePath = function(fileN, ext = ".csv", checkDBOnly = FALSE){
 
   res = list()
@@ -135,6 +132,11 @@ getFilePath = function(fileN, ext = ".csv", checkDBOnly = FALSE){
   
   return(res[[1]])
 }
+
+############################################################################
+# getCache and getCacheCSV load data from cache and store it in glabal memory
+# If cache not found, processes csv/parquet files using callbackFunc
+############################################################################
 
 getCacheCSV = function(file, callbackFunc, prefix, chunkSize = 100000, override = FALSE){
   
@@ -211,7 +213,11 @@ train_labels = read_csv(getFilePath("train_labels"),show_col_types = FALSE);
 ########                 Scripts management                                  ########
 ##########################################################################################
 
-
-source(getFilePath("Noise", ".R", checkDBOnly = FALSE))
-source(getFilePath("cleansing", ".R", checkDBOnly = FALSE))
 source(getFilePath("amex_metric", ".R", checkDBOnly = FALSE))
+source(getFilePath("cleansing", ".R", checkDBOnly = FALSE))
+source(getFilePath("EDAPlots", ".R", checkDBOnly = FALSE))
+source(getFilePath("logisticP2", ".R", checkDBOnly = FALSE))
+source(getFilePath("NeuralNetwork", ".R", checkDBOnly = FALSE))
+source(getFilePath("NN_tuningResults", ".R", checkDBOnly = FALSE))
+source(getFilePath("Noise", ".R", checkDBOnly = FALSE))
+source(getFilePath("rf_logreg", ".R", checkDBOnly = FALSE))

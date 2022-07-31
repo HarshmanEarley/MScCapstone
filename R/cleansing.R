@@ -236,8 +236,8 @@ writeCsvToParquet = function(file, chunkSize = 100000){
 ########                   Transform Parquet Files                                 ########
 ##########################################################################################
 # Read in Parquet file from disk, transform and write down in place
-# writeCleanedParaquet - use cleansing functions to transform the data
-# writeCleanedParaquet("train_data")
+# writeCleansedParaquet - use cleansing functions to transform the data
+# writeCleansedParaquet("train_data")
 
 writeCleansedParaquet = function(parquetFile){
   write_parquet(

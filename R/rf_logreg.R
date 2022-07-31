@@ -64,7 +64,7 @@ model_rf_logreg <- function(model = ""){
   cl <- makeCluster(detectCores() - 1)
   registerDoParallel(cl)
   
-  if(model = "rf"){
+  if(model == "rf"){
     print("starting training of random forest")
     # three folds and 10 repeats
     train_ctrl <- caret::trainControl(method = "repeatedcv", number = 3, repeats = 5, allowParallel = TRUE)
@@ -79,7 +79,7 @@ model_rf_logreg <- function(model = ""){
     saveRDS(rf, file = savePath)
   }
   
-  if(model = "lr"){
+  if(model == "lr"){
     print("starting training of logistic regression")
 
     # fit model
@@ -94,7 +94,3 @@ model_rf_logreg <- function(model = ""){
 
 #rf_lr(model = "lr")
 #rf_lr(model = "rf")
-
-
-rf <- readRDS(paste(parquets_dir, "rf_model.rds", sep=""))
-lr <- readRDS(paste(parquets_dir, "lr_model.rds", sep=""))

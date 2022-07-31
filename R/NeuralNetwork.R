@@ -1,4 +1,15 @@
 
+###########################################################
+#####   Run Single Instance of NN using best parameters #####
+###########################################################
+
+singleInstanceNNTraining = function(){
+  top3 = getTop3Models()
+  bestModel = as.data.frame(readTuningMetrics(FALSE)[[top3[1,]$i]])[1,5:16]
+  model_NeuralNetwork(getFilePath("data_lastPerCustomerID",".parquet"), tuning = FALSE, bestModelFlags = bestModel)
+}
+
+
 ############################################
 #####    Neural Network Model Wrapper #####
 ############################################
@@ -139,9 +150,9 @@ model_NeuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
    # save model
    savePath = glue(PATH_DB,"models/","NN_model.rds")
    print(glue("saving model to : ",savePath))
-   saveRDS(NN, file = savePath)
+   saveRDS(fit, file = savePath)
    
-   return(NN)
+   return(fit)
  }
   
 }
