@@ -167,7 +167,7 @@ Research into utilising ML methods to predict credit card default has largely be
 ```{r methods, child = 'data.Rmd'}
 ```
 
-\newpage
+
 
 ```{r methods, child = 'methods.Rmd'}
 ```

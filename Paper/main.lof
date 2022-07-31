@@ -2,10 +2,9 @@
 \contentsline {figure}{\numberline {2}{\ignorespaces Pairwise Correlation of Feature Variable}}{4}{figure.2}%
 \contentsline {figure}{\numberline {3}{\ignorespaces Sample of features with noise added}}{5}{figure.3}%
 \contentsline {figure}{\numberline {4}{\ignorespaces Cross tabulations between predicted and actual outcomes}}{8}{figure.4}%
-\contentsline {figure}{\numberline {5}{\ignorespaces Cross tabulations between predicted and actual outcomes}}{9}{figure.5}%
-\contentsline {figure}{\numberline {6}{\ignorespaces Relationship of features to Target Variable}}{10}{figure.6}%
-\contentsline {figure}{\numberline {7}{\ignorespaces Accuracy and Loss learning curves of the tuning runs }}{11}{figure.7}%
-\contentsline {figure}{\numberline {8}{\ignorespaces Boxplot of Accurac and Loss}}{11}{figure.8}%
-\contentsline {figure}{\numberline {9}{\ignorespaces Bar Chart of Results by Model}}{12}{figure.9}%
-\contentsline {figure}{\numberline {10}{\ignorespaces Receiver Operating Characteristic (ROC) curve for each Model.}}{13}{figure.10}%
-\contentsline {figure}{\numberline {11}{\ignorespaces FourFold Plot of Test Data Results}}{13}{figure.11}%
+\contentsline {figure}{\numberline {5}{\ignorespaces Relationship of features to Target Variable}}{9}{figure.5}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Accuracy and Loss learning curves of the tuning runs }}{10}{figure.6}%
+\contentsline {figure}{\numberline {7}{\ignorespaces Boxplot of Accurac and Loss}}{10}{figure.7}%
+\contentsline {figure}{\numberline {8}{\ignorespaces Bar Chart of Results by Model}}{11}{figure.8}%
+\contentsline {figure}{\numberline {9}{\ignorespaces Receiver Operating Characteristic (ROC) curve for each Model.}}{12}{figure.9}%
+\contentsline {figure}{\numberline {10}{\ignorespaces FourFold Plot of Test Data Results}}{12}{figure.10}%

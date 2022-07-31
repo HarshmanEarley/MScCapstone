@@ -28,11 +28,6 @@ The parameters used in the Neural Network are:
 **Regularization:** l2 regularization is available on each layer, adding the squared magnitude of coefficients as penalty to the loss function. This is a feature to help generalise the model and stop overfitting. Values of 0, 0.001 and 0.0001 are used to tune.  
 **Normalization:** Batch normalisation is available on each layer. When activated output of each layer is scaled and centred before being passed to subsequent layers.  
 
-```{r, echo=F,fig.align='center', out.height = "45%",out.width = "45%", fig.cap="Cross tabulations between predicted and actual outcomes"}
-
-knitr::include_graphics("crosstable.png")
-```
-
 ## Training/Validation
 
 The data is first randomly split 80:20 into training/validation and test sets.
