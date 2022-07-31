@@ -2,21 +2,18 @@
 
 ## Model Tuning Results  
 
-```{r echo=F,fig.align='center', out.width="60%",fig.show="hold", fig.pos="H",fig.cap=" Accuracy and Loss learning curves of the tuning runs "}
-knitr::include_graphics("train_curve.png")
-```
-
-```{r echo=F,fig.align='center', out.width="60%",fig.show="hold", fig.pos="H",fig.cap="Boxplot of Accurac and Loss"}
-knitr::include_graphics("boxplot.png")
-```
-
-
 The training and validation process yielded the following four models which were used to predict the test observations.\spacing{0.9} \vspace{-0.5cm}    
 
 - Logistic regression model of all features using a classification threshold of 0.223. This will be referred to as the "full LR" model.  
 - Logistic regression model using P_2 feature as the only predictor variable using a threshold of 0.208. This will be referred to as the "reduced LR" or "simple LR" model.  
 - The optimal Random Forest model best on repeated cross-validation was found to use a random sample of 20 variables at each split and generating 100 trees.  
 - Deep Neural Network consisting of three hidden layers, with 160 units in each layer. A dropout of 0.5 and the first two hidden layers. $L_2$ regularization at each layer with a $\lambda$ of 0.001 and batch normalization at each layer. The Adam optimizer with default learning rate of 0.0001.
+
+
+```{r echo=F,fig.align='center', out.width="47%",fig.show="hold", fig.pos="H",fig.cap="Neural Network Turning Results"}
+knitr::include_graphics(c("boxplot.png","train_curve.png"))
+```
+
 
 \spacing{1.1}
 ## Model Comparrison
