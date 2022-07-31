@@ -1,3 +1,6 @@
+##########################################################################################
+########                     CSV -> PARQUET                     ########
+##########################################################################################
 estimateInterval_loadData = function(columns){
   print("Running estimateInterval_loadData")
   #read in full data from parquet
@@ -39,13 +42,13 @@ estimateInterval = function(vec){
     bound = vec[between(vec, boundMin, boundMin + 0.01)]
     nums[i] = min(bound)
     
-    #Use Kolmogorov-Smirnov test to check remainders are uniform(0, 0.01)
+    #Use Kolmogorov-Smirnov test to check remainders are uniform[0, 0.01]
     #H0: bound comes from unif dist
     ks_p[i] = ks.test(bound %% 0.01,"punif",0, 0.01)$p
     i = i+1
   }
   
-  #Get GCD of two middle sequential values, take that to be our interval to nearest rational 
+  #Round all lower bound values to nearest rational
   intervals = c()
   for(k in 1:(length(nums)-1)){
     inter =  nums[k+1] - nums[k] 
@@ -130,9 +133,9 @@ convertNoiseToInt = function(DF){
   DF
 }
 
-##########################################################
-######## Plot columns with results to pdf ###############
-#########################################################
+##########################################################################################
+########                   lot columns with results to pdf                        ########
+##########################################################################################
 plotNoiseHistByColumn = function(){
   print("Running plotNoiseHistByColumn, saving histograms to PDF")
   #load DF

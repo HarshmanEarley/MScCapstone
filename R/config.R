@@ -1,6 +1,6 @@
-####################
-# package manager #
-###################
+##########################################################################################
+########                  PACKAGE MANAGER                                      ########
+##########################################################################################
 
 packages = c(
   "MASS",
@@ -20,12 +20,9 @@ packages = c(
   "inline",
   "Rcpp",
   "e1071",
-  "onlinePCA",
-  "missMDA",
   "mltools",
-  "splitTools",
-  "xgboost",
-  "ROCR"
+  "pROC",
+  "ROCR",
 )
 
 install.packages(
@@ -42,9 +39,10 @@ for(pkg in packages){
 #install_keras()
 
 
-#######################
-# PATHS ########
-#######################
+##########################################################################################
+########                 PATHS                                                ########
+##########################################################################################
+
 user = 'Sidney'
 
 #Working directory
@@ -82,9 +80,11 @@ if(!dir.exists(DB_CACHE)){
 #master list of all defined paths
 PATH = ls()[unlist(lapply(ls(), function(vec) 'PATH' %in% strsplit(vec,"_")[[1]]))]
 
-##########################################
-#######      Database management     #####
-##########################################
+
+##########################################################################################
+########                 Database management                                  ########
+##########################################################################################
+
 
 readFromParquet = function(filePath){
   ads = arrow::open_dataset(sources =  filePath)
@@ -134,8 +134,9 @@ getFilePath = function(fileN, ext = ".csv", checkDBOnly = TRUE){
   }
   
   #Return null string if no file found
-  stopifnot("No file found" = length(res) != 0)
-  
+  if(length(res) == 0){
+    return("")
+  }
   
   #If we get files of similar names, find exact name
   if(!length(res) == 1){
@@ -143,7 +144,7 @@ getFilePath = function(fileN, ext = ".csv", checkDBOnly = TRUE){
     res = res[glue(fileN,ext) == f[,ncol(f)]]
   }
   
-  #If wmultiple, throw error 
+  #If multiple, throw error 
   stopifnot("Multiple files found" = length(res) == 1)
   
   
@@ -219,9 +220,10 @@ getCache = function(file, func, prefix, override = FALSE){
   return(get(cacheName))
 }
 
-##############
-# Load Data #
-###############
+##########################################################################################
+########                 Database management                                  ########
+##########################################################################################
+
 
 train_labels = read_csv(getFilePath("train_labels"),show_col_types = FALSE);
 
