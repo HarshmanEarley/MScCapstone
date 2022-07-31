@@ -1,10 +1,4 @@
 # Conclusion
 
-This extends model choice to include black-box models that are better able to identify the non-linear relationships between the target variable and the predictor variables. This means that banks and lenders have the potential to use models which could help them reduce expenses brought about by loan defaults and/or identify and avoid lending opportunities that are too risky.
+Over the past years, a strand of literature has attempted to shed light on how advanced ML algorithms such as Neural Networks and Random Forest can be employed to predict various forms of credit risk. This report confirms the additional performance of more simplistic models such as logistic regression. Credit Card issuing institutions have the potential to use models which are better able to identify the complex patterns and relationships between the target variable and the predictor variables. This, in turn, will reduce expenses brought about by default. These models can be used to single out customers at risk of default and provide early intervention or to assess the credit risk of customers before granting them credit cards.  
 
-
-**The conclusion is intended to help the reader understand why your research should matter to them after they have finished reading the paper. A conclusion is not merely a summary of your points or a re-statement of your research problem but a synthesis of key points. For most essays, one well-developed paragraph is sufficient for a conclusion, although in some cases, a two-or-three paragraph conclusion may be required.**  
-
-- *Presenting the last word on the issues you raised in your paper. Just as the introduction gives a first impression to your reader, the conclusion offers a chance to leave a lasting impression. Do this, for example, by highlighting key points in your analysis or findings.*  
-- *Summarizing your thoughts and conveying the larger implications of your study. The conclusion is an opportunity to succinctly answer the "so what?" question by placing the study within the context of past research about the topic you've investigated.*  
-- *Demonstrating the importance of your ideas. Don't be shy. The conclusion offers you a chance to elaborate on the significance of your findings.*  

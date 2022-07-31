@@ -19,7 +19,7 @@ Other research on predicting credit card default in subsequent years utilised th
 \vspace{.3 cm}
 While other studies have used Neural Networks in predicting credit card defaults, the models used have been vague, and little detail has been given on the architecture or tuning of the model. \citet{dnn2} trialled a range of Networks, experimenting with two to five layers with the number of processing units of 64, 32 and 16 units. Neural Networks with three layers and 64 units recorded the highest accuracy of all configurations.    
 \vspace{.3 cm}
-Due to a lack of credit card-specific data pertaining to defaulting on payment, all available studies which predict credit card default utilise the Taiwan data, which is both region specific, over 15 years old and obtained at a time when credit card issuers in Taiwan faced a credit card debt crisis.[^debt]
+Due to a lack of credit card default-specific data pertaining to defaulting on payment, all available studies which predict credit card default utilise the Taiwan data, which is both region specific, over 15 years old and obtained at a time when credit card issuers in Taiwan faced a credit card debt crisis.[^debt]
 
 
 [^uci]: 

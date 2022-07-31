@@ -3,16 +3,16 @@
 
 ## Background
 
-Data used for this project was obtained from the Kaggle website. One of Kaggles main features is it's competition platform.[^comp] Kaggle allows users to organise and host data science competitions. This competition provides an industrial scale data set to build a machine learning model. The model is used tp predict credit card default using anonymised customer profile information over the period of March 2017 to March 2018. The target binary variable i.e. default is calculated by observing 18 months performance window after the latest credit card statement, and if the customer does not pay due amount in 120 days after their latest statement date it is considered a default event.
+Data used for this project was obtained from the Kaggle website. One of Kaggle's main features is its competition platform.[^comp] Kaggle allows users to organise and host data science competitions. This competition provides an industrial-scale data set to build a machine learning model. The model is used to predict credit card default using anonymised customer profile information from March 2017 to March 2018. The target binary variable i.e. default is calculated by observing 18 month's performance window after the latest credit card statement, and if the customer does not pay the due amount in 120 days after their latest statement date, it is considered a default event.
 
 ## Data Structure
 \spacing{1}
 **train_labels.csv**   
-A list of unique customer identifiers `customer_ID` with the target label `target` indicating a default event with `target = 1` indicating a default, `target = 0` indicating no default. There are 458913 observations in this data meaning 458913 unique AMEX customers. 74.1% of customers in the data did not default on payment while 25.9% defaulted.
+A list of unique customer identifiers `customer_ID` with the target label `target` indicating a default event with `target = 1` indicating a default, `target = 0` indicating no default. There are 458913 observations in this data, meaning 458913 unique AMEX customers. 74.1% of customers in the data did not default on payment, while 25.9% defaulted.
 
 
 **train_data.csv**  
-This is a tabular data set corresponding to the training data, consisting of 190 features and over 5.5 million observations. It contains multiple statement dates per customer_ID, each observation corresponds to a monthly statement for a customer. The data is ordered firstly by `customer_ID`, corresponding with the train_labels.csv file and secondly ordered chronologically by statement date. The dataset contains aggregated profile features for each customer at each statement date. There are 177 numeric features which are anonymised and normalized, and fall into the following general categories:
+This tabular data set corresponding to the training data, consisting of 190 features and over 5.5 million observations. It contains multiple statement dates per customer_ID ,and each observation corresponds to a monthly statement for a customer. The data is ordered firstly by `customer_ID`, corresponding with the train_labels.csv file, and chronologically by statement date. The dataset contains aggregated profile features for each customer at each statement date. There are 177 numeric features which are anonymised and normalized and fall into the following general categories:
 \spacing{0.75}
 
 ```{r def, echo=F,fig.align='center', out.height="50%",out.width="40%",fig.show="hold",  fig.cap="Frequency of Lables / Variable Catagories", echo=FALSE, eval = TRUE}
@@ -38,7 +38,7 @@ kable(varcat, col.names = c("Variable Name", "Category" ),label="Variable Catego
 \spacing{1.1}
 There are 11 categorical variables - B_30, B_38, D_114, D_116, D_117, D_120, D_126, D_63, D_64, D_66 and D_68.   
  
-The remaining two unaccounted for features are the variable S_2 which contains the date of the statement and `customer_ID` which can used to match to the target label.
+The remaining two unaccounted-for features are the variable S_2 which contains the date of the statement and `customer_ID`, used to match the target label.
 
 \spacing{1}
 \scriptsize
@@ -60,34 +60,31 @@ kable(sample, col.names = c("customer_ID","S_2","P_2","D_39"),label="Sample", ca
 \normalsize
 
 
-## Corolation to Target Variable
+## Correlation to Target Variable
 
-The Pearson Correlation Coefficient is a measure of the strength of the linear association between two variables is calculated between the target variable and each feature. A value of 0 indicates that there is no association between the two variables. An absolute value greater than 0 indicates a association between the variables, either positive or negative depicted by the values sign.[^corr]
+The Pearson Correlation Coefficient measures the strength of the linear association between two variables calculated between the target variable and each feature. A value of 0 indicates that there is no association between the two variables. An absolute value greater than 0 indicates an association between the variables, either positive or negative, depicted by the sign of the value.[^corr]
 
 ```{r echo=F,fig.align='center', out.width="47%",fig.show="hold", fig.pos="H",fig.cap="Relationship of features to Target Variable"}
 knitr::include_graphics(c("corolationToTarget.png", "P2.png"))
 ```
 
-Payment variable P_2 shows strongest linear relationship with the target variable. It is the only variable to achieve an absolute correlation value in excess of 0.6. It is a negative value so for the sample as P_2 increases the likelihood of a card holder defaulting increases. The majority of variables have an absolute correlation value of less than 0.3 which would demonstrate a weak or even non-existent linear relationship. Looking at the variable categories, Balance (B_* ) and (D_*) Delinquency variables are the majority of features with a correlation with the target of greater than 0.4.
+Payment variable P_2 shows the most substantial linear relationship with the target variable. It is the only variable to achieve an absolute correlation value over 0.6. It is a negative value, so for the sample, as P_2 increases, the likelihood of a cardholder defaulting increases. The majority of variables have an absolute correlation value of less than 0.3, demonstrating a weak or even non-existent linear relationship. Looking at the variable categories, Balance (B_* ) and (D_*) Delinquency variables are the majority of features with a correlation with the target of greater than 0.4.
 
-Exploring the P_2 variable in more detail, the extent of its relationship with the target is clear. The distribution of this variable, split by target value depicts a left-skew peaking at 0.9 for those not in default and an approximately normal distribution with mean of 0.5 for those who default. The vast majority of observations with a value of P_2 greater than 0.5 are not in default where there are approximately even numbers who are in default and not in default with a value of P_2 less than 0.5. This could indicate the feature being related to or a function of a type of credit worthiness or credit score variable. This variable is now used as a baseline for predictions of models created. A simple logistic regression model with P_2 as the sole predictor may be valuable as a baseline for measuring more complex models against. It is trained, tuned and evaluated in an identical format to the full logistic regression model.
+Exploring the P_2 variable in more detail, the extent of its relationship with the target is clear. The distribution of this variable, split by target value, depicts a left-skew peaking at 0.9 for those not in default and an approximately normal distribution with a mean of 0.5 for those who default. The vast majority of observations with a value of P_2 greater than 0.5 are not in default. There are approximately even numbers who are in default and not in default with a value of P_2 less than 0.5. This could indicate the feature is related to or a function of a type of credit-worthiness or credit-score variable. This variable is now used as a baseline for predictions of models created. A simple logistic regression model with P_2 as the sole predictor may be valuable as a baseline for measuring more complex models against. It is trained, tuned and evaluated in an identical format to the full logistic regression model.
 
 # Feature Engineering
 **Dimension Reduction**  
-A number of feature engineering steps were performed independently on the predictor
-variables. This was done in order to create a more manageable sized data set with
-uninformative features removed. 
+Several feature engineering steps were performed independently on the predictor variables. Feature engineering was done to create a more manageable-sized data set with uninformative features removed. 
 
-Most ML algorithms either suffer or are inoperable with missing data. Imputation methods must be utilised, which can bias the information of the column if the proportion of missing data is too great. A threshold of 10% was chosen of which columns would be removed. Of variables beyond that threshold, 77% had greater than half of its data missing.
+Most ML algorithms either suffer or are inoperable with missing data. Imputation methods must be utilised, which can bias the column's information if the proportion of missing data is too significant A threshold of 10% was chosen of which columns would be removed. Of variables beyond that threshold, 77% had greater than half of its data missing.
 
-Features dominated by a single value or small range of values do not hold
-much information and would not contribute to an effective classification model. When creating data models such variables are uninformative and should be considered to be removed. Choosing a conservative variance threshold of 0.001, variables where 99.9% of the values are similar are removed.  
+Features dominated by a single value or small range of values do not hold much information and would not contribute to an effective classification model. When creating data models, such variables are uninformative and should be considered to be removed. Choosing a conservative variance threshold of 0.001, variables where 99.9% of the values are similar, are removed.  
 
-Highly intercorrelated features particularly affect the interpretation of a regression model as then the
+Highly intercorrelated features mainly affect the interpretation of a regression model as then the
 regression coefficients are not unique and have influences from other features. More broadly,
-multi-collinear features increase dimensionality which increases the computational intensity of
+multi-collinear features increase dimensionality, which increases the computational intensity of
 ML algorithms without adding extra information which could be used to predict the target.
-Columns with pairwise correlation greater than a high correlation threshold of 0.9 are considered for removal.
+Columns with a pairwise correlation in excess of a high correlation threshold of 0.9 are considered for removal.
 
 These three filters reduced the number of features in the dataset from 189 to 129.
 
@@ -100,17 +97,17 @@ knitr::include_graphics("correlation.png")
 ```
 
 **Noise Removal**  
-As part of anonymising the data, noise was injected into a number of rational variables. This can be observed by plotting the histogram of variables. Viewing the variables S6, D111 and B16 we can see that there are pillars of high frequencies with no observations between them. Each variable has a different interval for which values are seen, but the commonality is the width of each pillar is 0.01. This can be easily rationalized trying to anonymising the standard interval for US currency ($\$ 0.01$), but has been applied across a number of discrete variables to make them continuous.
+As part of anonymising the data, noise was injected into a number of rational variables. This can be observed by plotting the histogram of variables. Viewing the variables S6, D111 and B16, we can see that there are pillars of high frequencies with no observations between them. Each variable has a different interval for which values are seen, but the commonality is the width of each pillar which is 0.01. This can be easily rationalized by trying to anonymise the standard interval for US currency ($\$ 0.01$) but has been applied across a number of discrete variables to make them continuous.
 
 ```{r echo=F,fig.align='center', out.width="50%",fig.cap="Sample of features with noise added", fig.show="hold", fig.pos="H"}
 knitr::include_graphics("noise.png")
 ```
 
-To identify these intervals where noise occurs a one sided Kolmogorov-Smirnov goodness of fit test is implemented. The Kolmogorov-Smirnov test is a nonparametric test which measures agreement between the cumulative distribution function of observed data to a specified distribution \citep{JSSv095i10}. In this case, we are comparing to a uniform $U(0,0.01)$ distribution for each test. 
+A one-sided Kolmogorov-Smirnov goodness-of-fit test is implemented to identify these intervals where noise occurs. The Kolmogorov-Smirnov test is a nonparametric test that measures agreement between the cumulative distribution function of observed data to a specified distribution \citep{JSSv095i10}. In this case, we are comparing to a uniform $U(0,0.01)$ distribution for each test. 
 
 The hypothesis being tested is:   
 $H_0 :$ The sample comes from the specified theoretical distribution  
-$H_A :$ The sample does not comes from the specified theoretical distribution
+$H_A :$ The sample does not come from the specified theoretical distribution
 
 The test statistic is the absolute value of the largest distance between the two distributions functions.
 $$D = sup_x |F_n(X) - F(X)|$$
@@ -121,19 +118,19 @@ where:
 * $F_n(X)$ is the observed cumulative frequency distribution of a random sample of n observations
 * $F(X)$ is the theoretical cumulative distribution function
 
-This test statistic is evaluated against the K-S tables to give a p-value. For evaluating if noise $[0,0.01]$ had been added the data, the bounds for each noise pillar are found iteratively by taking the smallest value in the dataset and adding $0.01$ to it to create and upper bound. All values that lie within this pillar are first scaled to the interval $[0,0.01]$ by taking the remainder modulo $0.01$. The scaled values are sampled using the Kolmogorov-Smirnov test against the $U(0,0.01)$ distribution. These values are then omitted and the next minimum data point is selected.     
+This test statistic is evaluated against the K-S tables to give a p-value. To evaluate if noise $[0,0.01]$ had been added to the data, the bounds for each noise pillar are found iteratively by taking the smallest value in the dataset and adding $0.01$ to it to create an upper bound. All values within this pillar are first scaled to the interval $[0,0.01]$ by taking the remainder modulo $0.01$. The scaled values are sampled using the Kolmogorov-Smirnov test against the $U(0,0.01)$ distribution. These values are then omitted, and the next minimum data point is selected.     
 
 There are two values of interest:  
 **1)** The interval between observed values with noise removed.        
 Each minimum value recorded is rounded to the nearest rational number, with the smallest accepted value being 0.01. Limiting the lower bound of acceptable rational numbers removes the possibility of overlap between pillars. We accept the interval as the most observed interval across all pillars, as values are assumed uniformly discrete.
 
-**2)** The acceptances criteria for if noise has been added to the data.       
-The acceptance criteria is the percentage of total pillars that do not reject the null hypothesis. As we are observing the null hypothesis, on each test with $p > 0.05$ we can only not reject that the observed values come from a uniform distribution. As such a high threshold of 0.95 for the acceptance criteria is chosen to ensure variables selected are highly likely to have had noise added.  
+**2)** The acceptance criteria for if noise has been added to the data.       
+The acceptance criteria is the percentage of total pillars that do not reject the null hypothesis. As we are observing the null hypothesis, on each test with $p > 0.05$ we can only not reject that the observed values come from a uniform distribution. As such, a high threshold of 0.95 for the acceptance criteria is chosen to ensure variables selected are highly likely to have had noise added.  
 
-Variables that were identified as having noise added are converted to an ordinal array of integers representing the underlying rational number. This is done for each variable by first selecting the interval between values, An arbitrarily small number ($1\times10^{-8}$) is added as to avoid machine precision errors. Each value in the column is divided by this augmented interval. The floor of the values is obtained and then converted to an integer. It was found using the K_S goodness of fit test that 42 variables had noise added. Each of these received noise reduction as outlined above and were converted to ordinal integer form.
+Variables that were identified as having noise added are converted to an ordinal array of integers representing the underlying rational number. This is done for each variable by first selecting the interval between values, An arbitrarily small number ($1\times10^{-8}$) is added to avoid machine precision errors. Each value in the column is divided by this augmented interval. The floor of the values is obtained and then converted to an integer. It was found using the K_S goodness of fit test that 42 variables had noise added. Each of these received noise reduction as outlined above and were converted to ordinal integer form.
 
 **Final Dataset**  
-This cleansed data was merged with the default labels data. Due to computational limitations, the full data set could not reasonably be used in any full capacity to train computationally intensive ML algorithms. To reduce the length of the data, the most recent observation by date (variable S_2) per customer_id was retained and all preceding months data was dropped. This reduced the data to its final form of 458'913 individual customer observations and 129 features which was used for further analysis.
+This cleansed data was merged with the default labels data. Due to computational limitations, the complete data set could not reasonably be used in any full capacity to train computationally intensive ML algorithms. To reduce the length of the data, the most recent observation by date (variable S_2) per customer_id was retained, and all preceding month's data was dropped. This reduced the data to its final form of 458'913 individual customer observations and 129 features which were used for further analysis.
 
 
 
