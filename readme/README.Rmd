@@ -2,7 +2,7 @@
 title: "COMPARISON AND EVALUATION OF DIFFERENTMACHINE LEARNING METHODS AT PREDICTINGCREDIT CARD DEFAULT"
 author: "Sidney Harshman-Earley \n Denis O’Riordan"
 output:
-  github_document:
+  rmarkdown::github_document:
     toc: true
     toc_depth: 2
 ---
