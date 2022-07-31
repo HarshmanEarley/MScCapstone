@@ -49,7 +49,7 @@ user = 'Sidney'
 #Working directory
 if(user == 'Sidney'){
   if(.Platform$OS.type == 'unix'){
-    PATH_WD = '/Users/root1/Documents/DAC_Project/R/'
+    PATH_WD = '/Users/root1/Documents/DAC_Project/'
     PATH_DB = '/Users/root1/Documents/amex-default-prediction/'
   }
   if(.Platform$OS.type == 'windows'){

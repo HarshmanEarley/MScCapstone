@@ -1,0 +1,205 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+source('~/Documents/DAC_Project/R/config.R')
+```
+
+```{r}
+df = readFromParquet(getFilePath("train_data",".parquet")) 
+```
+
+
+#####################################################################################
+        EDA
+####################################################################################
+
+# Distribution of target label
+
+Plotting all variables against the target variable, we can see there is a smooth gradient of corolations, with bounds within [0.6, -0.6].
+
+```{r, eval = FALSE}
+# DONT RUN, TAKES A WHILE
+cors = data.frame(x = colnames(df %>% removeNonNumerics %>% select(-c(customer_ID,target))), y = 'target')
+cors$variableCategories = substr(cors$x, start = 1, stop = 1)
+for(i in 1:nrow(cors)){
+  cors[i,'cor'] = cor(df[,cors[i,1]], df[,cors[i,2]], method = "pearson", use = 'pairwise.complete.obs')
+}
+```
+
+```{r}
+cors = readRDS(getFilePath("corolationToTarget",""))
+
+ggplot(cors, aes(x = reorder(x, -cor), y = cor, fill = variableCategories)) + geom_col(position = "identity") +
+    theme(axis.text.x=element_blank()) +
+    xlab("Variable") +
+    ylab("Correlation To Target") +
+    ggtitle("Correlation to Target")
+
+ggsave('/Users/root1/Documents/amex-default-prediction/plots/corolationToTarget.png')
+```
+
+Payment variable P_2 has the highest absolute coloration to the target variable.
+Plotting its distribution by target, it depicts a navigate-skew for those not in default and a normal distribution near mean of 0.5 for those who are.
+This could indicate the metric being a type of credit worthiness variable as the majority of those not in deualt have P_2 scores above 0.5, where those in default are normally distributed at $\mu = 0.5$.
+This variable could be used as a baseline for predictions of models created.
+
+```{r}
+ggplot(df,aes(x=P_2))+geom_histogram(col="skyblue")+facet_grid(~target) +     
+    ggtitle("Distribution of P_2 by Target")
+ggsave('/Users/root1/Documents/amex-default-prediction/plots/P2.png')
+```
+
+
+#####################################################################################
+####################################################################################
+            FEATURE ENGINEERING
+####################################################################################
+####################################################################################
+# Missing Data
+
+From the below barplot, we can see there are a number of variables with large amounts of missing data.    
+As the models selected either suffer or are inoperable with missing data, a threshold of 0.1 was selected as cuttoff for acceptable percentage of missing values in a given column.   
+Of variables beyond that threshold, 77% had over half of its data missing.
+
+
+```{r}
+naCounts = as.data.frame(getNACounts("train_data")/train_data_N)
+naCounts$variableCategories = substr(rownames(naCounts), start = 1, stop = 1)
+colnames(naCounts) = c('coln','variableCategories')
+
+ggplot(naCounts, aes(x = reorder(rownames(naCounts), -coln), y = coln, fill = variableCategories)) + geom_col(position = "identity") +
+    theme(axis.text.x=element_blank()) +
+    xlab("Variable") +
+    ylab("% NA") +
+    geom_hline(yintercept =0.1) +
+    ggtitle("Variable Missing Observations")
+
+```
+
+#####################################################################################
+####################################################################################
+
+
+# Low variance
+
+Variables of low variance have a small spread, thus having the majority of the observations clustered around the mean.    
+When creating data models such variables are uninformative and should be removed.      
+Deciding a conservative threshold of 0.001, variables where 99.9% of the values are similar are removed.    
+
+```{r}
+vars = getVariance("train_data")
+vars = data.frame(variable = colnames(vars), vars = unlist(vars))
+vars$variableCategories = substr(rownames(vars), start = 1, stop = 1)
+
+# Remove high outliers 
+vars = vars[vars$vars < 1,]
+
+ggplot(vars, aes(x = reorder(variable, -vars), y = vars, fill = variableCategories)) + geom_col(position = "identity") +
+    theme(axis.text.x=element_blank()) +
+    xlab("Variable") +
+    ylab("% NA") +
+    ggtitle("Variable Variance")
+
+```
+#####################################################################################
+####################################################################################
+
+
+# High Correlation
+
+The correlation between each pair of variables is calculated as to determine if there are redundant highly correlated variables in the data. 
+Allowing for a threshold of 0.9 which would indicated highly correlated variables.    
+One of each variable pair above this threshold are removed as both would impart similar information to models applied.    
+Aditionally, multicollinearity issues in regression models are reduced by taking this action.    
+
+
+```{r, warning=FALSE}
+x = colMeans(getCorolations("train_data"))
+labs = str_split(names(x), "-")
+
+crossCor = data.frame(
+  v1 = sapply(labs, "[[", 1),
+  v2 = sapply(labs, "[[", 2),
+  val = x 
+)
+
+crossCor$idu <- 1:nrow(crossCor)
+ggplot(crossCor, aes(x=reorder(idu, abs(val)), y=abs(val))) + 
+    geom_col(color="skyblue") +
+    theme(axis.text.x=element_blank()) +
+    xlab("Variable Pair Index") +
+    ylab("Abs Corolation Value") +
+    geom_hline(yintercept = 0.9, col = 'red') +
+    ggtitle("Variable Corolation")
+
+```
+
+#####################################################################################
+####################################################################################
+
+# Noise Removal
+
+As part of anonymising the dataaset, noise was injected into a number of rational variables.    
+This can be observed by plotting the histogram of variables.    
+Viewing the variables S6, D111 and B16 we can see that there are pillars of high frequencies with no observations between them.
+Each variable has a different interval for which values are seen, but the commonality is the width of each pillar is 0.01.
+This can be easily rationalized trying to anonymising the standard interval for US currency ($\$ 0.01$), but has been applied accross a number of discrete variables to make them continuous.
+
+```{r}
+noiseCols = c('S_6', 'D_111', 'B_16')
+par(mfrow = c(3,1))
+for(i in 1:length(noiseCols)){
+  hist(df[,noiseCols[i]][[1]],  main =  noiseCols[i], xlab = "", breaks = 100000, col = 'skyblue')
+}
+```
+
+REFERENCE : https://www.jstatsoft.org/article/view/v095i10
+
+Kolmogorov–Smirnov test 
+
+To identify these intervals where noise occurs a one sided Kolmogorov–Smirnov goodness of fit test is implemented.
+The Kolmogorov–Smirnov test is a nonparametric test which measures agreement between the cumulative distribution function of observed data to a specified distribution.
+In this case, we are comparing to a $Uniform[0,0.01]$ distribution for each test. 
+
+The hypothesis being tested is: 
+$H_0 : $ The sample comes from the specified theoretical distribution
+$H_A : $ The sample does not comes from the specified theoretical distribution
+
+The test statistic is the absolute value of the largest distance between the two distributions functions.
+$$D = sup_x |F_n(X)−F(X)|$$
+
+where 
+
+$n$ The sample size
+$F_o(X)$ The observed cumulative frequency distribution of a random sample of n observations.
+$F(X)$ The theoretical cumulative distribution function
+
+This test statistic is evaluated against the K-S tables to give a p-value.
+
+For evaluating if noise $[0,0.01]$ had been added the data, the bounds for each noise pillar are found itteravly by taking the smallest value in the dataset and adding $0.01$ to it to create and upperbound.    
+All values that lie within this pillar are first scaled to the interval $[0,0.01]$ by taking the remainder modulo $0.01$.     
+The scaled values are sampled using the Kolmogorov–Smirnov test against the $Uniform[0,0.01]$ distribution.   
+These values are then ommited and the next minamum datapoint is selected.     
+
+There are two values of interest: 
+
+1) The interval between observed values with noise removed
+
+Each minimum value recorded is rounded to the nearest rational number, with the smallest accepted value being 0.01.
+Limiting the lower bound of acceptable rational numbers removes the posability of overlap between pillars.
+We accept the interval as the most observed interval across all pillars, as values are assumed uniformly discrete.
+
+
+2) The acceptances criteria for if noise has been added to the data
+
+The acceptance criteria is the percentage of total pillars that do not reject the null hypothesis.
+As we are observing the null hypothesis, on each test with $p > 0.05$ we can only not reject that the observed values come from a uniform distribution. 
+As such a high threshold of 0.95 for the acceptance criteria is chosen to ensure variables selected are highly likely to have had noise added.
+
+
+
+
+
