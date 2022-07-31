@@ -18,10 +18,10 @@
 \contentsline {subsection}{\numberline {5.1}EDA}{9}{subsection.5.1}%
 \contentsline {subsection}{\numberline {5.2}Final Models}{9}{subsection.5.2}%
 \contentsline {subsection}{\numberline {5.3}Model Comparrison}{9}{subsection.5.3}%
-\contentsline {section}{\numberline {6}Discussion}{13}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Context of Results}{13}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Limitations Future Research}{13}{subsection.6.2}%
-\contentsline {section}{\numberline {7}Conclusion}{15}{section.7}%
+\contentsline {section}{\numberline {6}Discussion}{11}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Context of Results}{11}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Limitations Future Research}{11}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Conclusion}{13}{section.7}%
 \contentsline {section}{\numberline {8}Bibliography}{a}{section.8}%
 \contentsline {section}{\numberline {9}Appendices}{b}{section.9}%
 \contentsline {subsection}{\numberline {9.1}Appendix A: additional tables}{b}{subsection.9.1}%

@@ -41,8 +41,8 @@ model <- keras_model_sequential() %>%
   )
 # training and evaluation
 fit <- model %>% fit(
-  x = x_train, y = y_train,
-  validation_data = list(x_val, y_val),
+  x = x_train_pca, y = y_train,
+  validation_data = list(x_val_pca, y_val),
   epochs = FLAGS$epochs,
   batch_size = FLAGS$bs,
   verbose = FLAGS$verbose,
@@ -50,6 +50,6 @@ fit <- model %>% fit(
 )
 # store accuracy on test set for each run
 score <- model %>% evaluate(
-  x_test, y_test,
+  x_test_pca, y_test,
   verbose = FLAGS$verbose
 )

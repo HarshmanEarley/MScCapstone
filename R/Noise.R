@@ -6,7 +6,6 @@
 # Wrapper to estimateInterval
 # Mandate is to load a dataframe and pass individual vectors to estimateInterval
 ##########################################################################################
-
 estimateInterval_loadData = function(columns){
   print("Running estimateInterval_loadData")
   #read in full data from parquet
@@ -61,13 +60,13 @@ estimateInterval = function(vec){
     bound = vec[between(vec, boundMin, boundMin + 0.01)]
     nums[i] = min(bound)
     
-    #Use Kolmogorov-Smirnov test to check remainders are uniform[0, 0.01]
+    #Use Kolmogorov-Smirnov test to check remainders are uniform(0, 0.01)
     #H0: bound comes from unif dist
     ks_p[i] = ks.test(bound %% 0.01,"punif",0, 0.01)$p
     i = i+1
   }
   
-  #Round all lower bound values to nearest rational
+  #Get GCD of two middle sequential values, take that to be our interval to nearest rational 
   intervals = c()
   for(k in 1:(length(nums)-1)){
     inter =  nums[k+1] - nums[k] 
@@ -131,7 +130,8 @@ intervals_main = function(){
 # Return only intervals that have a conservative confidence above 0.95
 #################################################################################
 getNoiseIntervals = function(){
-  cachePath = getFilePath('interval','')
+  
+  cachePath = glue(PATH_DB,"cache/","interval")
   
   if(!exists("INTERVALS")){
     #Try load from cache
@@ -168,6 +168,7 @@ convertNoiseToInt = function(DF){
   
   DF
 }
+
 
 ##########################################################################################
 # Plotting function for visual diagnostic of intervals      

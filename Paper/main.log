@@ -1,13 +1,13 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.19)  31 JUL 2022 09:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  31 JUL 2022 10:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **main.tex
 (./main.tex
 LaTeX2e <2022-06-01> patch level 5
-L3 programming layer <2022-07-15> (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/base/article.cls
+L3 programming layer <2022-07-15> (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/base/size11.clo
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/size11.clo
 File: size11.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count185
@@ -21,20 +21,20 @@ File: size11.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip47
 \belowcaptionskip=\skip48
 \bibindent=\dimen138
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2022/04/08 v2.17n AMS math features
 \@mathmargin=\skip49
 For additional information on amsmath, use the `?' option.
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty
 Package: amstext 2021/08/26 v2.01 AMS text
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks16
 \ex@=\dimen139
-)) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty
+)) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen140
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
 \inf@bad=\count193
@@ -84,16 +84,16 @@ LaTeX Info: Redefining \Relbar on input line 971.
 \mathdisplay@stack=\toks20
 LaTeX Info: Redefining \[ on input line 2953.
 LaTeX Info: Redefining \] on input line 2954.
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-)) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/lm/lmodern.sty
+)) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/lmodern.sty
 Package: lmodern 2015/05/01 v1.6.1 Latin Modern Fonts
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
@@ -127,28 +127,28 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2022/02/03 v1.0f TeX engine tests
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 LaTeX Font Info:    Trying to load font information for T1+lmr on input line 112.
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/base/inputenc.sty
+)) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2021/02/14 v1.3d Input encoding file
 \inpenc@prehook=\toks21
 \inpenc@posthook=\toks22
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/base/textcomp.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/textcomp.sty
 Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2022/06/12 v2.14 LaTeX color extensions (UK)
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 227.
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx)
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1353.
 Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1357.
 Package xcolor Info: Model `RGB' extended on input line 1369.
@@ -158,40 +158,40 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1373.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1374.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1375.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2022-06-20 v7.00s Hypertext links for LaTeX
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
 Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
 Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks23
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
 Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
 Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/auxhook/auxhook.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/auxhook/auxhook.sty
 Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2022-05-17 v2.50 Cross-referencing by name of section
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
 \c@section@level=\count271
@@ -199,17 +199,17 @@ Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 \@linkdim=\dimen148
 \Hy@linkcounter=\count272
 \Hy@pagecounter=\count273
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2022-06-20 v7.00s Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/etexcmds/etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
 \Hy@SavedSpaceFactor=\count274
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2022-06-20 v7.00s Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
@@ -223,15 +223,15 @@ Package hyperref Info: Backreferencing OFF on input line 4182.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4408.
 \c@Hy@tempcnt=\count275
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/url/url.sty
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4746.
 \XeTeXLinkMargin=\dimen149
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
 \Fld@menulength=\count276
@@ -244,7 +244,7 @@ Package hyperref Info: backreferencing OFF on input line 6039.
 Package hyperref Info: Link coloring OFF on input line 6044.
 Package hyperref Info: Link coloring with OCG OFF on input line 6049.
 Package hyperref Info: PDF/A mode OFF on input line 6054.
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/atbegshi-ltx.sty
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
@@ -253,25 +253,25 @@ package with kernel methods
 \c@Hfootnote=\count279
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2022-06-20 v7.00s Hyperref driver for pdfTeX
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/base/atveryend-ltx.sty
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/atveryend-ltx.sty
 Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
 with kernel methods
 )
 \Fld@listcount=\count280
 \c@bookmark@seq@number=\count281
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 )
 \Hy@SectionHShift=\skip52
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
 \Gm@cnth=\count282
@@ -286,7 +286,7 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layouthoffset=\dimen158
 \Gm@layoutvoffset=\dimen159
 \Gm@dimlist=\toks24
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
 Package: fancyvrb 2022/06/06 4.5 verbatim text (tvz,hv)
 \FV@CodeLineNo=\count285
 \FV@InFile=\read2
@@ -294,14 +294,14 @@ Package: fancyvrb 2022/06/06 4.5 verbatim text (tvz,hv)
 \c@FancyVerbLine=\count286
 \FV@StepNumber=\count287
 \FV@OutFile=\write3
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/framed/framed.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/framed/framed.sty
 Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \OuterFrameSep=\skip53
 \fb@frw=\dimen160
 \fb@frh=\dimen161
 \FrameRule=\dimen162
 \FrameSep=\dimen163
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
 \LTleft=\skip54
 \LTright=\skip55
@@ -319,7 +319,7 @@ Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
 \c@LT@tables=\count291
 \c@LT@chunks=\count292
 \LT@p@ftn=\toks25
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \heavyrulewidth=\dimen165
 \lightrulewidth=\dimen166
@@ -338,7 +338,7 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@thisruleclass=\count295
 \@lastruleclass=\count296
 \@thisrulewidth=\dimen177
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/tools/array.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/array.sty
 Package: array 2022/03/10 v2.5f Tabular extension package (FMi)
 \col@sep=\dimen178
 \ar@mcellbox=\box59
@@ -347,7 +347,7 @@ Package: array 2022/03/10 v2.5f Tabular extension package (FMi)
 \extratabsurround=\skip58
 \backup@length=\skip59
 \ar@cellbox=\box60
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count297
 \calc@Bcount=\count298
@@ -359,34 +359,34 @@ LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count299
 \calc@Cskip=\skip62
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count300
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/mdwtools/footnote.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/mdwtools/footnote.sty
 Package: footnote 1997/01/28 1.13 Save footnotes around boxes
 \fn@notes=\box61
 \fn@width=\dimen182
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
 )
 \Gin@req@height=\dimen183
 \Gin@req@width=\dimen184
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/float/float.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count301
 \float@exts=\toks27
 \float@box=\box62
 \@float@everytoks=\toks28
 \@floatcapt=\box63
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/sectsty/sectsty.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/sectsty/sectsty.sty
 Package: sectsty 2002/02/25 v2.0.2 Commands to change all sectional heading styles
 
 LaTeX Warning: Command \underbar  has changed.
@@ -396,16 +396,16 @@ LaTeX Warning: Command \underbar  has changed.
 LaTeX Warning: Command \underline  has changed.
                Check if current package is valid.
 
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/paralist/paralist.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/paralist/paralist.sty
 Package: paralist 2017/01/22 v2.7 Extended list environments
 \pltopsep=\skip63
 \plpartopsep=\skip64
 \plitemsep=\skip65
 \plparsep=\skip66
 \pl@lab=\toks29
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/setspace/setspace.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2011/12/19 v6.7a set line spacing
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
 Package: fancyhdr 2022/05/18 v4.0.3 Extensive control of page headers and footers
 \f@nch@headwidth=\skip67
 \f@nch@O@elh=\skip68
@@ -416,23 +416,23 @@ Package: fancyhdr 2022/05/18 v4.0.3 Extensive control of page headers and footer
 \f@nch@O@erf=\skip73
 \f@nch@O@olf=\skip74
 \f@nch@O@orf=\skip75
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/lastpage/lastpage.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lastpage/lastpage.sty
 Package: lastpage 2021/09/03 v1.2n Refers to last page's name (HMM; JPG)
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/tools/dcolumn.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/dcolumn.sty
 Package: dcolumn 2014/10/28 v1.06 decimal alignment package (DPC)
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/natbib/natbib.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip76
 \bibsep=\skip77
 LaTeX Info: Redefining \cite on input line 694.
 \c@NAT@ctr=\count302
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/tocbibind/tocbibind.sty
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tocbibind/tocbibind.sty
 Package: tocbibind 2010/10/13 v1.5k extra ToC listings
 Package tocbibind Info: The document has section divisions on input line 50.
 
 Package tocbibind Note: Using section or other style headings.
 
-) (/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+) (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2022-07-01 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count303
 \l__pdf_internal_box=\box64
@@ -457,16 +457,16 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 129.
 LaTeX Font Info:    ... okay on input line 129.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 129.
 LaTeX Font Info:    ... okay on input line 129.
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/grfext/grfext.sty
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/grfext/grfext.sty
 Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
 )
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
 Package grfext Info: Graphics extension search list:
 (grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 504.
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 Package hyperref Info: Link coloring OFF on input line 129.
@@ -518,25 +518,25 @@ Package pdftex.def Info: Universitycollegedublinlogo.png  used on input line 142
 (pdftex.def)             Requested size: 90.98988pt x 132.31735pt.
 [1
 
-{/Users/root1/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./Universitycollegedublinlogo.png>] [1] (./main.toc)
+{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./Universitycollegedublinlogo.png>] [1] (./main.toc)
 \tf@toc=\write5
 \openout5 = `main.toc'.
 
 [2] (./main.lof
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1.
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1.
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 1.
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 1.
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -546,11 +546,11 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 1.
 LaTeX Font Info:    Trying to load font information for U+msa on input line 1.
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Trying to load font information for U+msb on input line 1.
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ))
 \tf@lof=\write6
@@ -561,88 +561,87 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \openout7 = `main.lot'.
 
 [4]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 278.
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 286.
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 278.
+(Font)              <9> on input line 286.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 278.
+(Font)              <5> on input line 286.
 
-Underfull \hbox (badness 10000) in paragraph at lines 278--278
+Underfull \hbox (badness 10000) in paragraph at lines 286--286
 [][][]$\T1/lmr/m/n/9 https : / / www . centralbank . ie / statistics / data -[] and -[] analysis / credit -[] and -[] debit -[] card -[] statistics / daily -[] credit -[] and -[]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 282--282
+Underfull \hbox (badness 10000) in paragraph at lines 290--290
 [][][]$\T1/lmr/m/n/9 https : / / www . cso . ie / en / releasesandpublications / ep / p -[] hfcs / household^^\nanceandconsumptionsurvey2018 /
  []
 
 [1] [2]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 436.
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 444.
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 <default.png, id=162, 469.755pt x 372.64218pt>
 File: default.png Graphic file (type png)
 <use default.png>
-Package pdftex.def Info: default.png  used on input line 445.
+Package pdftex.def Info: default.png  used on input line 453.
 (pdftex.def)             Requested size: 159.23434pt x 126.31569pt.
 [3
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.461 following general categories: \spacing{0.75}
+l.469 following general categories: \spacing{0.75}
                                                    <./default.png>] [4] [5] [6]
 <crosstable.png, id=224, 298.11375pt x 60.82726pt>
 File: crosstable.png Graphic file (type png)
 <use crosstable.png>
-Package pdftex.def Info: crosstable.png  used on input line 665.
+Package pdftex.def Info: crosstable.png  used on input line 673.
 (pdftex.def)             Requested size: 204.7298pt x 41.77315pt.
 [7
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.706 \newpage
+l.714 \newpage
                <./crosstable.png>] [8]
 <bar.png, id=245, 642.90187pt x 477.28313pt>
 File: bar.png Graphic file (type png)
 <use bar.png>
-Package pdftex.def Info: bar.png  used on input line 768.
-(pdftex.def)             Requested size: 363.97597pt x 270.21167pt.
-[9]
-<roc_plot.png, id=257, 755.07094pt x 646.66594pt>
-File: roc_plot.png Graphic file (type png)
-<use roc_plot.png>
-Package pdftex.def Info: roc_plot.png  used on input line 784.
-(pdftex.def)             Requested size: 363.96228pt x 311.70847pt.
-[10
+Package pdftex.def Info: bar.png  used on input line 776.
+(pdftex.def)             Requested size: 227.48131pt x 168.87956pt.
+[9
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.790 
+l.789 
        <./bar.png>]
-<fourfoldplot.png, id=263, 755.07094pt x 646.66594pt>
+<roc_plot.png, id=258, 755.07094pt x 646.66594pt>
+File: roc_plot.png Graphic file (type png)
+<use roc_plot.png>
+Package pdftex.def Info: roc_plot.png  used on input line 792.
+(pdftex.def)             Requested size: 227.47931pt x 194.82025pt.
+<fourfoldplot.png, id=259, 438.8897pt x 478.78876pt>
 File: fourfoldplot.png Graphic file (type png)
 <use fourfoldplot.png>
-Package pdftex.def Info: fourfoldplot.png  used on input line 793.
-(pdftex.def)             Requested size: 363.96228pt x 311.70847pt.
-[11
+Package pdftex.def Info: fourfoldplot.png  used on input line 801.
+(pdftex.def)             Requested size: 181.9818pt x 198.52559pt.
+[10
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.799 
-       <./roc_plot.png>] [12
+l.812 \newpage
+              
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.800 \newpage
-               <./fourfoldplot.png>] [13] [14] [15] (./main.bbl) [1] [2] [3]
+l.812 \newpage
+               <./roc_plot.png> <./fourfoldplot.png>] [11] [12] [13] (./main.bbl) [1] [2] [3]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 991.
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 1000.
-(/Users/root1/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 1003.
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 1012.
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [4] [5] 
 AED: lastpage setting LastPage
@@ -652,32 +651,32 @@ Package rerunfilecheck Info: File `main.out' has not changed.
  )
 (\end occurred inside a group at level 21)
 
-### semi simple group (level 21) entered at line 1073 (\begingroup)
-### semi simple group (level 20) entered at line 802 (\begingroup)
-### semi simple group (level 19) entered at line 740 (\begingroup)
-### semi simple group (level 18) entered at line 717 (\begingroup)
-### semi simple group (level 17) entered at line 600 (\begingroup)
-### semi simple group (level 16) entered at line 593 (\begingroup)
-### semi simple group (level 15) entered at line 577 (\begingroup)
-### semi simple group (level 14) entered at line 537 (\begingroup)
-### semi simple group (level 13) entered at line 490 (\begingroup)
-### semi simple group (level 12) entered at line 481 (\begingroup)
-### semi simple group (level 11) entered at line 461 (\begingroup)
-### semi simple group (level 10) entered at line 433 (\begingroup)
-### semi simple group (level 9) entered at line 399 (\begingroup)
-### semi simple group (level 8) entered at line 331 (\begingroup)
-### semi simple group (level 7) entered at line 267 (\begingroup)
-### semi simple group (level 6) entered at line 258 (\begingroup)
-### semi simple group (level 5) entered at line 246 (\begingroup)
-### semi simple group (level 4) entered at line 243 (\begingroup)
+### semi simple group (level 21) entered at line 1085 (\begingroup)
+### semi simple group (level 20) entered at line 814 (\begingroup)
+### semi simple group (level 19) entered at line 748 (\begingroup)
+### semi simple group (level 18) entered at line 725 (\begingroup)
+### semi simple group (level 17) entered at line 608 (\begingroup)
+### semi simple group (level 16) entered at line 601 (\begingroup)
+### semi simple group (level 15) entered at line 585 (\begingroup)
+### semi simple group (level 14) entered at line 545 (\begingroup)
+### semi simple group (level 13) entered at line 498 (\begingroup)
+### semi simple group (level 12) entered at line 489 (\begingroup)
+### semi simple group (level 11) entered at line 469 (\begingroup)
+### semi simple group (level 10) entered at line 441 (\begingroup)
+### semi simple group (level 9) entered at line 407 (\begingroup)
+### semi simple group (level 8) entered at line 339 (\begingroup)
+### semi simple group (level 7) entered at line 275 (\begingroup)
+### semi simple group (level 6) entered at line 266 (\begingroup)
+### semi simple group (level 5) entered at line 254 (\begingroup)
+### semi simple group (level 4) entered at line 251 (\begingroup)
 ### semi simple group (level 3) entered at line 213 (\begingroup)
 ### semi simple group (level 2) entered at line 195 (\begingroup)
 ### semi simple group (level 1) entered at line 115 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 13146 strings out of 479983
- 205504 string characters out of 5887130
- 515458 words of memory out of 5000000
+ 13142 strings out of 479983
+ 207473 string characters out of 5886392
+ 515451 words of memory out of 5000000
  30972 multiletter control sequences out of 15000+600000
  522673 words of font info for 70 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -718,11 +717,11 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist,
 
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
-{/Users/root1/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/Users/root1/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/Users/root1/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/Users/root1/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/Users/root1/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}</Users/root1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/root1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/root1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/root1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></Users/root1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/root1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/root1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb></Users/root1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/root1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></Users/root1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></Users/root1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></Users/root1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></Users/root1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></Users/root1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on main.pdf (26 pages, 468907 bytes).
+{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}<c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
+Output written on main.pdf (24 pages, 460758 bytes).
 PDF statistics:
- 447 PDF objects out of 1000 (max. 8388607)
- 371 compressed objects within 4 object streams
- 115 named destinations out of 1000 (max. 500000)
+ 437 PDF objects out of 1000 (max. 8388607)
+ 363 compressed objects within 4 object streams
+ 113 named destinations out of 1000 (max. 500000)
  127 words of extra memory for PDF output out of 10000 (max. 10000000)
 

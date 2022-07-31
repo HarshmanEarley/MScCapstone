@@ -8,9 +8,9 @@ model_neuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
   data = readFromParquet(dataPath) 
   #dataPath = getFilePath("data_lastPerCustomerID",".parquet")
   
-  #########################################
+  #####################################
   #####     Data Pre-processing       #####
-  #########################################
+  #####################################
   print(glue('Data Pre-processing'))
   
   #partition target
@@ -26,8 +26,8 @@ model_neuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
     }
   }
   
-  #One hot encode categoricals / discrete variables
-  catCols = intersect(unique(c('B_30', 'B_38', 'D_114', 'D_116', 'D_117', 'D_120', 'D_126', 'D_66', 'D_68','D_63','D_64',getNoiseIntervals()$column)), colnames(data))
+  #One hot encode categoricals
+  catCols = intersect(c('B_30', 'B_38', 'D_114', 'D_116', 'D_117', 'D_120', 'D_126', 'D_66', 'D_68','D_63','D_64'), colnames(data))
   for(i in 1:length(catCols)){
     data = cbind(data, data %>% select(catCols[i]) %>% mutate(across(catCols[i],factor)) %>% as.data.table %>% one_hot()) %>% select(-catCols[i])
   }
@@ -55,7 +55,24 @@ model_neuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
   
   gc()
   
-  N_input = ncol(x_train)
+  #####################################
+  #####            PCA            #####
+  #####################################
+  print(glue('Running PCA'))
+  
+  #Fit PCA
+  pca_fit = prcomp(x_train)
+  
+  #Get variance and select number of PCA components needed to capture for 95% of variance
+  pca_var <- pca_fit$sdev^2
+  pca_cumVar <- cumsum(pca_var / sum(pca_var))
+  pca_comps = which(pca_cumVar >= 0.95) %>% min
+  
+  x_train_pca <- pca_fit$x[,1:pca_comps]
+  x_val_pca <- x_val %*% pca_fit$rotation[,1:pca_comps]
+  x_test_pca <- x_test %*% pca_fit$rotation[,1:pca_comps]
+  
+  N_input = ncol(x_train_pca)
 
   #########################################
   #####     Neural Network Tuning     ####
@@ -63,15 +80,15 @@ model_neuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
   if(tuning == TRUE){
     print(glue('Tuning Neural Network'))
     tuning_run(getFilePath("DNN",".R", checkDBOnly = FALSE),
-             runs_dir = glue(PATH_DB,"NN_tuningRuns_final"),
+             runs_dir = glue(PATH_DB,"NN_tuningRuns3"),
              flags = list(
-               N_input =  ncol(x_train),
+               N_input =  ncol(x_train_pca),
                dropout = c(0,0.25,0.5),
                equalWidths = c(TRUE,FALSE),
                lambda =  c(0,0.001,0.0001), #l2 reg
                normalization = c(TRUE,FALSE),
                lr = 0.0001,
-               bs = 1024,
+               bs = c(512,1024),
                epochs = 100,
                verbose = 0,
                activationHidden = 'relu',
@@ -85,7 +102,7 @@ model_neuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
  if(!is.na(bestModelFlags)){
    print(glue('Training Neural Network on best flags'))
    FLAGS <- flags(
-     flag_numeric("N_input", ncol(x_train)),
+     flag_numeric("N_input", ncol(x_train_pca)),
      flag_numeric("dropout", bestModelFlags$flags.dropout),
      flag_boolean("equalWidths", bestModelFlags$flags.equalWidths),
      flag_numeric("lambda", bestModelFlags$flags.lambda),
@@ -110,7 +127,7 @@ model_neuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
      layer_batch_normalization(center = FLAGS$normalization,scale = FLAGS$normalization) %>%
      layer_dropout(rate = FLAGS$dropout) %>%
      
-     layer_dense(units = floor(N_input/ifelse(FLAGS$equalWidths,1,4)), activation = FLAGS$activationHidden, name = "layer_3",
+     layer_dense(units = floor(N_input/ifelse(FLAGS$equalWidths,1,8)), activation = FLAGS$activationHidden, name = "layer_3",
                  kernel_regularizer = regularizer_l2(FLAGS$lambda)) %>%
      layer_batch_normalization(center = FLAGS$normalization,scale = FLAGS$normalization) %>%
      
@@ -121,8 +138,8 @@ model_neuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
      )
    # training and evaluation
    fit <- model %>% fit(
-     x = x_train, y = y_train,
-     validation_data = list(x_val, y_val),
+     x = x_train_pca, y = y_train,
+     validation_data = list(x_val_pca, y_val),
      epochs = FLAGS$epochs,
      batch_size = FLAGS$bs,
      verbose = FLAGS$verbose,
@@ -130,9 +147,9 @@ model_neuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
    )
    
    #Get predicted lables
-   predictions = model %>% predict(x_test)
+   predictions = model %>% predict(x_test_pca)
    
-   return(list(model = model, target = y_test, prediction = predictions))
+   return(list(target = y_test, prediction = predictions))
  }
   
 }

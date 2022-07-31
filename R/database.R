@@ -1,6 +1,6 @@
-##########################################################################################
-########                  PACKAGE MANAGER                                      ########
-##########################################################################################
+####################
+# package manager #
+###################
 
 packages = c(
   "MASS",
@@ -18,11 +18,13 @@ packages = c(
   'tfruns',
   "tfdatasets",
   "inline",
+  "Rcpp",
   "e1071",
+  "onlinePCA",
+  "missMDA",
   "mltools",
   "splitTools",
-  'mlr',
-  "pROC",
+  "xgboost",
   "ROCR"
 )
 
@@ -40,30 +42,29 @@ for(pkg in packages){
 #install_keras()
 
 
-##########################################################################################
-########                 PATHS                                                ########
-##########################################################################################
-
+#######################
+# PATHS ########
+#######################
 user = 'Sidney'
 
 #Working directory
 if(user == 'Sidney'){
   if(.Platform$OS.type == 'unix'){
-    PATH_WD = '/Users/root1/Documents/DAC_Project/'
+    PATH_WD = '/Users/root1/Documents/DAC_Project/R/'
     PATH_DB = '/Users/root1/Documents/amex-default-prediction/'
   }
   if(.Platform$OS.type == 'windows'){
-    PATH_WD = 'C:/Users/sidne/Documents/GitHub/DAC_Project/'
+    PATH_WD = 'C:/Users/sidne/Documents/GitHub/DAC_Project/R/'
     PATH_DB = 'C:/Users/sidne/Documents/amexDatabase/'
   }
 }
 if(user == 'Denis'){
   if(.Platform$OS.type == 'unix'){
-    PATH_WD = '/Users/root1/Documents/DAC_Project/'
+    PATH_WD = '/Users/root1/Documents/DAC_Project/R/'
     PATH_DB = '/Users/root1/Documents/amex-default-prediction/'
   }
   if(.Platform$OS.type == 'windows'){
-    PATH_WD = 'C:/Users/denis/Documents/GitHub/DAC_Project/'
+    PATH_WD = 'C:/Users/denis/Documents/GitHub/DAC_Project/R/'
     PATH_DB = 'C:/Users/denis/Documents/ACM40960 - Projects in Maths Modelling/database/'
   }
 }
@@ -81,11 +82,9 @@ if(!dir.exists(DB_CACHE)){
 #master list of all defined paths
 PATH = ls()[unlist(lapply(ls(), function(vec) 'PATH' %in% strsplit(vec,"_")[[1]]))]
 
-
-##########################################################################################
-########                 Database management                                  ########
-##########################################################################################
-
+##########################################
+#######      Database management     #####
+##########################################
 
 readFromParquet = function(filePath){
   ads = arrow::open_dataset(sources =  filePath)
@@ -97,8 +96,9 @@ readFromParquet = function(filePath){
   as.data.frame(at)
 }
 
+
 getFilePath = function(fileN, ext = ".csv", checkDBOnly = FALSE){
-  
+
   res = list()
   pathsToCheck = if (checkDBOnly) 'PATH_DB' else PATH #restrict search to DB by default
   
@@ -114,9 +114,8 @@ getFilePath = function(fileN, ext = ".csv", checkDBOnly = FALSE){
   }
   
   #Return null string if no file found
-  if(length(res) == 0){
-    return("")
-  }
+  stopifnot("No file found" = length(res) != 0)
+  
   
   #If we get files of similar names, find exact name
   if(!length(res) == 1){
@@ -124,19 +123,12 @@ getFilePath = function(fileN, ext = ".csv", checkDBOnly = FALSE){
     res = res[glue(fileN,ext) == f[,ncol(f)]]
   }
   
-  #If multiple, throw error 
+  #If wmultiple, throw error 
   stopifnot("Multiple files found" = length(res) == 1)
   
   
   return(res[[1]])
 }
-
-#################################
-#######   Caching Utilities    #####
-##################################
-# Look for required object in memory and in cache
-# If not available, process specified csv in chunks using callbackFunc
-# Save resulting object to cache
 
 getCacheCSV = function(file, callbackFunc, prefix, chunkSize = 100000, override = FALSE){
   
@@ -176,9 +168,6 @@ getCacheCSV = function(file, callbackFunc, prefix, chunkSize = 100000, override 
   return(get(cacheName))
 }
 
-# Similar to getCacheCSV
-# If not available, process specified parquet using callbackFunc
-# Save resulting object to cache
 
 getCache = function(file, func, prefix, override = FALSE){
   
@@ -218,5 +207,5 @@ train_labels = read_csv(getFilePath("train_labels"),show_col_types = FALSE);
 
 
 source(getFilePath("Noise", ".R", checkDBOnly = FALSE))
-source(getFilePath("cleansing", ".R", checkDBOnly = FALSE))
+source(getFilePath("cleansing_v2", ".R", checkDBOnly = FALSE))
 source(getFilePath("amex_metric", ".R", checkDBOnly = FALSE))
