@@ -73,13 +73,12 @@ plot_learning_curve <- function(x, ylab = NULL, cols = NULL, top = NULL, topCol 
 
 ```{r}
 # extract results
-metrics <- read_metrics(glue(PATH_DB,"NN_tuningRuns_final/"))
+metrics <- read_metrics(glue(PATH_WD,"cache/NN_tuningRuns/"))
 # extract validation accuracy
 acc <- sapply(metrics, "[[", "val_accuracy")
 loss <- sapply(metrics, "[[", "val_loss")
 evaluation <- sapply(metrics, "[[", "evaluation")
 ```
-
 
 ```{r}
 val_res = data.frame(
