@@ -1,22 +1,24 @@
 \spacing{1}
-# Data
+# Exploratory Data Analysis
 
 ## Background
 
-Data used for this project was obtained from the Kaggle website. One of Kaggles main features is it's competition platform.[^comp] Kaggle allows users to organise and host data science competitions. Access to the data requires registering with Kaggle and joining the American Express - Default Prediction competition.[^kagamex] American Express is the largest payment card issuer in the world.[^AMEX] This competition provides an industrial scale data set to build a machine learning model. The model is used tp predict credit card default using time-series behavioural data and anonymised customer profile information over the period of March 2017 to March 2018. The target binary variable i.e. default is calculated by observing 18 months performance window after the latest credit card statement, and if the customer does not pay due amount in 120 days after their latest statement date it is considered a default event.
+Data used for this project was obtained from the Kaggle website. One of Kaggles main features is it's competition platform.[^comp] Kaggle allows users to organise and host data science competitions. This competition provides an industrial scale data set to build a machine learning model. The model is used tp predict credit card default using anonymised customer profile information over the period of March 2017 to March 2018. The target binary variable i.e. default is calculated by observing 18 months performance window after the latest credit card statement, and if the customer does not pay due amount in 120 days after their latest statement date it is considered a default event.
 
 ## Data Structure
 \spacing{1}
 **train_labels.csv**   
 A list of unique customer identifiers `customer_ID` with the target label `target` indicating a default event with `target = 1` indicating a default, `target = 0` indicating no default. There are 458913 observations in this data meaning 458913 unique AMEX customers. 74.1% of customers in the data did not default on payment while 25.9% defaulted.
 
-```{r def, echo=F,fig.align='center', out.height="35%",out.width="35%", fig.cap="Breakdown of defaults in training data", echo=FALSE, eval=FALSE}
-knitr::include_graphics("default.png")
-```
 
 **train_data.csv**  
 This is a tabular data set corresponding to the training data, consisting of 190 features and over 5.5 million observations. It contains multiple statement dates per customer_ID, each observation corresponds to a monthly statement for a customer. The data is ordered firstly by `customer_ID`, corresponding with the train_labels.csv file and secondly ordered chronologically by statement date. The dataset contains aggregated profile features for each customer at each statement date. There are 177 numeric features which are anonymised and normalized, and fall into the following general categories:
 \spacing{0.75}
+
+```{r def, echo=F,fig.align='center', out.height="50%",out.width="40%",fig.show="hold",  fig.cap="Frequency of Lables / Variable Catagories", echo=FALSE, eval = TRUE}
+knitr::include_graphics(c("default.png",'frequencyCatagories.png'))
+```
+
 ```{r, echo=FALSE, message=FALSE, results='hide'}
 library(knitr)
 varcat <- matrix(data = c("D_* ", "Delinquency variables",
@@ -31,6 +33,8 @@ varcat <- matrix(data = c("D_* ", "Delinquency variables",
 ```{r, echo=FALSE}
 kable(varcat, col.names = c("Variable Name", "Category" ),label="Variable Categories", caption ="Variable Categories")
 ```
+
+
 \spacing{1.1}
 There are 11 categorical variables - B_30, B_38, D_114, D_116, D_117, D_120, D_126, D_63, D_64, D_66 and D_68.   
  
@@ -56,9 +60,9 @@ kable(sample, col.names = c("customer_ID","S_2","P_2","D_39"),label="Sample", ca
 \normalsize
 
 
-## Exploratory Data Analysis
+## Corolation to Target Variable
 
-As feature labels are masked and the values are normalized, most traditional Exploratory Data Analysis (EDA) would prove to be of limited value to the study. The Pearson Correlation Coefficient is a measure of the strength of the linear association between two variables is calculated between the target variable and each feature. The coefficient can take a range of values in the range [ -1,1 ]. A value of 0 indicates that there is no association between the two variables. A value greater than 0 indicates a positive association i.e. as the value of one variable increases, so does the value of the other variable. Conversely, a value less than 0 indicates a negative association - as the value of one variable increases, the value of the other variable decreases.[^corr]  
+The Pearson Correlation Coefficient is a measure of the strength of the linear association between two variables is calculated between the target variable and each feature. A value of 0 indicates that there is no association between the two variables. An absolute value greater than 0 indicates a association between the variables, either positive or negative depicted by the values sign.[^corr]
 
 ```{r echo=F,fig.align='center', out.width="47%",fig.show="hold", fig.pos="H",fig.cap="Relationship of features to Target Variable"}
 knitr::include_graphics(c("corolationToTarget.png", "P2.png"))
@@ -66,14 +70,26 @@ knitr::include_graphics(c("corolationToTarget.png", "P2.png"))
 
 Payment variable P_2 shows strongest linear relationship with the target variable. It is the only variable to achieve an absolute correlation value in excess of 0.6. It is a negative value so for the sample as P_2 increases the likelihood of a card holder defaulting increases. The majority of variables have an absolute correlation value of less than 0.3 which would demonstrate a weak or even non-existent linear relationship. Looking at the variable categories, Balance (B_* ) and (D_*) Delinquency variables are the majority of features with a correlation with the target of greater than 0.4.
 
-
-Exploring the P_2 variable in more detail, the extent of its relationship with the target is clear. The distribution of this variable, split by target value depicts a left-skew peaking at 0.9 for those not in default and an approximately normal distribution with mean of 0.5 for those who default. The vast majority of observations with a value of P_2 greater than 0.5 are not in default where there are approximately even numbers who are in default and not in default with a value of P_2 less than 0.5. This could indicate the feature being related to or a function of a type of credit worthiness or credit score variable. This variable is now used as a baseline for predictions of models created. A simple logistic regression model with P_2 as the sole predictor is added to the list of models already being evaluated and compared. It is trained tuned and evaluated in an identical format to the full logistic regression model.
-
+Exploring the P_2 variable in more detail, the extent of its relationship with the target is clear. The distribution of this variable, split by target value depicts a left-skew peaking at 0.9 for those not in default and an approximately normal distribution with mean of 0.5 for those who default. The vast majority of observations with a value of P_2 greater than 0.5 are not in default where there are approximately even numbers who are in default and not in default with a value of P_2 less than 0.5. This could indicate the feature being related to or a function of a type of credit worthiness or credit score variable. This variable is now used as a baseline for predictions of models created. A simple logistic regression model with P_2 as the sole predictor may be valuable as a baseline for measuring more complex models against. It is trained, tuned and evaluated in an identical format to the full logistic regression model.
 
 # Feature Engineering
 **Dimension Reduction**  
-A number of feature engineering steps were performed independently on the predictor variables. This was done in order to create a more manageable sized data set with uninformative features removed. Most ML algorithms do not allow missing or NA values as part of the inputs. Features dominated by a single value or small range of values do not hold much information and would not contribute to an effective classification model. Highly intercorrelated features particularly affect the interpretation of a regression model as then the regression coefficients are not unique and have influences from other features. More broadly, multi-collinear features increase dimensionality which increases the computational intensity of ML algorithms without adding extra information which could be used to predict the target.  
-Columns with a proportion of NA values higher than 10% or variance lower than 0.001 were identified. A list of these columns were added to a list of single columns from any pair with pairwise correlation greater than a high correlation threshold of 0.9. This process reduced the number of features from 189 to 129. 
+A number of feature engineering steps were performed independently on the predictor
+variables. This was done in order to create a more manageable sized data set with
+uninformative features removed. 
+
+Most ML algorithms either suffer or are inoperable with missing data. Imputation methods must be utilised, which can bias the information of the column if the proportion of missing data is too great. A threshold of 10% was chosen of which columns would be removed. Of variables beyond that threshold, 77% had greater than half of its data missing.
+
+Features dominated by a single value or small range of values do not hold
+much information and would not contribute to an effective classification model. When creating data models such variables are uninformative and should be considered to be removed. Choosing a conservative variance threshold of 0.001, variables where 99.9% of the values are similar are removed.  
+
+Highly intercorrelated features particularly affect the interpretation of a regression model as then the
+regression coefficients are not unique and have influences from other features. More broadly,
+multi-collinear features increase dimensionality which increases the computational intensity of
+ML algorithms without adding extra information which could be used to predict the target.
+Columns with pairwise correlation greater than a high correlation threshold of 0.9 are considered for removal.
+
+These three filters reduced the number of features in the dataset from 189 to 129.
 
 ```{r echo=F,fig.align='center', out.width="45%",fig.cap="Proportion Missing, and Variance of Feature Columns ", fig.show="hold", fig.pos="H"}
 knitr::include_graphics(c("naHist.png", "variance.png"))
