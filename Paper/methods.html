@@ -369,67 +369,95 @@ pre code {
 <h1>Methods</h1>
 <div id="models" class="section level2">
 <h2>Models</h2>
-<div id="logistic-regression-lr" class="section level3">
-<h3>Logistic Regression (LR)</h3>
-<p>Logistic regression is one of the most simple classification
-algorithms and is used to model a binary categorical variable given a
-collection of numerical and/or categorical predictors, . The model
-applies the logistic function to the linear regression model which is
-used to model the probability of a binary event occurring. </p>
+<p><strong>1. Logistic Regression (LR)</strong><br />
+Logistic regression is one of the most simple classification algorithms
+and is used to model a binary categorical variable given a collection of
+numerical and categorical predictors, . The model applies the logistic
+function to the linear regression model, which is used to model the
+probability of a binary event occurring. The model is trained using a
+three-fold cross-validation method over ten replications.</p>
 <p><span class="math display">\[ p_i = Pr(Y_i = 1 | x_i) = \frac{exp(w_0
 + x_i^Tw)}{1 + exp(w_0 + x_i^Tw)} \]</span></p>
-</div>
-<div id="random-forest-rf" class="section level3">
-<h3>Random Forest (RF)</h3>
-<p>Random Forests, , are a very powerful ensemble classification method.
+<p><strong>2. Random Forest (RF)</strong><br />
+Random Forests, , are a very powerful ensemble classification method.
 Ensemble learning is an aggregation of predictions made by multiple
 classifiers with the goal of improving accuracy. The method uses
 Classification Trees and bootstrapping extensively. A random forest is,
 effectively, a random collection of Classification Trees estimated on
 random subsets of the data.<br />
 A Classification Tree is an iterative process of splitting the data into
-partitions based on values of the observations, and then splitting it up
+partitions based on values of the observations and then splitting it up
 further on each of the branches. The classifier is trained in order to
-produce pure groups of observations or ‘buckets’, by minimising the
+produce pure groups of observations or ‘buckets’ by minimising the
 entropy or spread of the target variable in each bucket. The majority
 value of the target variable in a bucket is then used for predictions.
 The main disadvantage is that Classification Trees suffer from
-over-fitting and bias and using a single Classification Tree would
-present an over simplistic model.<br />
+over-fitting and bias, and using a single Classification Tree would
+present an over-simplistic model.<br />
 In a Random Forest, each Classification Tree is grown independently, and
 each individual Classification Tree has an equal vote as to what the
-outcome is. Random forests provide an improvement by means of a small
+outcome is. Random forests provide an improvement by means of a minor
 tweak that reduces the dependence among the trees. The main idea is to
 use only a random subset of the predictor variables at each split of the
-classification tree fitting step, this is generally taken as <span class="math inline">\(\sqrt{N}\)</span> where N is the number of
+classification tree fitting step. This is by default <span class="math inline">\(\sqrt{N}\)</span> where N is the number of
 features but can be specified by the user. If we build classifiers on
 subsets of the variables, then they will behave more independently than
-if we build them on all of the data. This increases diversity and
+if we build them on all of the data. This increases diversity, and
 averaging results across independent classifiers will be more stable
 than averaging results on dependent ones. The main parameter of the
 Random Forests to be tuned is the number of variables used at each split
-and is tuned to prevent overfitting and improve efficiency.</p>
-</div>
-<div id="deep-neural-network-dnn" class="section level3">
-<h3>Deep Neural Network (DNN)</h3>
-<p>Neural networks are machine learning methods that simulate the
-biological learning mechanism of the brain (, ). Neural networks allow
-to learn representation features encompassing complex relations between
-inputs and output. Representation learning is the use of Machine
-Learning to not only learn the mapping from representation features to
-output, but also to learn the representation itself. Deep Learning
-methods introduce representations that are expressed in terms of other
-simpler representations, thus enabling to derive complex concepts out of
-simpler concepts. In practice, a neural network is a series of layers,
-made up of nodes with subsequent layers separated by activation
-functions.</p>
-</div>
-</div>
-<div id="trainingvalidation" class="section level2">
-<h2>Training/Validation</h2>
-<p>The data is first randomly split 80:20 into training/validation and
-test sets. For the LR and RF models, optimally tuned models are obtained
-using a three-fold cross-validation method over ten replications.</p>
+and is tuned to prevent overfitting and improve efficiency.<br />
+The model is trained using a three-fold cross-validation method over ten
+replications. A grid of values <span class="math inline">\((20, 30, 40,
+50)\)</span> for the number of variables used at each split of the RF is
+evaluated and the optimal value is chosen.</p>
+<div style="page-break-after: always;"></div>
+<p><strong>3. Deep Neural Network (DNN)</strong><br />
+Neural networks are machine learning methods that simulate the
+biological learning mechanism of the brain (, ). Neural networks learn
+representation features encompassing complex relations between inputs
+and output. Representation learning is the use of Machine Learning to
+not only learn the mapping from representation features to output but
+also to learn the representation itself. Deep Learning methods introduce
+representations that are expressed in terms of other simpler
+representations, thus enabling to derive complex concepts out of simpler
+ones. In practice, a neural network is a series of layers made up of
+nodes with subsequent layers separated by activation functions.</p>
+<p>A number of steps are taken in pre-processing of the data. The
+scaling of numeric variables is important as to not saturate hidden
+neurons and to balance the learning rate of all neurons. Neural Networks
+cannot process categorical variables as inputs, so the categorical
+variables are one-hot-encoded to create a set of dummy features, each
+with a { 0, 1 } set of values.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>The model used is a fully connected deep neural network with three
+layers. ReLU (Rectified Linear Unit) activation is implemented for
+hidden layers. As the labels are binary, binary classification is used
+therefore, the sigmoid activation is applied to the output layer. The
+Adam optimizer with a learning rate of 0.0001 is chosen for its
+computational efficiency and wide adoption in DNN models. During tuning,
+a number of other parameters are grid searched through to give results
+of a number of different models:</p>
+<ul>
+<li><strong>Width Size:</strong> The flag Equal Widths indicates whether
+the neural network will have equal widths of neurons at all layers, each
+the width of the input layer. If false, each subsequent layer is half
+the width of the previous.<br />
+</li>
+<li><strong>Dropout:</strong> The first and second layers of neurons
+have an optional dropout layer. When active, the dropout rate is either
+a lower value of0.25 or a higher value of 0.5. Dropout layers randomly
+deactivate neurons with a frequency of the specified rate during
+training to limit dependence on any subset.<br />
+</li>
+<li><strong>Regularization:</strong> l2 regularization is available on
+each layer, adding the squared magnitude of coefficients as a penalty to
+the loss function. This is a feature to help generalise the model and
+stop overfitting. Values of 0, 0.001 and 0.0001 are used to tune.<br />
+</li>
+<li><strong>Normalization:</strong> Batch normalisation is available on
+each layer. When activated output of each layer is scaled and centred
+before being passed to subsequent layers.</li>
+</ul>
 </div>
 <div id="evaluation" class="section level2">
 <h2>Evaluation</h2>
@@ -437,19 +465,19 @@ using a three-fold cross-validation method over ten replications.</p>
 correspondence of predicted labels for the test data versus observed
 labels of the test data.</p>
 <div class="figure" style="text-align: center">
-<img src="data:image/png;base64,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" alt="Cross tabulations between predicted and actual outcomes" width="45%" height="45%" />
+<img src="data:image/png;base64,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" alt="Cross tabulations between predicted and actual outcomes" width="45%" height="45%" />
 <p class="caption">
 Cross tabulations between predicted and actual outcomes
 </p>
 </div>
 <p>Sensitivity, otherwise known as the True Positive Rate (TPR),
 quantifies the proportion those who defaulted were predicted to have
-defaulted. It is calculated by TP/(TP + FN). Specificity, otherwise
-known as the True Negative Rate (TNR) quantifies the proportion those
-who did not default were were predicted to not have defaulted. It is
-calculated by TN/(TN + FP). Accuracy is the overall classification
-accuracy of a results set and is given by (TP + TN)/(TP + TN + FP +
-FN).</p>
+defaulted. It is calculated by TP/(TP + FN).<br />
+Specificity, otherwise known as the True Negative Rate (TNR) quantifies
+the proportion those who did not default were were predicted to not have
+defaulted. It is calculated by TN/(TN + FP).<br />
+Accuracy is the overall classification accuracy of a results set and is
+given by (TP + TN)/(TP + TN + FP + FN).</p>
 <p>As the binary classification models can produce their predictions in
 the form of probabilities, varying the classification threshold -
 probability threshold to which default label is applied - affects the
@@ -465,22 +493,23 @@ true 0. The larger the area under the curve - AUC, the better is the
 discrimination. A perfect classifier would have AUC = 1. A classifier
 not better than random guessing would have AUC = 0.5 and the
 corresponding ROC curve would resemble a plot of the identity function
-(<span class="math inline">\(y = x\)</span>).<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+(<span class="math inline">\(y = x\)</span>).<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <p>A fourth metric was also used to compare models. The evaluation
-metric used for the Kaggle competition <a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> is the mean of two
+metric used for the Kaggle competition <a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> is the mean of two
 measures of rank ordering - Normalized Gini Coefficient,<span class="math inline">\(G\)</span>, and default rate captured at 4% ,
 <span class="math inline">\(D\)</span>. <span class="math inline">\(M =
 0.5 \times (G + D)\)</span>. <span class="math inline">\(G\)</span> is
-an extension of the AUC and is calculated as <span class="math inline">\(Gini_{norm} = 2 \times AUC- 1\)</span>. The
-Default rate captured at 4% is the Sensitivity for a classification
-threshold set at 4% of weighted total sample count.</p>
+an extension of the AUC and is calculated as <span class="math inline">\(G = 2 \times AUC- 1\)</span>. The Default rate
+captured at 4% is the Sensitivity for a classification threshold set at
+4% of weighted total sample count.</p>
 </div>
 </div>
 <div class="footnotes footnotes-end-of-document">
 <hr />
 <ol>
-<li id="fn1"><p><a href="https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc" class="uri">https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p><a href="https://www.kaggle.com/competitions/amex-default-prediction/overview/evaluation" class="uri">https://www.kaggle.com/competitions/amex-default-prediction/overview/evaluation</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p><a href="https://www.kaggle.com/code/dansbecker/using-categorical-data-with-one-hot-encoding/notebook" class="uri">https://www.kaggle.com/code/dansbecker/using-categorical-data-with-one-hot-encoding/notebook</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc" class="uri">https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://www.kaggle.com/competitions/amex-default-prediction/overview/evaluation" class="uri">https://www.kaggle.com/competitions/amex-default-prediction/overview/evaluation</a><a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 

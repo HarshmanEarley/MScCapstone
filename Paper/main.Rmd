@@ -143,11 +143,6 @@ Research into utilising ML methods to predict credit card default has largely be
 
 \spacing{1.25}
 
-\newpage
-
-```{r acknowledgments, child='acknowledgments.Rmd' , eval=FALSE}
-```
-
 \begin{centering}
 \end{centering}
 \newpage
@@ -178,7 +173,7 @@ Research into utilising ML methods to predict credit card default has largely be
 ```{r results, child = 'results.Rmd'}
 ```
 
-\newpage
+
 
 ```{r discussion, child = 'discussion.Rmd' }
 ```

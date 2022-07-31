@@ -13,13 +13,12 @@
 \contentsline {section}{\numberline {6}Results}{11}{section.6}%
 \contentsline {subsection}{\numberline {6.1}Model Tuning Results}{11}{subsection.6.1}%
 \contentsline {subsection}{\numberline {6.2}Model Comparrison}{11}{subsection.6.2}%
-\contentsline {section}{\numberline {7}Discussion}{14}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Context of Results}{14}{subsection.7.1}%
+\contentsline {section}{\numberline {7}Discussion}{13}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Context of Results}{13}{subsection.7.1}%
 \contentsline {subsection}{\numberline {7.2}Limitations \& Future Research}{14}{subsection.7.2}%
 \contentsline {section}{\numberline {8}Conclusion}{15}{section.8}%
 \contentsline {section}{\numberline {9}Bibliography}{a}{section.9}%
 \contentsline {section}{\numberline {10}Appendices}{b}{section.10}%
 \contentsline {subsection}{\numberline {10.1}Appendix A: additional tables}{b}{subsection.10.1}%
-\contentsline {subsection}{\numberline {10.2}Appendix B: additional figures}{c}{subsection.10.2}%
-\contentsline {subsection}{\numberline {10.3}Appendix C: AMEX\_Metric Code}{d}{subsection.10.3}%
-\contentsline {section}{\numberline {11}Abbreviations}{e}{section.11}%
+\contentsline {subsection}{\numberline {10.2}Appendix C: AMEX\_Metric Code}{c}{subsection.10.2}%
+\contentsline {section}{\numberline {11}Abbreviations}{d}{section.11}%

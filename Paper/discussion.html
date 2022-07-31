@@ -369,16 +369,20 @@ pre code {
 <h1>Discussion</h1>
 <div id="context-of-results" class="section level2">
 <h2>Context of Results</h2>
-<p>Compare to previous studies</p>
-<p>While being evaluated on slightly different metrics, the results of
-this study share a similar outcome with the original study on the Taiwan
-Credit Card default data, . That paper found the Neural Network to be
-the optimal classifier out of a range which included logistic regression
-and single classifier trees.</p>
-<p>In a follow-on paper, , the Random Forest classifier performed better
-in a comparison which evaluated models based on a cost control
-perspective, assigning a higher cost to defaulters classified not
-correctly.</p>
+<p>The results of this study are mainly in-line with results previously
+seen. While being evaluated on slightly different metrics, the results
+of this study share a similar outcome to the original study on the
+Taiwan Credit Card default data, . That paper found the Neural Network
+to be the optimal classifier out of a range which included logistic
+regression and single classifier trees. In a follow-on paper, , the
+Random Forest classifier performed better in comparing models based on a
+cost control perspective, assigning a higher cost to defaulters
+classified not correctly. tuned a NN to predict default on the Taiwan
+credit card data. It was found that the NN with the most hidden units
+was the optimally tuned classifier, a result shared in this study. In
+summary, the results of this analysis performed on the AMEX data
+generally confirmed the results from the analysis of the Taiwan credit
+card default dataset.</p>
 <p>A significant takeaway from the results is the closeness in results
 between a relatively basic logistic regression model and the more
 advanced and intensive Neural Networks and Random Forest models.
@@ -388,43 +392,53 @@ financial institutions looking to predict credit card default in its
 customers.<br />
 Arguably, a more interesting revelation is the closeness in results
 between the simple logistic regression model, utilising only one
-variable and the full regression model which had an extra 128 predictor
+variable and the full regression model, which had an extra 128 predictor
 variables. Of the five metrics recorded - Accuracy, AMEX Metric, AUC,
 Sensitivity and Specificity - the maximum improvement gained from the
 additional variables is 0.06, with the AMEX metric only improving by
-0.03. As the feature labels are masked the description and function of
-this variable are unknown but it is clear of its importance to
-predicting credit card default.</p>
+0.03. As the feature labels are masked, the description and function of
+this variable are unknown, but the importance of the P_2 variable in
+predicting credit card default is evident.</p>
 </div>
 <div id="limitations-future-research" class="section level2">
-<h2>Limitations Future Research</h2>
-<p>Computational limitations Only able to run computationally heavy
-algorithms such as RF on very small portions of the data Unable to
-harness the benefits of the time series take RNN paragraph from lit
-review lag features</p>
-<p>More advanced forms of Neural Networks have also been applied to the
-problem, proposed using a Recurrent Neural Network (RNN) feature
-extractor with a Gated Recurrent Unit (GRU) on credit card payment
-history to leverage the time dependencies embedded in these dynamic
-features of historical credit card data. Recurrent Neural Networks (RNN)
-are specifically designed to use recursive architecture to extract
-patterns from input sequences . They have been proven helpful in
-applications that heavily rely on time-variant features. As a result, it
-is natural to consider RNN models as feature extractors for customer
-behaviour that often appear as sequences in financial data.</p>
-<p>One of the main obstacles for contextualising the results is the lack
-of information of the variables included as part of the data. The only
-detail of the features was the category to which it belonged.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Due to
-this, little inference can be made on the variables and the main outcome
-of this study is the performance of the models. Particularly it would be
-difficult to comment on the Delinquency and Risk variables as there is
-no further information to what they constitute and is impossible to
-infer any further information from them.</p>
+<h2>Limitations &amp; Future Research</h2>
+<p>The main limitation of this study was the size of the data and lack
+of computational resources. It meant only a small portion of the data
+could feasibly be used to conduct the modelling, such as computationally
+heavy algorithms, e.g. Random Forest. The decision was made to take the
+most recent statement values for each customer rather than take the full
+data of the first <span class="math inline">\(n\)</span> customers as it
+allowed the largest amount of distinct default observations to use to
+train and predict. Using this subset reduced the amount of data
+available by a factor of 12 and removed the opportunity to harness the
+benefits of the time series element in the predictive models.
+Incorporating the time element of the data into analysis would allow the
+use of more advanced forms of neural networks going forward. proposed
+using a Recurrent Neural Network (RNN) feature extractor with a Gated
+Recurrent Unit (GRU) on credit card payment history to leverage the time
+dependencies embedded in these dynamic features of historical credit
+card data. Recurrent Neural Networks (RNN) are specifically designed to
+use recursive architecture to extract patterns from input sequences .
+They have been proven helpful in applications that heavily rely on
+time-variant features. As a result, it is natural to consider RNN models
+as feature extractors for customer behaviour that often appear as
+sequences in financial data.</p>
+<p>Another option to retain a time-dependent element to the data is to
+consider creating lag features. Lag features take an indirect approach
+to using the benefits of time-dependent data. Lag features reshape the
+data using summary statistics of a customers set of observations. Each
+feature would become a set of features. For example, P_2 could become
+four features P_2_first, P_2_last, P_2_mean, P_2_sd and represent the
+first, last, mean and standard deviation of P_2 for a credit card
+holder. Again the number of observations will be reduced as there will
+only be one row per credit card customer. However, this will increase
+the width of the data by a factor of <span class="math inline">\(l-1\)</span> where <span class="math inline">\(l\)</span> is the number of lag features
+calculated.</p>
 <p>The choice of models employed for this project was relatively
-arbitrary. A selection of three well known models which were seen to
+arbitrary. A selection of three well-known models which were seen to
 perform this task in previous studies using the Taiwan data were chosen.
-One simple method, one ensemble learning and one deep learning model
-were comparatively evaluated. This unfortunately does not allow us to
+One primary method, one ensemble learning and one deep learning model
+were comparatively evaluated. This, unfortunately does not allow us to
 benchmark the performance against internal models used by AMEX or other
 banks. This benchmark would allow analysis on whether any of the models
 employed in this study could provide value and risk mitigation. A small
@@ -437,7 +451,20 @@ employed in future. used a cost function when comparing methods to
 predict customers credit card default. A higher penalty or cost was
 given to defaulters classified incorrectly. A range of cost factors were
 used to identify a model with the best accuracy in predicting a
-defaulter in a cost- effective manner.</p>
+defaulter in a cost-effective manner.</p>
+<p>One of the main obstacles for contextualising the results is the lack
+of information of the variables included as part of the data. The only
+detail of the features was the category to which it belonged.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Due to
+this, little inference can be made on the variables and the main outcome
+of this study is the performance of the models. In particular, it would
+be difficult to comment on the Delinquency and Risk variables as there
+is no further information to what they constitute and is impossible to
+infer any further information from them. Accessing the feature labels
+would open up avenues to other meaningful analyses of the data, mainly
+feature importance. The observed values for an important variable are
+related to the classification values of the target variable. Important
+variables are those for which the classification performance will drop
+significantly if they are removed or altered.</p>
 </div>
 </div>
 <div class="footnotes footnotes-end-of-document">
