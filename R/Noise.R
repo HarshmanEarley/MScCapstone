@@ -27,7 +27,7 @@ estimateInterval_loadData = function(columns){
     
     # save to cache
     INTERVALS <<- INTERVALS %>% add_row(column = columns[i], interval = res$interval, confidence = res$confidence)
-    save(INTERVALS, file = glue(PATH_DB,"cache/intervals"))
+    save(INTERVALS, file = getFilePath('intervals',''))
   }
   
   INTERVALS
@@ -99,7 +99,7 @@ estimateInterval = function(vec){
 # Will only ask for variables to be calculated that are not already cahced
 ##########################################################################################
 intervals_main = function(){  
-  cachePath = glue(PATH_DB,"cache/intervals")
+  cachePath = getFilePath('intervals','')
   print(glue("Running intervals_main, saving to ",cachePath))
   
   #read colnames from paraquet schema
@@ -131,7 +131,7 @@ intervals_main = function(){
 #################################################################################
 getNoiseIntervals = function(){
   
-  cachePath = glue(PATH_DB,"cache/","interval")
+  cachePath = getFilePath('intervals','')
   
   if(!exists("INTERVALS")){
     #Try load from cache
@@ -180,8 +180,8 @@ plotNoiseHistByColumn = function(){
   intervals = getNoiseIntervals()
   
   #select pdf
-  pdf(file= glue(PATH_DB,"plots/noisePlots.pdf"),onefile=TRUE)
-  print(glue("file = ",PATH_DB,"plots/noisePlots.pdf"))
+  pdf(file= glue(PATH_WD,"plots/noisePlots.pdf"),onefile=TRUE)
+  print(glue("file = ",PATH_WD,"plots/noisePlots.pdf"))
   
   par( mfrow= c(3,1))
   for(i in 1:nrow(intervals)){
