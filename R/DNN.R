@@ -1,3 +1,8 @@
+
+#############################################
+#########    DNN NEURAL NETWORK    #########
+#############################################
+
 # set default flags
 FLAGS <- flags(
   flag_numeric("N_input", 0),
@@ -15,17 +20,17 @@ FLAGS <- flags(
 )
 # model configuration
 model <- keras_model_sequential() %>%
-  layer_dense(units = floor(N_input), input_shape = N_input, activation = FLAGS$activationHidden, name = "layer_1",
+  layer_dense(units = floor(FLAGS$N_input), input_shape = N_input, activation = FLAGS$activationHidden, name = "layer_1",
               kernel_regularizer = regularizer_l2(FLAGS$lambda)) %>%
               layer_batch_normalization(center = FLAGS$normalization,scale = FLAGS$normalization) %>%
               layer_dropout(rate = FLAGS$dropout) %>%
   
-  layer_dense(units = floor(N_input/ifelse(FLAGS$equalWidths,1,2)), activation = FLAGS$activationHidden, name = "layer_2",
+  layer_dense(units = floor(FLAGS$N_input/ifelse(FLAGS$equalWidths,1,2)), activation = FLAGS$activationHidden, name = "layer_2",
               kernel_regularizer = regularizer_l2(FLAGS$lambda)) %>%
               layer_batch_normalization(center = FLAGS$normalization,scale = FLAGS$normalization) %>%
               layer_dropout(rate = FLAGS$dropout) %>%
   
-  layer_dense(units = floor(N_input/ifelse(FLAGS$equalWidths,1,4)), activation = FLAGS$activationHidden, name = "layer_3",
+  layer_dense(units = floor(FLAGS$N_input/ifelse(FLAGS$equalWidths,1,4)), activation = FLAGS$activationHidden, name = "layer_3",
               kernel_regularizer = regularizer_l2(FLAGS$lambda)) %>%
               layer_batch_normalization(center = FLAGS$normalization,scale = FLAGS$normalization) %>%
   
@@ -36,8 +41,8 @@ model <- keras_model_sequential() %>%
   )
 # training and evaluation
 fit <- model %>% fit(
-  x = x_train, y = y_train,
-  validation_data = list(x_val, y_val),
+  x = x_train_pca, y = y_train,
+  validation_data = list(x_val_pca, y_val),
   epochs = FLAGS$epochs,
   batch_size = FLAGS$bs,
   verbose = FLAGS$verbose,
@@ -45,6 +50,6 @@ fit <- model %>% fit(
 )
 # store accuracy on test set for each run
 score <- model %>% evaluate(
-  x_test, y_test,
+  x_test_pca, y_test,
   verbose = FLAGS$verbose
 )

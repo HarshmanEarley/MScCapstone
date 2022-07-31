@@ -164,7 +164,6 @@ getUniqueCustomerID = function(file,override = FALSE){
 # Solution deprecated by use of parquet files, but still maintained
 
 catagoricalToInts = function(DF){
-  catagoricalToInts_debug <<- DF
   #Convert double categorical variables to ints 
   cols_int = c('B_30', 'B_38', 'D_114', 'D_116', 'D_117', 'D_120', 'D_126', 'D_66', 'D_68')
   cols_int = cols_int[cols_int %in% colnames(DF)]
@@ -198,7 +197,7 @@ catagoricalToInts = function(DF){
 
 writeCsvToParquet = function(file, chunkSize = 100000){ 
   file = getFilePath(file,".csv")
-
+  
   f = function(x,pos){
     x = x %>%  left_join(train_labels, by="customer_ID") 
     write_parquet(x,  glue(PATH_DB,"parquet/parquet_",pos))
@@ -240,7 +239,7 @@ writeCsvToParquet = function(file, chunkSize = 100000){
 # writeCleanedParaquet - use cleansing functions to transform the data
 # writeCleanedParaquet("train_data")
 
-writeCleanedParaquet = function(parquetFile){
+writeCleansedParaquet = function(parquetFile){
   write_parquet(
     x = readFromParquet(getFilePath(parquetFile,".parquet")) %>% removeCleansedCols %>% catagoricalToInts %>% convertNoiseToInt,
     sink =getFilePath(parquetFile,".parquet")
