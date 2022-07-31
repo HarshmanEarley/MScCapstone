@@ -25,6 +25,8 @@ packages = c(
   "mltools",
   "splitTools",
   "xgboost",
+  'ParamHelpers',
+  'mlr',
   "ROCR"
 )
 
@@ -54,17 +56,17 @@ if(user == 'Sidney'){
     PATH_DB = '/Users/root1/Documents/amex-default-prediction/'
   }
   if(.Platform$OS.type == 'windows'){
-    PATH_WD = 'C:/Users/sidne/Documents/GitHub/DAC_Project/R/'
+    PATH_WD = 'C:/Users/sidne/Documents/GitHub/DAC_Project/'
     PATH_DB = 'C:/Users/sidne/Documents/amexDatabase/'
   }
 }
 if(user == 'Denis'){
   if(.Platform$OS.type == 'unix'){
-    PATH_WD = '/Users/root1/Documents/DAC_Project/R/'
+    PATH_WD = '/Users/root1/Documents/DAC_Project/'
     PATH_DB = '/Users/root1/Documents/amex-default-prediction/'
   }
   if(.Platform$OS.type == 'windows'){
-    PATH_WD = 'C:/Users/denis/Documents/GitHub/DAC_Project/R/'
+    PATH_WD = 'C:/Users/denis/Documents/GitHub/DAC_Project/'
     PATH_DB = 'C:/Users/denis/Documents/ACM40960 - Projects in Maths Modelling/database/'
   }
 }
@@ -117,7 +119,7 @@ getFiles = function(path){
   list.files(get(path))
 }
 
-getFilePath = function(fileN, ext = ".csv", checkDBOnly = TRUE){
+getFilePath = function(fileN, ext = ".csv", checkDBOnly = FALSE){
   
   res = list()
   pathsToCheck = if (checkDBOnly) 'PATH_DB' else PATH #restrict search to DB by default
