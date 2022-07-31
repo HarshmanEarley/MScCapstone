@@ -1,3 +1,7 @@
+##########################################
+#######      Amex Metrix           #####
+##########################################
+
 # Adapted from https://www.kaggle.com/code/inversion/amex-competition-metric-python
 
 #The evaluation metric, 𝑀, for this competition is the mean of two measures of rank ordering: Normalized Gini Coefficient, 𝐺, and default rate captured at 4%, 𝐷.

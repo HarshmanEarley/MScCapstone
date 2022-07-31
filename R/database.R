@@ -97,27 +97,6 @@ readFromParquet = function(filePath){
   as.data.frame(at)
 }
 
-
-getDB = function(db){
-  res = if(db == 'csv'){
-    glue(PATH_DB,'csv')
-  } else if (db == 'parquet'){
-    glue(PATH_DB,'parquet')
-  } else {
-    PATH_DB
-  }
-  
-  return(res)
-}
-
-checkSplitsList = function(strings,split,seachTerm){
-  strings[unlist(lapply(strings, function(vec) seachTerm %in% strsplit(vec,glue("\\",split))[[1]]))]
-}
-
-getFiles = function(path){
-  list.files(get(path))
-}
-
 getFilePath = function(fileN, ext = ".csv", checkDBOnly = FALSE){
   
   res = list()
@@ -231,16 +210,12 @@ getCache = function(file, func, prefix, override = FALSE){
   return(get(cacheName))
 }
 
-##########################################################################################
-########                 Database management                                  ########
-##########################################################################################
-
-
 train_labels = read_csv(getFilePath("train_labels"),show_col_types = FALSE);
 
-################
-# Packages ####
-################
+##########################################################################################
+########                 Scripts management                                  ########
+##########################################################################################
+
 
 source(getFilePath("Noise", ".R", checkDBOnly = FALSE))
 source(getFilePath("cleansing", ".R", checkDBOnly = FALSE))

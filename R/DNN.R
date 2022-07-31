@@ -1,3 +1,8 @@
+
+#############################################
+#########    DNN NEURAL NETWORK    #########
+#############################################
+
 # set default flags
 FLAGS <- flags(
   flag_numeric("N_input", 0),
@@ -15,17 +20,17 @@ FLAGS <- flags(
 )
 # model configuration
 model <- keras_model_sequential() %>%
-  layer_dense(units = floor(N_input), input_shape = N_input, activation = FLAGS$activationHidden, name = "layer_1",
+  layer_dense(units = floor(FLAGS$N_input), input_shape = N_input, activation = FLAGS$activationHidden, name = "layer_1",
               kernel_regularizer = regularizer_l2(FLAGS$lambda)) %>%
               layer_batch_normalization(center = FLAGS$normalization,scale = FLAGS$normalization) %>%
               layer_dropout(rate = FLAGS$dropout) %>%
   
-  layer_dense(units = floor(N_input/ifelse(FLAGS$equalWidths,1,2)), activation = FLAGS$activationHidden, name = "layer_2",
+  layer_dense(units = floor(FLAGS$N_input/ifelse(FLAGS$equalWidths,1,2)), activation = FLAGS$activationHidden, name = "layer_2",
               kernel_regularizer = regularizer_l2(FLAGS$lambda)) %>%
               layer_batch_normalization(center = FLAGS$normalization,scale = FLAGS$normalization) %>%
               layer_dropout(rate = FLAGS$dropout) %>%
   
-  layer_dense(units = floor(N_input/ifelse(FLAGS$equalWidths,1,4)), activation = FLAGS$activationHidden, name = "layer_3",
+  layer_dense(units = floor(FLAGS$N_input/ifelse(FLAGS$equalWidths,1,4)), activation = FLAGS$activationHidden, name = "layer_3",
               kernel_regularizer = regularizer_l2(FLAGS$lambda)) %>%
               layer_batch_normalization(center = FLAGS$normalization,scale = FLAGS$normalization) %>%
   

@@ -1,10 +1,16 @@
+######################################################
+########            Noise Elimination           #######
+#######################################################
+
 ##########################################################################################
-########                     CSV -> PARQUET                     ########
+# Wrapper to estimateInterval
+# Mandate is to load a dataframe and pass individual vectors to estimateInterval
 ##########################################################################################
+
 estimateInterval_loadData = function(columns){
   print("Running estimateInterval_loadData")
   #read in full data from parquet
-  DF = readFromParquet(glue(PATH_DB,"parquet"))
+  DF = readFromParquet(getFilePath("train_data",".parquet"))
   cols_N = length(columns)
   
   #For each column call estimateInterval and save result
@@ -28,6 +34,19 @@ estimateInterval_loadData = function(columns){
   INTERVALS
 }
 
+#####################################################################################################
+# Function to determine if a given continuous vector is actually discrete with noise injected.
+# While loop:
+# 1. Store minimum value from vector that is greater than the prior min + 0.01
+# 2. Select bound of [minamum value, minamum value+0.01]
+# 3. Get the remainders of this bound mod 0.01
+# 4. Store p value Kolmogorov-Smirnov test for remainders against theoretical distribution Unif[0,0.01]
+# For loop:
+# 1. Round each minimum bound value to the nearest rational number (lower bound 0.01 as to not have intersecting intervals)
+# 
+# Get most frequently occurring rational and store as candidate interval (all intervals should be equal)
+# Return candidate interval and confidence value (% of bounds that do not reject the null hypothesis of the Kolmogorov-Smirnov test)
+#####################################################################################################
 
 estimateInterval = function(vec){
   nums = c()
@@ -75,13 +94,17 @@ estimateInterval = function(vec){
   return(list(interval = candidate, confidence = sum(ks_p > 0.05)/length(ks_p)))
 }
 
-
+##########################################################################################
+# Head function in stack to determine if a given variable has had noise injected
+# Used as a buffer function, allowing R to be exited without loss of information
+# Will only ask for variables to be calculated that are not already cahced
+##########################################################################################
 intervals_main = function(){  
   cachePath = glue(PATH_DB,"cache/intervals")
   print(glue("Running intervals_main, saving to ",cachePath))
   
   #read colnames from paraquet schema
-  columns = (open_dataset(sources = glue(PATH_DB,"parquet"))$schema$names) 
+  columns = (open_dataset(sources = getFilePath("train_data",".parquet"))$schema$names) 
   nonNumerics = c("customer_ID",'S_2', 'B_30', 'B_38', 'D_114', 'D_116', 'D_117', 'D_120', 'D_126', 'D_63', 'D_64', 'D_66', 'D_68')
   columns = columns[!columns %in% nonNumerics]
   
@@ -101,6 +124,12 @@ intervals_main = function(){
   estimateInterval_loadData(columns)
 }
 
+
+#################################################################################
+# Load intervals from cache
+# If not available, run intervals_main to calculate
+# Return only intervals that have a conservative confidence above 0.95
+#################################################################################
 getNoiseIntervals = function(){
   cachePath = getFilePath('interval','')
   
@@ -120,6 +149,14 @@ getNoiseIntervals = function(){
   return(inter[inter$confidence > 0.95,])
 }
 
+##########################################################################################
+# Remove noise in variables deemed to have had noise injected
+# For each interval:
+# 1. Add 1e8 to avoid machine precision errors
+# 2. Divide each variable by this augmented interval
+# 3. Round to floor and convert to int
+# 4. Results in ordinal array of ints representing the underlying rational number
+##########################################################################################
 convertNoiseToInt = function(DF){
   intervals = getNoiseIntervals()
   for(i in 1:nrow(intervals)){
@@ -133,12 +170,12 @@ convertNoiseToInt = function(DF){
 }
 
 ##########################################################################################
-########                   lot columns with results to pdf                        ########
+# Plotting function for visual diagnostic of intervals      
 ##########################################################################################
 plotNoiseHistByColumn = function(){
   print("Running plotNoiseHistByColumn, saving histograms to PDF")
   #load DF
-  DF = readFromParquet(glue(PATH_DB,"parquet"))
+  DF = readFromParquet(getFilePath("train_data",".parquet"))
   intervals = getNoiseIntervals()
   
   #select pdf
