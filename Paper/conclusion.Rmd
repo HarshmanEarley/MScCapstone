@@ -1,3 +1,4 @@
+\spacing{1.1}
 # Conclusion
 
 Over the past years, a strand of literature has attempted to shed light on how advanced ML algorithms such as Neural Networks and Random Forest can be employed to predict various forms of credit risk. This report confirms the additional performance of more simplistic models such as logistic regression. Credit Card issuing institutions have the potential to use models which are better able to identify the complex patterns and relationships between the target variable and the predictor variables. This, in turn, will reduce expenses brought about by default. These models can be used to single out customers at risk of default and provide early intervention or to assess the credit risk of customers before granting them credit cards.  

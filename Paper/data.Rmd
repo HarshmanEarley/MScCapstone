@@ -1,4 +1,4 @@
-\spacing{1}
+\spacing{1.1}
 # Exploratory Data Analysis
 
 ## Background
@@ -6,16 +6,16 @@
 Data used for this project was obtained from the Kaggle website. One of Kaggle's main features is its competition platform.[^comp] Kaggle allows users to organise and host data science competitions. This competition provides an industrial-scale data set to build a machine learning model. The model is used to predict credit card default using anonymised customer profile information from March 2017 to March 2018. The target binary variable i.e. default is calculated by observing 18 month's performance window after the latest credit card statement, and if the customer does not pay the due amount in 120 days after their latest statement date, it is considered a default event.
 
 ## Data Structure
-\spacing{1}
+
 **train_labels.csv**   
 A list of unique customer identifiers `customer_ID` with the target label `target` indicating a default event with `target = 1` indicating a default, `target = 0` indicating no default. There are 458913 observations in this data, meaning 458913 unique AMEX customers. 74.1% of customers in the data did not default on payment, while 25.9% defaulted.
 
 
 **train_data.csv**  
 This tabular data set corresponding to the training data, consisting of 190 features and over 5.5 million observations. It contains multiple statement dates per customer_ID ,and each observation corresponds to a monthly statement for a customer. The data is ordered firstly by `customer_ID`, corresponding with the train_labels.csv file, and chronologically by statement date. The dataset contains aggregated profile features for each customer at each statement date. There are 177 numeric features which are anonymised and normalized and fall into the following general categories:
-\spacing{0.75}
 
-```{r def, echo=F,fig.align='center', out.height="50%",out.width="40%",fig.show="hold",  fig.cap="Frequency of Lables / Variable Catagories", echo=FALSE, eval = TRUE}
+
+```{r def, echo=F,fig.align='center', out.height="50%",out.width="45%",fig.show="hold",  fig.cap="Frequency of Lables / Variable Catagories", echo=FALSE, eval = TRUE}
 knitr::include_graphics(c("default.png",'frequencyCatagories.png'))
 ```
 
@@ -35,13 +35,13 @@ kable(varcat, col.names = c("Variable Name", "Category" ),label="Variable Catego
 ```
 
 
-\spacing{1.1}
+
 There are 11 categorical variables - B_30, B_38, D_114, D_116, D_117, D_120, D_126, D_63, D_64, D_66 and D_68.   
  
 The remaining two unaccounted-for features are the variable S_2 which contains the date of the statement and `customer_ID`, used to match the target label.
 
-\spacing{1}
-\scriptsize
+
+
 ```{r, echo=FALSE, message=FALSE, results='hide'}
 
 sample <- matrix(data = c("0000099d6bd597052cdcda90ffabf56573fe9d7c79be5fbac11a8ed792feb62a", "2017-03-09", 0.9384687, 0.001733339,
@@ -56,8 +56,7 @@ sample <- matrix(data = c("0000099d6bd597052cdcda90ffabf56573fe9d7c79be5fbac11a8
 ```{r, echo=FALSE, eval=FALSE}
 kable(sample, col.names = c("customer_ID","S_2","P_2","D_39"),label="Sample", caption ="First five rows and columns from train_data.csv  ")
 ```
-\spacing{1}
-\normalsize
+
 
 
 ## Correlation to Target Variable
@@ -73,6 +72,7 @@ Payment variable P_2 shows the most substantial linear relationship with the tar
 Exploring the P_2 variable in more detail, the extent of its relationship with the target is clear. The distribution of this variable, split by target value, depicts a left-skew peaking at 0.9 for those not in default and an approximately normal distribution with a mean of 0.5 for those who default. The vast majority of observations with a value of P_2 greater than 0.5 are not in default. There are approximately even numbers who are in default and not in default with a value of P_2 less than 0.5. This could indicate the feature is related to or a function of a type of credit-worthiness or credit-score variable. This variable is now used as a baseline for predictions of models created. A simple logistic regression model with P_2 as the sole predictor may be valuable as a baseline for measuring more complex models against. It is trained, tuned and evaluated in an identical format to the full logistic regression model.
 
 # Feature Engineering
+\spacing{1.1}
 **Dimension Reduction**  
 Several feature engineering steps were performed independently on the predictor variables. Feature engineering was done to create a more manageable-sized data set with uninformative features removed. 
 
@@ -104,7 +104,7 @@ knitr::include_graphics("noise.png")
 ```
 
 A one-sided Kolmogorov-Smirnov goodness-of-fit test is implemented to identify these intervals where noise occurs. The Kolmogorov-Smirnov test is a nonparametric test that measures agreement between the cumulative distribution function of observed data to a specified distribution \citep{JSSv095i10}. In this case, we are comparing to a uniform $U(0,0.01)$ distribution for each test. 
-
+\spacing{1}
 The hypothesis being tested is:   
 $H_0 :$ The sample comes from the specified theoretical distribution  
 $H_A :$ The sample does not come from the specified theoretical distribution
@@ -126,7 +126,7 @@ Each minimum value recorded is rounded to the nearest rational number, with the 
 
 **2)** The acceptance criteria for if noise has been added to the data.       
 The acceptance criteria is the percentage of total pillars that do not reject the null hypothesis. As we are observing the null hypothesis, on each test with $p > 0.05$ we can only not reject that the observed values come from a uniform distribution. As such, a high threshold of 0.95 for the acceptance criteria is chosen to ensure variables selected are highly likely to have had noise added.  
-
+\spacing{1.1}
 Variables that were identified as having noise added are converted to an ordinal array of integers representing the underlying rational number. This is done for each variable by first selecting the interval between values, An arbitrarily small number ($1\times10^{-8}$) is added to avoid machine precision errors. Each value in the column is divided by this augmented interval. The floor of the values is obtained and then converted to an integer. It was found using the K_S goodness of fit test that 42 variables had noise added. Each of these received noise reduction as outlined above and were converted to ordinal integer form.
 
 **Final Dataset**  

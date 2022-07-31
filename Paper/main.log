@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  31 JUL 2022 22:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  31 JUL 2022 22:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -561,184 +561,181 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \openout7 = `main.lot'.
 
 [4]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 281.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 279.
 (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 281.
+(Font)              <9> on input line 279.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 281.
+(Font)              <5> on input line 279.
 
-Underfull \hbox (badness 10000) in paragraph at lines 281--281
+Underfull \hbox (badness 10000) in paragraph at lines 279--279
 [][][]$\T1/lmr/m/n/9 https : / / www . centralbank . ie / statistics / data -[] and -[] analysis / credit -[] and -[] debit -[] card -[] statistics / daily -[] credit -[] and -[]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 285--285
+Underfull \hbox (badness 10000) in paragraph at lines 283--283
 [][][]$\T1/lmr/m/n/9 https : / / www . cso . ie / en / releasesandpublications / ep / p -[] hfcs / household^^\nanceandconsumptionsurvey2018 /
  []
 
 [1] [2]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 422.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 418.
 (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 <default.png, id=170, 469.755pt x 372.64218pt>
 File: default.png Graphic file (type png)
 <use default.png>
-Package pdftex.def Info: default.png  used on input line 442.
-(pdftex.def)             Requested size: 181.97801pt x 144.35754pt.
+Package pdftex.def Info: default.png  used on input line 438.
+(pdftex.def)             Requested size: 204.72884pt x 162.40508pt.
 <frequencyCatagories.png, id=171, 1263.72125pt x 780.9175pt>
 File: frequencyCatagories.png Graphic file (type png)
 <use frequencyCatagories.png>
-Package pdftex.def Info: frequencyCatagories.png  used on input line 442.
-(pdftex.def)             Requested size: 181.97186pt x 112.44965pt.
+Package pdftex.def Info: frequencyCatagories.png  used on input line 438.
+(pdftex.def)             Requested size: 204.72557pt x 126.51031pt.
 [3
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.465 \end{longtable}
+l.461 \end{longtable}
                       <./default.png> <./frequencyCatagories.png>]
 <corolationToTarget.png, id=187, 2195.20125pt x 1356.06625pt>
 File: corolationToTarget.png Graphic file (type png)
 <use corolationToTarget.png>
-Package pdftex.def Info: corolationToTarget.png  used on input line 495.
+Package pdftex.def Info: corolationToTarget.png  used on input line 483.
 (pdftex.def)             Requested size: 213.80516pt x 132.07625pt.
 <P2.png, id=188, 2195.20125pt x 1356.06625pt>
 File: P2.png Graphic file (type png)
 <use P2.png>
-Package pdftex.def Info: P2.png  used on input line 495.
+Package pdftex.def Info: P2.png  used on input line 483.
 (pdftex.def)             Requested size: 213.80516pt x 132.07625pt.
 [4
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.528 ... Engineering}\label{feature-engineering}}
-                                                   <./corolationToTarget.png> <./P2.png>]
+l.514 
+       <./corolationToTarget.png> <./P2.png>]
 <naHist.png, id=198, 2195.20125pt x 1356.06625pt>
 File: naHist.png Graphic file (type png)
 <use naHist.png>
-Package pdftex.def Info: naHist.png  used on input line 563.
+Package pdftex.def Info: naHist.png  used on input line 553.
 (pdftex.def)             Requested size: 204.72774pt x 126.46875pt.
 <variance.png, id=199, 2195.20125pt x 1356.06625pt>
 File: variance.png Graphic file (type png)
 <use variance.png>
-Package pdftex.def Info: variance.png  used on input line 563.
+Package pdftex.def Info: variance.png  used on input line 553.
 (pdftex.def)             Requested size: 204.72774pt x 126.46875pt.
 <correlation.png, id=200, 2195.20125pt x 1356.06625pt>
 File: correlation.png Graphic file (type png)
 <use correlation.png>
-Package pdftex.def Info: correlation.png  used on input line 572.
+Package pdftex.def Info: correlation.png  used on input line 562.
 (pdftex.def)             Requested size: 181.95044pt x 112.39827pt.
 [5
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.580 A
-       s part of anonymising the data, noise was injected into a number of
+l.568 
+       <./naHist.png> <./variance.png>]
+<noise.png, id=208, 481.8pt x 481.8pt>
+File: noise.png Graphic file (type png)
+<use noise.png>
+Package pdftex.def Info: noise.png  used on input line 582.
+(pdftex.def)             Requested size: 227.47525pt x 227.47525pt.
+[6
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.580 A
-       s part of anonymising the data, noise was injected into a number of <./naHist.png> <./variance.png> <./correlation.png>]
-<noise.png, id=209, 481.8pt x 481.8pt>
-File: noise.png Graphic file (type png)
-<use noise.png>
-Package pdftex.def Info: noise.png  used on input line 592.
-(pdftex.def)             Requested size: 227.47525pt x 227.47525pt.
-[6
+l.601 the two distributions functions. \[
+                                         D = sup_x |F_n(X) - F(X)|\]
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.636 
-       <./noise.png>] [7] [8]
-<crosstable.png, id=249, 298.11375pt x 60.82726pt>
+l.601 the two distributions functions. \[
+                                         D = sup_x |F_n(X) - F(X)|\] <./correlation.png> <./noise.png>] [7] [8]
+<crosstable.png, id=247, 298.11375pt x 60.82726pt>
 File: crosstable.png Graphic file (type png)
 <use crosstable.png>
-Package pdftex.def Info: crosstable.png  used on input line 792.
+Package pdftex.def Info: crosstable.png  used on input line 783.
 (pdftex.def)             Requested size: 204.7298pt x 41.77315pt.
 [9
 pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.824 
-       <./crosstable.png>] [10]
-<boxplot.png, id=268, 632.3625pt x 390.45876pt>
+l.793 S
+       pecificity, otherwise known as the True Negative Rate (TNR) quantifies <./crosstable.png>] [10]
+<boxplot.png, id=268, 583.17876pt x 390.45876pt>
 File: boxplot.png Graphic file (type png)
 <use boxplot.png>
-Package pdftex.def Info: boxplot.png  used on input line 870.
-(pdftex.def)             Requested size: 213.82321pt x 132.02734pt.
-<train_curve.png, id=269, 1263.72125pt x 780.9175pt>
+Package pdftex.def Info: boxplot.png  used on input line 862.
+(pdftex.def)             Requested size: 218.38005pt x 146.21313pt.
+<train_curve.png, id=269, 909.3975pt x 585.68813pt>
 File: train_curve.png Graphic file (type png)
 <use train_curve.png>
-Package pdftex.def Info: train_curve.png  used on input line 870.
-(pdftex.def)             Requested size: 213.82706pt x 132.13458pt.
-<bar.png, id=270, 642.90187pt x 477.28313pt>
-File: bar.png Graphic file (type png)
-<use bar.png>
-Package pdftex.def Info: bar.png  used on input line 905.
-(pdftex.def)             Requested size: 272.97952pt x 202.65692pt.
+Package pdftex.def Info: train_curve.png  used on input line 862.
+(pdftex.def)             Requested size: 218.37086pt x 140.63951pt.
 [11
 pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.911 
+l.891 
        <./boxplot.png> <./train_curve.png>]
-<roc_plot.png, id=282, 755.07094pt x 646.66594pt>
+<bar.png, id=284, 642.90187pt x 477.28313pt>
+File: bar.png Graphic file (type png)
+<use bar.png>
+Package pdftex.def Info: bar.png  used on input line 894.
+(pdftex.def)             Requested size: 272.97952pt x 202.65692pt.
+<roc_plot.png, id=285, 755.07094pt x 646.66594pt>
 File: roc_plot.png Graphic file (type png)
 <use roc_plot.png>
-Package pdftex.def Info: roc_plot.png  used on input line 921.
-(pdftex.def)             Requested size: 318.46411pt x 272.74245pt.
-<fourfoldplot.png, id=283, 438.8897pt x 478.78876pt>
+Package pdftex.def Info: roc_plot.png  used on input line 910.
+(pdftex.def)             Requested size: 295.7208pt x 253.26436pt.
+<fourfoldplot.png, id=286, 438.8897pt x 478.78876pt>
 File: fourfoldplot.png Graphic file (type png)
 <use fourfoldplot.png>
-Package pdftex.def Info: fourfoldplot.png  used on input line 930.
+Package pdftex.def Info: fourfoldplot.png  used on input line 919.
 (pdftex.def)             Requested size: 272.9861pt x 297.80301pt.
 [12
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.936 
+l.925 
       
 pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.936 
+l.925 
        <./bar.png> <./roc_plot.png>] [13
 pdfTeX warning (ext4): destination with the same identifier (name{figure.10}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.943 \newpage
-               <./fourfoldplot.png>] [14] [15] (./main.bbl) [1] [2] [3]
+l.962 customers.\\
+                   <./fourfoldplot.png>] [14] [15] (./main.bbl) [1] [2]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 1135.
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 1144.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 1119.
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 1128.
 (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [4] 
+) [3] 
 AED: lastpage setting LastPage
-[5] (./main.aux)
+[4] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 0987B3163E7C2ED3A079875D160F6395;1464.
  )
-(\end occurred inside a group at level 21)
+(\end occurred inside a group at level 18)
 
-### semi simple group (level 21) entered at line 1186 (\begingroup)
-### semi simple group (level 20) entered at line 945 (\begingroup)
-### semi simple group (level 19) entered at line 877 (\begingroup)
-### semi simple group (level 18) entered at line 843 (\begingroup)
-### semi simple group (level 17) entered at line 696 (\begingroup)
-### semi simple group (level 16) entered at line 690 (\begingroup)
-### semi simple group (level 15) entered at line 676 (\begingroup)
-### semi simple group (level 14) entered at line 479 (\begingroup)
-### semi simple group (level 13) entered at line 476 (\begingroup)
-### semi simple group (level 12) entered at line 467 (\begingroup)
-### semi simple group (level 11) entered at line 438 (\begingroup)
-### semi simple group (level 10) entered at line 419 (\begingroup)
-### semi simple group (level 9) entered at line 397 (\begingroup)
-### semi simple group (level 8) entered at line 334 (\begingroup)
-### semi simple group (level 7) entered at line 270 (\begingroup)
+### semi simple group (level 18) entered at line 1170 (\begingroup)
+### semi simple group (level 17) entered at line 1046 (\begingroup)
+### semi simple group (level 16) entered at line 932 (\begingroup)
+### semi simple group (level 15) entered at line 827 (\begingroup)
+### semi simple group (level 14) entered at line 685 (\begingroup)
+### semi simple group (level 13) entered at line 665 (\begingroup)
+### semi simple group (level 12) entered at line 642 (\begingroup)
+### semi simple group (level 11) entered at line 594 (\begingroup)
+### semi simple group (level 10) entered at line 518 (\begingroup)
+### semi simple group (level 9) entered at line 395 (\begingroup)
+### semi simple group (level 8) entered at line 332 (\begingroup)
+### semi simple group (level 7) entered at line 268 (\begingroup)
 ### semi simple group (level 6) entered at line 261 (\begingroup)
 ### semi simple group (level 5) entered at line 249 (\begingroup)
 ### semi simple group (level 4) entered at line 246 (\begingroup)
@@ -747,13 +744,16 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 ### semi simple group (level 1) entered at line 115 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 13229 strings out of 479983
- 209217 string characters out of 5886392
- 514562 words of memory out of 5000000
- 31065 multiletter control sequences out of 15000+600000
+ 13226 strings out of 479983
+ 209148 string characters out of 5886392
+ 512500 words of memory out of 5000000
+ 31064 multiletter control sequences out of 15000+600000
  522673 words of font info for 70 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 72i,8n,77p,424b,2890s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,8n,77p,424b,2790s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{Hfootnote.11} has been referenced but does not exist, replaced by a fixed one
+
 
 pdfTeX warning (dest): name{Hfootnote.10} has been referenced but does not exist, replaced by a fixed one
 
@@ -785,10 +785,10 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist,
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
 {c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}<c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on main.pdf (25 pages, 1109895 bytes).
+Output written on main.pdf (24 pages, 1094719 bytes).
 PDF statistics:
- 463 PDF objects out of 1000 (max. 8388607)
- 369 compressed objects within 4 object streams
- 107 named destinations out of 1000 (max. 500000)
+ 459 PDF objects out of 1000 (max. 8388607)
+ 366 compressed objects within 4 object streams
+ 105 named destinations out of 1000 (max. 500000)
  180 words of extra memory for PDF output out of 10000 (max. 10000000)
 

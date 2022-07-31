@@ -10,10 +10,6 @@ kable(results, caption = "Test data results")
 ```
 \newpage
 
-## Appendix B: additional figures
-
-
-\newpage
 
 ## Appendix C: AMEX_Metric Code
 
