@@ -44,8 +44,8 @@ Drive](https://drive.google.com/drive/u/0/folders/1C2TYJRsVH681dylc8ZX5A4gP-Lsoa
 
 # :heavy_exclamation_mark: Requirements
 
-Each of the software packages below must be installed a a prerequisite
-to viewing the models
+Each of the software packages below must be installed a prerequisite to
+viewing the models
 
 ### R / R-Studio
 
@@ -61,17 +61,17 @@ Installation guide: <https://keras.rstudio.com/install/index.html>
 
 # :wrench: Installation
 
-Once all files have been downloaded, root/R/main.R must be accessed from
-the codebase in order to update path variables.
+Once all files have been downloaded, root/R/main.R must be configured in
+order to specify path variables.
 
 -   PATH_WD - Root of working directory from Github clone
 -   PATH_DB - Root of database directory downloaded from Google Drive
 
 **NB**
 
--   paths must end in a “/” separators
-    (e.g. /Users/root1/Documents/CreditCardDefault/)
--   Windows directories must have either “\\\\” or “/” separators
+-   **paths must end in a “/” separators
+    (e.g. /Users/root1/Documents/CreditCardDefault/)**
+-   **Windows directories must have either “\\\\” or “/” separators**
 
 Once all fields have been filled, run main.R to load all required files
 into memory.  
@@ -119,8 +119,7 @@ Results available here including tuned models stored in RDS files.
 ### main.R
 
 Primary file used to load all scripts.  
-2 directories need to be specified on the host machine: PATH_WD and
-PATH_DB.
+See installation instructions above.
 
 ### Feature Engineering
 
