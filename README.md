@@ -2,25 +2,36 @@ Comparison and Evaluation of Differentmachine Learning Methods at
 Predicting Credit Card Default
 ================
 
--   [:blue_book: Overview](#blue_book-overview)
--   [:open_file_folder: Files](#open_file_folder-files)
--   [:heavy_exclamation_mark:
-    Requirements](#heavy_exclamation_mark-requirements)
-    -   [R / R-Studio](#r--r-studio)
-    -   [Tensorflow](#tensorflow)
--   [:wrench: Installation](#wrench-installation)
--   [:triangular_ruler: Structure](#triangular_ruler-structure)
-    -   [Github](#github)
-    -   [Google Drive](#google-drive)
--   [:floppy_disk: Scripts](#floppy_disk-scripts)
-    -   [main.R](#mainr)
-    -   [Feature Engineering](#feature-engineering)
-    -   [Machine Learning Models](#machine-learning-models)
-    -   [Auxiliary Scripts](#auxiliary-scripts)
--   [:vertical_traffic_light: Run
-    Times](#vertical_traffic_light-run-times)
--   [:two_men_holding_hands:
-    Contributors](#two_men_holding_hands-contributors)
+-   <a href="#blue_book-overview" id="toc-blue_book-overview">:blue_book:
+    Overview</a>
+-   <a href="#open_file_folder-files"
+    id="toc-open_file_folder-files">:open_file_folder: Files</a>
+-   <a href="#heavy_exclamation_mark-requirements"
+    id="toc-heavy_exclamation_mark-requirements">:heavy_exclamation_mark:
+    Requirements</a>
+    -   <a href="#r--r-studio" id="toc-r--r-studio">R / R-Studio</a>
+    -   <a href="#tensorflow" id="toc-tensorflow">Tensorflow</a>
+-   <a href="#wrench-installation" id="toc-wrench-installation">:wrench:
+    Installation</a>
+-   <a href="#triangular_ruler-structure"
+    id="toc-triangular_ruler-structure">:triangular_ruler: Structure</a>
+    -   <a href="#github" id="toc-github">Github</a>
+    -   <a href="#google-drive" id="toc-google-drive">Google Drive</a>
+-   <a href="#floppy_disk-scripts"
+    id="toc-floppy_disk-scripts">:floppy_disk: Scripts</a>
+    -   <a href="#mainr" id="toc-mainr">main.R</a>
+    -   <a href="#feature-engineering" id="toc-feature-engineering">Feature
+        Engineering</a>
+    -   <a href="#machine-learning-models"
+        id="toc-machine-learning-models">Machine Learning Models</a>
+    -   <a href="#auxiliary-scripts" id="toc-auxiliary-scripts">Auxiliary
+        Scripts</a>
+-   <a href="#vertical_traffic_light-run-times"
+    id="toc-vertical_traffic_light-run-times">:vertical_traffic_light: Run
+    Times</a>
+-   <a href="#two_men_holding_hands-contributors"
+    id="toc-two_men_holding_hands-contributors">:two_men_holding_hands:
+    Contributors</a>
 
 # :blue_book: Overview
 
@@ -67,7 +78,7 @@ order to specify path variables.
 -   PATH_WD - Root of working directory from Github clone
 -   PATH_DB - Root of database directory downloaded from Google Drive
 
-**NB**
+**NB** :exclamation:
 
 -   **paths must end in a “/” separators
     (e.g. /Users/root1/Documents/CreditCardDefault/)**
@@ -101,6 +112,7 @@ script for more details.
     │   │   main.R
     │   │   NeuralNetwork.R
     │   │   Noise.R
+    │   │   readme
     │   │   rf_logreg.R
 
 ### Google Drive
@@ -108,11 +120,20 @@ script for more details.
 Data store for original CSV files and processed parquet files.  
 Results available here including tuned models stored in RDS files.
 
+**NB ** :exclamation: Google Drive may rename directories and split into
+multiple downloads, please ensure to correctly assemble the database as
+shown below
+
     CreditCardDefault_Database
     │
     └─── csv
+    │   │   train_data.csv
+    │   │   train_labels.csv
     └─── parquet
+    │   │   data_lastPerCustomerID.parquet
+    │   │   train_data.parquet
     └─── results
+    │   │   NN_tuningRuns
 
 # :floppy_disk: Scripts
 
