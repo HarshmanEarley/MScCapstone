@@ -47,7 +47,6 @@ for(pkg in packages){
 #######################
 # PATHS ########
 #######################
-user = 'Sidney'
 
 #Working directory
 if(user == 'Sidney'){

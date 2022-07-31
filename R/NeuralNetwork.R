@@ -148,7 +148,7 @@ model_NeuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
    NN = list(model = model, target = y_test, prediction = predictions)
    
    # save model
-   savePath = glue(PATH_DB,"models/","NN_model.rds")
+   savePath = glue(PATH_WD,"results/models/","NN_model.rds")
    print(glue("saving model to : ",savePath))
    saveRDS(fit, file = savePath)
    

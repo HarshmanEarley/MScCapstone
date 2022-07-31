@@ -35,7 +35,7 @@ Once all files have been downloaded, root/R/main.R must be configured in order t
 * PATH_WD - Root of working directory from Github clone
 * PATH_DB - Root of database directory downloaded from Google Drive
 
-**NB**
+**NB** :exclamation:	
 
 * **paths must end in a "/" separators (e.g. /Users/root1/Documents/CreditCardDefault/)**
 * **Windows directories must have either "\\\\" or "/" separators**
@@ -75,12 +75,19 @@ CreditCardDefault
 Data store for original CSV files and processed parquet files.   
 Results available here including tuned models stored in RDS files.
 
+**NB ** :exclamation:	 Google Drive may rename directories and split into multiple downloads, please ensure to correctly assemble the database as shown below
+
 ```
 CreditCardDefault_Database
 │
 └─── csv
+│   │   train_data.csv
+│   │   train_labels.csv
 └─── parquet
+│   │   data_lastPerCustomerID.parquet
+│   │   train_data.parquet
 └─── results
+│   │   NN_tuningRuns
 ```
 
 # :floppy_disk: Scripts 
