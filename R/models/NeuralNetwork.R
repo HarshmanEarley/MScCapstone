@@ -26,8 +26,8 @@ model_neuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
     }
   }
   
-  #One hot encode categoricals
-  catCols = intersect(c('B_30', 'B_38', 'D_114', 'D_116', 'D_117', 'D_120', 'D_126', 'D_66', 'D_68','D_63','D_64'), colnames(data))
+  #One hot encode categoricals / discrete variables
+  catCols = intersect(unique(c('B_30', 'B_38', 'D_114', 'D_116', 'D_117', 'D_120', 'D_126', 'D_66', 'D_68','D_63','D_64',getNoiseIntervals()$column)), colnames(data))
   for(i in 1:length(catCols)){
     data = cbind(data, data %>% select(catCols[i]) %>% mutate(across(catCols[i],factor)) %>% as.data.table %>% one_hot()) %>% select(-catCols[i])
   }
@@ -63,7 +63,7 @@ model_neuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
   if(tuning == TRUE){
     print(glue('Tuning Neural Network'))
     tuning_run(getFilePath("DNN",".R", checkDBOnly = FALSE),
-             runs_dir = glue(PATH_DB,"NN_tuningRuns3"),
+             runs_dir = glue(PATH_DB,"NN_tuningRuns_final"),
              flags = list(
                N_input =  ncol(x_train),
                dropout = c(0,0.25,0.5),
@@ -71,7 +71,7 @@ model_neuralNetwork = function(dataPath, tuning = FALSE, bestModelFlags = NA){
                lambda =  c(0,0.001,0.0001), #l2 reg
                normalization = c(TRUE,FALSE),
                lr = 0.0001,
-               bs = c(512,1024),
+               bs = 1024,
                epochs = 100,
                verbose = 0,
                activationHidden = 'relu',
