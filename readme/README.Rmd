@@ -1,14 +1,19 @@
 ---
 title: "Comparison and Evaluation of Differentmachine Learning Methods at Predictingcredit Card Default"
 author:
-- Sidney Harshman-Earley
-- Denis O’Riordan
-date: "`r format(Sys.time(), '%d %B %Y')`"
+  - Sidney Harshman-Earley
+  - Denis O’Riordan
+date: July 31, 2022
 output:
-  rmarkdown::github_document:
+  github_document:
     toc: true
     toc_depth: 4
 ---
+
+Sidney Harshman-Earley    
+Denis O’Riordan
+
+July 31, 2022
 
 # :blue_book: Overview
 
@@ -92,5 +97,10 @@ Feature engineering functions are stored within 3 files:
 * Logistic Regression (Subset on a single feature)
 * Random Forest
 * Neural Network
+
+# Contributors
+Sidney Harshman-Earley sidney.harshman-earley@ucdconnect.ie   
+Denis O’Riordan denis.oriordan1@ucdconnect.ie
+
 
 

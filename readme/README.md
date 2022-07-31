@@ -2,7 +2,7 @@ Comparison and Evaluation of Differentmachine Learning Methods at
 Predictingcredit Card Default
 ================
 Sidney Harshman-EarleyDenis O’Riordan
-31 July 2022
+July 31, 2022
 
 -   [:blue_book: Overview](#blue_book-overview)
 -   [:heavy_exclamation_mark:
@@ -15,6 +15,12 @@ Sidney Harshman-EarleyDenis O’Riordan
     -   [main.R](#mainr)
     -   [Feature Engineering](#feature-engineering)
     -   [Machine Learning Models](#machine-learning-models)
+-   [Contributors](#contributors)
+
+Sidney Harshman-Earley  
+Denis O’Riordan
+
+July 31, 2022
 
 # :blue_book: Overview
 
@@ -76,11 +82,7 @@ repository. Files can be found
     └─── notebooks
     │
     └─── cache
-    │   │
-    │   └─── models
-    │   └─── objects 
-    │   └─── NN_tuningRuns 
-    │ 
+    │
     └─── plots
     │ 
     └─── paper
@@ -113,3 +115,8 @@ Feature engineering functions are stored within 3 files:
 -   Logistic Regression (Subset on a single feature)
 -   Random Forest
 -   Neural Network
+
+# Contributors
+
+Sidney Harshman-Earley <sidney.harshman-earley@ucdconnect.ie>  
+Denis O’Riordan <denis.oriordan1@ucdconnect.ie>
