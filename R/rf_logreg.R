@@ -117,11 +117,12 @@ lr <- readRDS(paste(parquets_dir, "lr_model.rds", sep=""))
 
 
 
+parquets_dir
+colnames(data)
 
 
-
-data <- readFromParquet(parquets_dir)
-#dim(data)
+data <-readFromParquet(paste(parquets_dir, "data_lastPerCustomerID.parquet", sep=""))
+dim(data)
 
 
 #partition target
@@ -170,7 +171,7 @@ data$D_64 <- as.factor(data$D_64)
 
 
 # train/val and test split 
-load(getFilePath('trainTestIndex',''))
+load(paste(parquets_dir,'trainTestIndex',sep=''))
 #trainTestIndex$trainVal
 #trainTestIndex$test
 
@@ -182,10 +183,6 @@ y_test <- data_y[trainTestIndex$test]
 
 rm(data, data_y)
 
-library(parallel)
-library(doParallel)
-cl <- makeCluster(8)
-registerDoParallel(cores=4)
 
 #sensitivity specificity and accuracy
 tabfunc <- function(pred, obs){
@@ -201,51 +198,108 @@ tabfunc <- function(pred, obs){
 ###################################################################################
 
 
-# three folds and 10 repeats
-train_ctrl <- caret::trainControl(method = "repeatedcv", number = 3, repeats = 5, allowParallel = TRUE)
-
-tune_grid <- expand.grid( mtry = c(5,10,15))
-
-rf <- caret::train(x = x_trainval, y = as.factor(y_trainval), method = "rf",
-                      trControl = train_ctrl, tuneGrid = tune_grid, ntree = 10, verbose = TRUE)
 
 
-pred <- predict(rf, newdata = x_test)
 
-rf$bestTune # best number of features
-tabfunc(y_test, pred) # test results
+rf_model <- readRDS("C:/Users/denis/Documents/ACM40960 - Projects in Maths Modelling/parquets/rf_model.rds")
+lr_model <- readRDS("C:/Users/denis/Documents/ACM40960 - Projects in Maths Modelling/results/lr_model.rds")
+
+pred_nn <- readRDS("C:/Users/denis/Documents/GitHub/DAC_Project/db/models/model_NN")
+pred_rf <- predict(rf_model, newdata = x_test, type = "prob")
+pred_lr <- predict(lr_model, newdata = x_test, type = "prob")
+pred_p2 <- predict(P_2_model, newdata = x_test, type = "prob")
+
+pred_rf <- pred_rf$`1`
+pred_lr <- pred_lr$`1`
+pred_p2 <- pred_p2$`1`
+pred_nn <- as.vector(pred_nn)
 
 
+pred_obj <- prediction(pred_p2, y_test)
+
+sens <- performance(pred_obj, "sens")
+spec <- performance(pred_obj, "spec")
+tau <- sens@x.values[[1]]
+sens_spec <- sens@y.values[[1]] + spec@y.values[[1]]
+best <- which.max(sens_spec)
+plot(tau, sens_spec, type = "l")
+points(tau[best], sens_spec[best], pch = 19, col = adjustcolor("darkorange2", 0.5))
+tau[best] # optimal tau
+
+load("C:/Users/denis/Documents/ACM40960 - Projects in Maths Modelling/results/best_tau.rda")
+tau_best
+
+library(ROCR)
+library(ggpubr)
+
+results <- readRDS("C:/Users/denis/Documents/GitHub/DAC_Project/Paper/results.rds")
+
+results
+
+AUC <- data.frame(lab,val,meas)
+
+lab <- c("Logistic Regression","Logistic Regression (P_2 only)","Neural Network","Random Forest")
+meas <- c("AUC","AUC","AUC","AUC") 
+val <- c(0.9527,0.9168,0.9547,0.9187)
+
+
+
+results <- rbind(results,AUC)
+saveRDS(results , file = "C:/Users/denis/Documents/GitHub/DAC_Project/Paper/results.rds")
+
+rf_rocobj <- roc(y_test, pred_rf)
+rf_auc <- round(auc(y_test, pred_rf),4)
+lr_rocobj <- roc(y_test, pred_lr)
+lr_auc <- round(auc(y_test, pred_lr),4)
+p2_rocobj <- roc(y_test, pred_p2)
+p2_auc <- round(auc(y_test, pred_p2),4)
+nn_rocobj <- roc(y_test, as.numeric(pred_nn$prediction))
+nn_auc <- round(auc(y_test, as.numeric(pred_nn$prediction)),4)
+
+
+
+#create ROC plot
+p1 <- ggroc(lr_rocobj, colour = '#440154', size = 2) +
+    ggtitle(paste0('Logistic Regression ', '(AUC = ', lr_auc, ')')) +
+  theme_bw() +
+  xlab("Specificity") +
+  ylab("Sensitivity")
+p2 <- ggroc(p2_rocobj, colour = '#31688e', size = 2) +
+  ggtitle(paste0('LR - P_2 only ', '(AUC = ', p2_auc, ')')) +
+  theme_bw()+
+  xlab("Specificity") +
+  ylab("Sensitivity")
+p3 <- ggroc(nn_rocobj, colour = '#35b779', size = 2) +
+  ggtitle(paste0('Neural Network ', '(AUC = ', nn_auc, ')')) +
+  theme_bw()+
+  xlab("Specificity") +
+  ylab("Sensitivity")
+p4 <- ggroc(rf_rocobj, colour = '#fde725', size = 2) +
+  ggtitle(paste0('Random Forest ', '(AUC = ', rf_auc, ')')) +
+  theme_bw()+
+  xlab("Specificity") +
+  ylab("Sensitivity")
+
+
+ggarrange(p1, p2,p3,p4,
+          ncol = 2, nrow = 2)
 
 
 # LOG REG
 ###################################################################################
 
 # three folds and 10 repeats
-train_ctrl <- caret::trainControl(method = "repeatedcv", number = 3, repeats = 1, allowParallel = TRUE)
+train_ctrl <- caret::trainControl(method = "repeatedcv", number = 3, repeats = 10, allowParallel = TRUE)
 
 # fit model
-lr <- caret::train(x = x_trainval[1:1000,], y = as.factor(y_trainval)[1:1000], method = "glm", family = "binomial",trControl = train_ctrl)
+P_2 <- x_trainval[,1, drop=FALSE]
+P_2_model <- caret::train(x = P_2, y = as.factor(y_trainval), method = "glm", family = "binomial",trControl = train_ctrl)
 
+P_2_model 
 
+saveRDS(P_2_model, file = "C:/Users/denis/Documents/ACM40960 - Projects in Maths Modelling/parquets/P_2_model.rds")
 
-# predict test data
-# extract probability to revier/tune tau
-pred <- predict(lr, newdata = x_test[1:100], type = "prob")[,2]
-
-# load ROCR
-library(ROCR)
-pred_obj <- prediction(pred, y_test)
-sens <- performance(pred_obj, "sens")
-spec <- performance(pred_obj, "spec")
-tau <- sens@x.values[[1]]
-sens_spec <- sens@y.values[[1]] + spec@y.values[[1]]
-best <- which.max(sens_spec)
-#predictions
-pred <- ifelse(pred > tau[best], 1, 0)
-
-tabfunc(pred, y_test) # test results
-tau[best] # optimal tau
+colnames(x_trainval)
 
 
 #sensitivity specificity and accuracy
@@ -258,10 +312,13 @@ tabfunc <- function(pred, obs){
   
 }
 
+results <- readRDS("C:/Users/denis/Documents/GitHub/DAC_Project/Paper/results.rds")
+
+res <- data.frame(results)
+sum(res$y_test != pred_nn$target)
 
 
+results$meas[1:4] <- "Specificity"
+results$meas[5:8] <- "Sensitivity"
 
-
-
-
-
+saveRDS(results, file = "C:/Users/denis/Documents/GitHub/DAC_Project/Paper/results.rds")
