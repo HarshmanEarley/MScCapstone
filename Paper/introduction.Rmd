@@ -1,4 +1,4 @@
-\spacing{1.1}
+\spacing{1}
 
 # Introduction
 

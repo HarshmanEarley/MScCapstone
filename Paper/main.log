@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  30 JUL 2022 01:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  31 JUL 2022 01:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -482,14 +482,14 @@ Package hyperref Info: Link coloring OFF on input line 129.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(71.13188pt, 486.25761pt, 56.9055pt)
+* h-part:(L,W,R)=(79.6678pt, 454.9594pt, 79.6678pt)
 * v-part:(T,H,B)=(56.9055pt, 681.15898pt, 56.9055pt)
 * \paperwidth=614.295pt
 * \paperheight=794.96999pt
-* \textwidth=486.25761pt
+* \textwidth=454.9594pt
 * \textheight=681.15898pt
-* \oddsidemargin=-1.1381pt
-* \evensidemargin=-1.1381pt
+* \oddsidemargin=7.39781pt
+* \evensidemargin=7.39781pt
 * \topmargin=-52.36449pt
 * \headheight=12.0pt
 * \headsep=25.0pt
@@ -515,14 +515,10 @@ Package lastpage Info: Please have a look at the pageslts package at
 File: Universitycollegedublinlogo.png Graphic file (type png)
 <use Universitycollegedublinlogo.png>
 Package pdftex.def Info: Universitycollegedublinlogo.png  used on input line 142.
-(pdftex.def)             Requested size: 97.24982pt x 141.42055pt.
+(pdftex.def)             Requested size: 90.98988pt x 132.31735pt.
 [1
 
-{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./Universitycollegedublinlogo.png>]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 206.
-(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
-File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [1] (./main.toc)
+{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./Universitycollegedublinlogo.png>] [1] (./main.toc)
 \tf@toc=\write5
 \openout5 = `main.toc'.
 
@@ -565,108 +561,127 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \openout7 = `main.lot'.
 
 [4]
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 278.
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 260.
+(Font)              <9> on input line 278.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 260.
+(Font)              <5> on input line 278.
 
-Underfull \hbox (badness 10000) in paragraph at lines 260--260
-[][][]$\T1/lmr/m/n/9 https : / / www . centralbank . ie / statistics / data -[] and -[] analysis / credit -[] and -[] debit -[] card -[] statistics / daily -[] credit -[] and -[] debit -[]
+Underfull \hbox (badness 10000) in paragraph at lines 278--278
+[][][]$\T1/lmr/m/n/9 https : / / www . centralbank . ie / statistics / data -[] and -[] analysis / credit -[] and -[] debit -[] card -[] statistics / daily -[] credit -[] and -[]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 264--264
+Underfull \hbox (badness 10000) in paragraph at lines 282--282
 [][][]$\T1/lmr/m/n/9 https : / / www . cso . ie / en / releasesandpublications / ep / p -[] hfcs / household^^\nanceandconsumptionsurvey2018 /
  []
 
-[1] [2] [3]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 459.
+[1] [2]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 436.
 (c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-<default.png, id=189, 469.755pt x 372.64218pt>
+<default.png, id=162, 469.755pt x 372.64218pt>
 File: default.png Graphic file (type png)
 <use default.png>
-Package pdftex.def Info: default.png  used on input line 468.
-(pdftex.def)             Requested size: 170.19402pt x 135.00967pt.
-[4
+Package pdftex.def Info: default.png  used on input line 445.
+(pdftex.def)             Requested size: 159.23434pt x 126.31569pt.
+[3
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.484 following general categories: \spacing{0.75}
-                                                   <./default.png>] [5] [6] [7] [8]
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <8> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 756.
-<fourfoldplot.png, id=251, 398.23781pt x 375.65344pt>
-File: fourfoldplot.png Graphic file (type png)
-<use fourfoldplot.png>
-Package pdftex.def Info: fourfoldplot.png  used on input line 777.
-(pdftex.def)             Requested size: 389.02467pt x 366.96278pt.
-<bar.png, id=252, 593.96906pt x 375.65344pt>
-File: bar.png Graphic file (type png)
-<use bar.png>
-Package pdftex.def Info: bar.png  used on input line 786.
-(pdftex.def)             Requested size: 437.64507pt x 276.78693pt.
-<sens_spec.png, id=253, 593.96906pt x 438.13687pt>
-File: sens_spec.png Graphic file (type png)
-<use sens_spec.png>
-Package pdftex.def Info: sens_spec.png  used on input line 795.
-(pdftex.def)             Requested size: 461.717pt x 340.5821pt.
-[9] [10
+l.461 following general categories: \spacing{0.75}
+                                                   <./default.png>] [4] [5] [6]
+<crosstable.png, id=224, 298.11375pt x 60.82726pt>
+File: crosstable.png Graphic file (type png)
+<use crosstable.png>
+Package pdftex.def Info: crosstable.png  used on input line 665.
+(pdftex.def)             Requested size: 204.7298pt x 41.77315pt.
+[7
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.802 \newpage
-               <./fourfoldplot.png>] [11
+l.706 \newpage
+               <./crosstable.png>] [8]
+<bar.png, id=245, 642.90187pt x 477.28313pt>
+File: bar.png Graphic file (type png)
+<use bar.png>
+Package pdftex.def Info: bar.png  used on input line 768.
+(pdftex.def)             Requested size: 363.97597pt x 270.21167pt.
+[9]
+<roc_plot.png, id=257, 755.07094pt x 646.66594pt>
+File: roc_plot.png Graphic file (type png)
+<use roc_plot.png>
+Package pdftex.def Info: roc_plot.png  used on input line 784.
+(pdftex.def)             Requested size: 363.96228pt x 311.70847pt.
+[10
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.802 \newpage
-              
+l.790 
+       <./bar.png>]
+<fourfoldplot.png, id=263, 755.07094pt x 646.66594pt>
+File: fourfoldplot.png Graphic file (type png)
+<use fourfoldplot.png>
+Package pdftex.def Info: fourfoldplot.png  used on input line 793.
+(pdftex.def)             Requested size: 363.96228pt x 311.70847pt.
+[11
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.802 \newpage
-               <./bar.png> <./sens_spec.png>] [12] [13] [14] (./main.bbl) [1] [2] [3] [4] 
+l.799 
+       <./roc_plot.png>] [12
+pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.800 \newpage
+               <./fourfoldplot.png>] [13] [14] [15] (./main.bbl) [1] [2] [3]
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 976.
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 985.
+(c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
+File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+) [4] [5] 
 AED: lastpage setting LastPage
-[5] (./main.aux)
+[6] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: FC322764F38DBB9D632D6E40C27405F2;1210.
  )
-(\end occurred inside a group at level 20)
+(\end occurred inside a group at level 21)
 
-### semi simple group (level 20) entered at line 928 (\begingroup)
-### semi simple group (level 19) entered at line 806 (\begingroup)
-### semi simple group (level 18) entered at line 772 (\begingroup)
-### semi simple group (level 17) entered at line 679 (\begingroup)
-### semi simple group (level 16) entered at line 619 (\begingroup)
-### semi simple group (level 15) entered at line 612 (\begingroup)
-### semi simple group (level 14) entered at line 600 (\begingroup)
-### semi simple group (level 13) entered at line 560 (\begingroup)
-### semi simple group (level 12) entered at line 513 (\begingroup)
-### semi simple group (level 11) entered at line 504 (\begingroup)
-### semi simple group (level 10) entered at line 484 (\begingroup)
-### semi simple group (level 9) entered at line 456 (\begingroup)
-### semi simple group (level 8) entered at line 422 (\begingroup)
-### semi simple group (level 7) entered at line 313 (\begingroup)
-### semi simple group (level 6) entered at line 249 (\begingroup)
-### semi simple group (level 5) entered at line 240 (\begingroup)
-### semi simple group (level 4) entered at line 228 (\begingroup)
-### semi simple group (level 3) entered at line 225 (\begingroup)
-### semi simple group (level 2) entered at line 198 (\begingroup)
+### semi simple group (level 21) entered at line 1058 (\begingroup)
+### semi simple group (level 20) entered at line 802 (\begingroup)
+### semi simple group (level 19) entered at line 740 (\begingroup)
+### semi simple group (level 18) entered at line 717 (\begingroup)
+### semi simple group (level 17) entered at line 600 (\begingroup)
+### semi simple group (level 16) entered at line 593 (\begingroup)
+### semi simple group (level 15) entered at line 577 (\begingroup)
+### semi simple group (level 14) entered at line 537 (\begingroup)
+### semi simple group (level 13) entered at line 490 (\begingroup)
+### semi simple group (level 12) entered at line 481 (\begingroup)
+### semi simple group (level 11) entered at line 461 (\begingroup)
+### semi simple group (level 10) entered at line 433 (\begingroup)
+### semi simple group (level 9) entered at line 399 (\begingroup)
+### semi simple group (level 8) entered at line 331 (\begingroup)
+### semi simple group (level 7) entered at line 267 (\begingroup)
+### semi simple group (level 6) entered at line 258 (\begingroup)
+### semi simple group (level 5) entered at line 246 (\begingroup)
+### semi simple group (level 4) entered at line 243 (\begingroup)
+### semi simple group (level 3) entered at line 213 (\begingroup)
+### semi simple group (level 2) entered at line 195 (\begingroup)
 ### semi simple group (level 1) entered at line 115 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 13093 strings out of 479983
- 206556 string characters out of 5886392
- 518310 words of memory out of 5000000
- 30930 multiletter control sequences out of 15000+600000
- 522689 words of font info for 70 fonts, out of 8000000 for 9000
+ 13144 strings out of 479983
+ 207487 string characters out of 5886392
+ 515452 words of memory out of 5000000
+ 30972 multiletter control sequences out of 15000+600000
+ 522673 words of font info for 70 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 72i,8n,77p,439b,2846s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): name{Hfootnote.13} has been referenced but does not exist, replaced by a fixed one
-
+ 72i,8n,77p,439b,2921s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 pdfTeX warning (dest): name{Hfootnote.12} has been referenced but does not exist, replaced by a fixed one
 
@@ -703,11 +718,11 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist,
 
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
-{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}<c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt8.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on main.pdf (24 pages, 453187 bytes).
+{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}<c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/denis/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
+Output written on main.pdf (26 pages, 467851 bytes).
 PDF statistics:
- 435 PDF objects out of 1000 (max. 8388607)
- 362 compressed objects within 4 object streams
- 109 named destinations out of 1000 (max. 500000)
- 122 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 443 PDF objects out of 1000 (max. 8388607)
+ 367 compressed objects within 4 object streams
+ 115 named destinations out of 1000 (max. 500000)
+ 127 words of extra memory for PDF output out of 10000 (max. 10000000)
 

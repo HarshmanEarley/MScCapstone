@@ -15,7 +15,9 @@ abbrev <- matrix(data = c("AI", "Artificial Intelligence",
              "RF", "Random Forest",             
              "RNN", " Recurrent Neural Network",
              "ROC", "Receiver Operating Characteristic",
-             "SVM", "Support Vector Machines"),
+             "SVM", "Support Vector Machines",
+             "TNR", "True Negative Rate",
+             "TPR", "True Positive Rate"),
              byrow = T, ncol = 2)
 ```
 
